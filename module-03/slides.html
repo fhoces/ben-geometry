@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Module 3: Circle Secrets</title>
+    <meta charset="utf-8" />
+    <script src="slides_files/header-attrs-2.29/header-attrs.js"></script>
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Module 3: Circle Secrets
+]
+.subtitle[
+## The inscribed angle
+]
+
+---
+
+
+
+
+class: center, middle
+
+# Circle Secrets
+
+### The inscribed angle
+
+Draw a circle, a diameter straight across it, and pick any point on the rim. Join
+it to the two ends of the diameter. The angle you get is a right angle. Always.
+
+---
+
+# The setup
+
+Everything today lives on a single circle, with two ways to "see" the same pair
+of points.
+
+--
+
+- **Center angle:** the angle at the center **O**, looking out at two rim points
+  **A** and **B**.
+
+--
+
+- **Rim angle (the inscribed angle):** the angle at a point **P** *on* the
+  circle, looking at those same two points A and B.
+
+--
+
+One circle, two angles on the same pair of points. The whole module is one fact
+about how those two angles are related.
+
+---
+
+# The hook: Thales
+
+.pull-left[
+Draw a diameter **AB**. Pick any point **P** on the circle and join it to A and B.
+
+--
+
+Measure angle **APB**: it is **90 degrees**.
+
+--
+
+Move P anywhere else on the rim. Still 90. High, low, near the edge.
+
+--
+
+The angle "standing on a diameter" is *always* a right angle. Why can it never be
+88 or 93?
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/thales-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# The bigger secret
+
+.pull-left[
+Forget the diameter. Put **A** and **B** *anywhere* on the circle.
+
+- Draw the **center angle AOB**.
+- Pick **P** on the longer arc and draw the **rim angle APB**.
+
+--
+
+The rim angle is exactly **half** the center angle.
+
+--
+
+If the center angle is **2t**, the rim angle is **t**. The diameter was just the
+special case where the center angle was a straight 180.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/rim-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Why must it be true?
+
+.pull-left[
+Take the clean case: the line **PO** runs through the center to the far point
+**B**, so **PB** is a diameter. Draw the radius **OA**.
+
+- **OA** and **OP** are both radii, so triangle **OAP** is **isosceles**.
+- Equal sides face equal angles, so angle OPA = angle OAP. Call each **t**.
+- The center angle **AOB** is the *exterior* angle of the triangle at O, so it
+  equals t + t = **2t**.
+
+--
+
+Rim angle = **t**. Center angle = **2t**. The rim is half the center.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/proof-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Thales falls out for free
+
+When A and B are the ends of a **diameter**, the center angle AOB is a straight
+line: **180 degrees**.
+
+--
+
+Half of 180 is **90**.
+
+--
+
+So Thales is not a separate miracle. It is the inscribed angle theorem with the
+center angle stretched flat. One theorem, both facts.
+
+---
+
+# Same arc, same angle
+
+.pull-left[
+Every rim point on the same arc sees the *same* center angle AOB. The center O
+never moves.
+
+--
+
+Half of one fixed thing is one fixed thing.
+
+--
+
+So **every** point on that arc sees AB at the **same** angle: APB = AQB, no matter
+where P and Q sit on the arc.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/samearc-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Push further: cyclic quadrilaterals
+
+.pull-left[
+Put four points on a circle and join them into a quadrilateral.
+
+--
+
+**Opposite angles add to 180.**
+
+Each corner is an inscribed angle. The arcs they stand on pair up to cover the
+whole circle, and the whole circle is 360. Half of 360 is 180.
+
+--
+
+"These four points lie on one circle" is one of the most powerful things to spot
+in a contest problem, and this is exactly why.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/cyclic-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Competition gem: crossing chords
+
+.pull-left[
+Two chords **AB** and **CD** cross at a point **X** inside the circle.
+
+--
+
+Triangle **AXC** and triangle **DXB** have the same shape (similar). Hunt for two
+pairs of equal inscribed angles standing on the same arcs.
+
+--
+
+The payoff is the classic length rule:
+
+`AX times XB = CX times XD`
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/chords-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+class: center, middle
+
+# Next up
+
+**Module 4:** tilings. Why do only three regular shapes fill a floor with no gaps?
+The answer is an angle that has to divide 360, and you already know how to chase
+angles around a point.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

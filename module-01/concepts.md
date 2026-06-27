@@ -1,3 +1,5 @@
+[ben-geometry home](../README.md)  |  _(first module)_  |  [Next: Module 02 -- Why every triangle adds to 180](../module-02/concepts.md)
+
 # 01 -- Compass and Straightedge: the oldest game in math
 
 > **The hook.** With a compass and an unmarked ruler (no numbers, you only use
@@ -9,6 +11,8 @@
 **You need:** a compass, a straightedge (a ruler is fine, but you may only use
 its edge, never its numbers), a pencil, paper.
 **Time:** 30 to 45 minutes. **Level:** warm-up, mostly hands.
+
+**In this module:** [Do this](#do-this) - [Why it works](#why-does-it-work) - [Push further](#push-further) - [For the grown-up](#for-the-grown-up)
 
 The one rule of this game: you may only do two things.
 1. With the straightedge, draw a straight line through two points.
@@ -139,3 +143,7 @@ just built it.
   not close up neatly into six, that is almost always the cause.
 - If he loves this, Euclidea (see the path README) is the perfect next hour: it
   turns these exact moves into levels.
+
+---
+
+[ben-geometry home](../README.md)  |  _(first module)_  |  [Next: Module 02 -- Why every triangle adds to 180](../module-02/concepts.md)

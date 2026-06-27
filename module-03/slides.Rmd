@@ -1,0 +1,335 @@
+---
+title: "Module 3: Circle Secrets"
+subtitle: "The inscribed angle"
+output:
+  xaringan::moon_reader:
+    css: [default, default-fonts]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.align = "center", dev = "png",
+                      fig.width = 5, fig.height = 5, dpi = 150)
+blue   <- "#1769aa"
+orange <- "#c2410c"
+```
+
+class: center, middle
+
+# Circle Secrets
+
+### The inscribed angle
+
+Draw a circle, a diameter straight across it, and pick any point on the rim. Join
+it to the two ends of the diameter. The angle you get is a right angle. Always.
+
+---
+
+# The setup
+
+Everything today lives on a single circle, with two ways to "see" the same pair
+of points.
+
+--
+
+- **Center angle:** the angle at the center **O**, looking out at two rim points
+  **A** and **B**.
+
+--
+
+- **Rim angle (the inscribed angle):** the angle at a point **P** *on* the
+  circle, looking at those same two points A and B.
+
+--
+
+One circle, two angles on the same pair of points. The whole module is one fact
+about how those two angles are related.
+
+---
+
+# The hook: Thales
+
+.pull-left[
+Draw a diameter **AB**. Pick any point **P** on the circle and join it to A and B.
+
+--
+
+Measure angle **APB**: it is **90 degrees**.
+
+--
+
+Move P anywhere else on the rim. Still 90. High, low, near the edge.
+
+--
+
+The angle "standing on a diameter" is *always* a right angle. Why can it never be
+88 or 93?
+]
+
+.pull-right[
+```{r thales, fig.width=5, fig.height=4.6}
+par(mar=c(0,0,0,0), pty="s")
+t <- seq(0, 2*pi, length.out=300)
+plot(cos(t), sin(t), type="l", col="grey70", asp=1, axes=FALSE, xlab="", ylab="",
+     xlim=c(-1.28,1.28), ylim=c(-1.28,1.28))
+A <- c(-1,0); B <- c(1,0); O <- c(0,0)
+segments(A[1],A[2], B[1],B[2], col=orange, lwd=2)
+angs <- c(55, 100, 140) * pi/180
+for (a in angs) {
+  P <- c(cos(a), sin(a))
+  segments(P[1],P[2], A[1],A[2], col=blue, lwd=2)
+  segments(P[1],P[2], B[1],B[2], col=blue, lwd=2)
+  points(P[1], P[2], pch=19, cex=1.1)
+}
+points(rbind(A,B), pch=19, cex=1.3)
+points(0, 0, pch=3, cex=1.2)
+text(A[1]-0.13, A[2]-0.04, "A", cex=1.4)
+text(B[1]+0.13, B[2]-0.04, "B", cex=1.4)
+text(0.07, -0.13, "O", cex=1.1)
+text(cos(100*pi/180)-0.04, sin(100*pi/180)+0.13, "P", cex=1.3)
+```
+]
+
+---
+
+# The bigger secret
+
+.pull-left[
+Forget the diameter. Put **A** and **B** *anywhere* on the circle.
+
+- Draw the **center angle AOB**.
+- Pick **P** on the longer arc and draw the **rim angle APB**.
+
+--
+
+The rim angle is exactly **half** the center angle.
+
+--
+
+If the center angle is **2t**, the rim angle is **t**. The diameter was just the
+special case where the center angle was a straight 180.
+]
+
+.pull-right[
+```{r rim, fig.width=5, fig.height=4.6}
+par(mar=c(0,0,0,0), pty="s")
+d2r <- function(d) d * pi/180
+t <- seq(0, 2*pi, length.out=300)
+plot(cos(t), sin(t), type="l", col="grey70", asp=1, axes=FALSE, xlab="", ylab="",
+     xlim=c(-1.28,1.28), ylim=c(-1.28,1.28))
+A <- c(cos(d2r(200)), sin(d2r(200)))
+B <- c(cos(d2r(340)), sin(d2r(340)))
+P <- c(cos(d2r(90)),  sin(d2r(90)))
+O <- c(0,0)
+segments(O[1],O[2], A[1],A[2], col=orange, lwd=2)
+segments(O[1],O[2], B[1],B[2], col=orange, lwd=2)
+segments(P[1],P[2], A[1],A[2], col=blue, lwd=2)
+segments(P[1],P[2], B[1],B[2], col=blue, lwd=2)
+points(rbind(A,B,P,O), pch=19, cex=1.2)
+text(A[1]-0.12, A[2], "A", cex=1.3)
+text(B[1]+0.12, B[2], "B", cex=1.3)
+text(P[1], P[2]+0.13, "P", cex=1.3)
+text(O[1]-0.1, O[2]+0.12, "O", cex=1.1)
+text(0, 0.78, "t",  col=blue,   cex=1.3)
+text(0, -0.2, "2t", col=orange, cex=1.2)
+```
+]
+
+---
+
+# Why must it be true?
+
+.pull-left[
+Take the clean case: the line **PO** runs through the center to the far point
+**B**, so **PB** is a diameter. Draw the radius **OA**.
+
+- **OA** and **OP** are both radii, so triangle **OAP** is **isosceles**.
+- Equal sides face equal angles, so angle OPA = angle OAP. Call each **t**.
+- The center angle **AOB** is the *exterior* angle of the triangle at O, so it
+  equals t + t = **2t**.
+
+--
+
+Rim angle = **t**. Center angle = **2t**. The rim is half the center.
+]
+
+.pull-right[
+```{r proof, fig.width=5, fig.height=4.6}
+par(mar=c(0,0,0,0), pty="s")
+d2r <- function(d) d * pi/180
+t <- seq(0, 2*pi, length.out=300)
+plot(cos(t), sin(t), type="l", col="grey70", asp=1, axes=FALSE, xlab="", ylab="",
+     xlim=c(-1.28,1.28), ylim=c(-1.28,1.28))
+P <- c(0,1); B <- c(0,-1); O <- c(0,0)
+A <- c(cos(d2r(210)), sin(d2r(210)))
+segments(P[1],P[2], B[1],B[2], col="grey50", lwd=1.6)
+segments(O[1],O[2], A[1],A[2], col=orange, lwd=2)
+segments(P[1],P[2], A[1],A[2], col=blue, lwd=2)
+points(rbind(A,B,P,O), pch=19, cex=1.2)
+text(P[1], P[2]+0.13, "P", cex=1.3)
+text(B[1], B[2]-0.13, "B", cex=1.3)
+text(A[1]-0.13, A[2], "A", cex=1.3)
+text(O[1]+0.12, O[2]+0.1, "O", cex=1.1)
+text(-0.13, 0.58, "t",  col=blue,   cex=1.2)
+text(-0.58, -0.32, "t", col=orange, cex=1.2)
+text(-0.16, -0.26, "2t", col=orange, cex=1.1)
+```
+]
+
+---
+
+# Thales falls out for free
+
+When A and B are the ends of a **diameter**, the center angle AOB is a straight
+line: **180 degrees**.
+
+--
+
+Half of 180 is **90**.
+
+--
+
+So Thales is not a separate miracle. It is the inscribed angle theorem with the
+center angle stretched flat. One theorem, both facts.
+
+---
+
+# Same arc, same angle
+
+.pull-left[
+Every rim point on the same arc sees the *same* center angle AOB. The center O
+never moves.
+
+--
+
+Half of one fixed thing is one fixed thing.
+
+--
+
+So **every** point on that arc sees AB at the **same** angle: APB = AQB, no matter
+where P and Q sit on the arc.
+]
+
+.pull-right[
+```{r samearc, fig.width=5, fig.height=4.6}
+par(mar=c(0,0,0,0), pty="s")
+d2r <- function(d) d * pi/180
+t <- seq(0, 2*pi, length.out=300)
+plot(cos(t), sin(t), type="l", col="grey70", asp=1, axes=FALSE, xlab="", ylab="",
+     xlim=c(-1.28,1.28), ylim=c(-1.28,1.28))
+A <- c(cos(d2r(200)), sin(d2r(200)))
+B <- c(cos(d2r(340)), sin(d2r(340)))
+P <- c(cos(d2r(115)), sin(d2r(115)))
+Q <- c(cos(d2r(55)),  sin(d2r(55)))
+for (X in list(P, Q)) {
+  segments(X[1],X[2], A[1],A[2], col=blue, lwd=2)
+  segments(X[1],X[2], B[1],B[2], col=blue, lwd=2)
+}
+points(rbind(A,B,P,Q), pch=19, cex=1.2)
+text(A[1]-0.12, A[2], "A", cex=1.3)
+text(B[1]+0.12, B[2], "B", cex=1.3)
+text(P[1]-0.06, P[2]+0.13, "P", cex=1.3)
+text(Q[1]+0.1,  Q[2]+0.1,  "Q", cex=1.3)
+```
+]
+
+---
+
+# Push further: cyclic quadrilaterals
+
+.pull-left[
+Put four points on a circle and join them into a quadrilateral.
+
+--
+
+**Opposite angles add to 180.**
+
+Each corner is an inscribed angle. The arcs they stand on pair up to cover the
+whole circle, and the whole circle is 360. Half of 360 is 180.
+
+--
+
+"These four points lie on one circle" is one of the most powerful things to spot
+in a contest problem, and this is exactly why.
+]
+
+.pull-right[
+```{r cyclic, fig.width=5, fig.height=4.6}
+par(mar=c(0,0,0,0), pty="s")
+d2r <- function(d) d * pi/180
+t <- seq(0, 2*pi, length.out=300)
+plot(cos(t), sin(t), type="l", col="grey70", asp=1, axes=FALSE, xlab="", ylab="",
+     xlim=c(-1.28,1.28), ylim=c(-1.28,1.28))
+ang <- c(80, 165, 250, 335)
+V <- cbind(cos(d2r(ang)), sin(d2r(ang)))
+polygon(V[,1], V[,2], border=blue, lwd=3)
+points(V, pch=19, cex=1.2)
+labs <- c("A","B","C","D")
+for (i in 1:4) text(V[i,1]*1.16, V[i,2]*1.16, labs[i], cex=1.3)
+```
+]
+
+---
+
+# Competition gem: crossing chords
+
+.pull-left[
+Two chords **AB** and **CD** cross at a point **X** inside the circle.
+
+--
+
+Triangle **AXC** and triangle **DXB** have the same shape (similar). Hunt for two
+pairs of equal inscribed angles standing on the same arcs.
+
+--
+
+The payoff is the classic length rule:
+
+`AX times XB = CX times XD`
+]
+
+.pull-right[
+```{r chords, fig.width=5, fig.height=4.6}
+par(mar=c(0,0,0,0), pty="s")
+d2r <- function(d) d * pi/180
+t <- seq(0, 2*pi, length.out=300)
+plot(cos(t), sin(t), type="l", col="grey70", asp=1, axes=FALSE, xlab="", ylab="",
+     xlim=c(-1.28,1.28), ylim=c(-1.28,1.28))
+A <- c(cos(d2r(150)), sin(d2r(150)))
+B <- c(cos(d2r(350)), sin(d2r(350)))
+C <- c(cos(d2r(80)),  sin(d2r(80)))
+D <- c(cos(d2r(250)), sin(d2r(250)))
+inter <- function(A,B,C,D){
+  d1 <- B - A; d2 <- D - C
+  M <- matrix(c(d1[1], -d2[1], d1[2], -d2[2]), nrow=2, byrow=TRUE)
+  s <- solve(M, C - A)
+  A + s[1] * d1
+}
+X <- inter(A,B,C,D)
+segments(C[1],C[2], A[1],A[2], col="grey55", lwd=1, lty=2)
+segments(D[1],D[2], B[1],B[2], col="grey55", lwd=1, lty=2)
+segments(A[1],A[2], B[1],B[2], col=blue,   lwd=2)
+segments(C[1],C[2], D[1],D[2], col=orange, lwd=2)
+points(rbind(A,B,C,D), pch=19, cex=1.2)
+points(X[1], X[2], pch=19, cex=1.2)
+text(A[1]-0.12, A[2], "A", cex=1.3)
+text(B[1]+0.12, B[2], "B", cex=1.3)
+text(C[1], C[2]+0.13, "C", cex=1.3)
+text(D[1], D[2]-0.13, "D", cex=1.3)
+text(X[1]+0.1, X[2]+0.1, "X", cex=1.2)
+```
+]
+
+---
+
+class: center, middle
+
+# Next up
+
+**Module 4:** tilings. Why do only three regular shapes fill a floor with no gaps?
+The answer is an angle that has to divide 360, and you already know how to chase
+angles around a point.

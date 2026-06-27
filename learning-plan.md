@@ -4,6 +4,9 @@ The authoritative scope for the course. Self-contained modules that, in order,
 climb from *seeing* to *proving* to *competing*. Ben has done BMC, so every
 module ends at a real proof or a contest-flavored problem.
 
+Modules 01 through 05 are built (full trio each: concepts, slides, worksheet).
+Part 3, a dedicated BMC-style problem set, is the planned next step.
+
 ## Part 1 -- See it (build with your hands)
 
 ### Module 01 -- Compass and Straightedge: the oldest game in math
@@ -17,12 +20,6 @@ module ends at a real proof or a contest-flavored problem.
 - **Competition gem:** recover the erased center of a circle from chords.
 - **Aside that hooks:** what is and is not constructible (pentagon yes; heptagon,
   angle-trisection, squaring the circle no).
-
-### Module -- Tilings and symmetry *(planned)*
-- **Hook:** which shapes cover the floor with no gaps, and why only those?
-- **Aim:** regular tilings, why only triangle/square/hexagon work (angle around a
-  point must divide 360), intro to symmetry groups at a kid level. Cross-links to
-  Isa's pattern-block module.
 
 ## Part 2 -- Prove it
 
@@ -44,11 +41,29 @@ module ends at a real proof or a contest-flavored problem.
 - **Competition gem:** intersecting chords give similar triangles (and the
   `AX*XB = CX*XD` length rule).
 
-### Module -- Pythagoras: proofs you can see *(planned)*
-- **Hook:** several proofs of `a^2 + b^2 = c^2` you watch, not memorize
-  (rearrangement, the President Garfield trapezoid, similar triangles).
+### Module 04 -- Tilings: why only three shapes fill the floor
+- **Hook:** which regular shapes cover the floor with no gaps, and why only three?
+- **Proved:** at any vertex the corner angles must total exactly 360, so a regular
+  n-gon tiles only when its interior angle `(n-2) x 180 / n` divides 360. That
+  leaves only 60, 90, 120: the triangle, square, and hexagon. Uses Module 02's
+  polygon angle sum directly.
+- **Extends:** semiregular (Archimedean) tilings, where mixed regular polygons
+  still total 360 at every vertex (exactly eight of them).
+- **Competition gem:** which multisets of regular-polygon corner angles sum to 360
+  at a point, and which of those extend to a full tiling.
+- **Cross-link:** Isa's pattern-block module finds the same pentagon gap by hand,
+  with no angle arithmetic.
 
-## Part 3 -- Compete with it
+### Module 05 -- Pythagoras: proofs you can see
+- **Hook:** `a^2 + b^2 = c^2`, shown three ways you watch rather than memorize.
+- **Proved:** the rearrangement / tilted-square proof, President Garfield's
+  trapezoid, and the similar-triangles (altitude-to-hypotenuse) proof.
+- **Extends:** generating Pythagorean triples with `(m^2 - n^2, 2mn, m^2 + n^2)`;
+  the converse as a right-angle test; the 3D space-diagonal version.
+- **Competition gem:** prove the converse, or generate several triples from the
+  m, n machine.
+
+## Part 3 -- Compete with it *(planned)*
 
 Each module already ends with a competition gem. The dedicated next step is a set
 of BMC-style problem sheets (angle chasing, cyclic quadrilaterals, constructions)
@@ -57,4 +72,6 @@ once Parts 1 and 2 are solid.
 ## Prerequisites
 
 Module 01 needs nothing. Module 03 leans on the isosceles-triangle and
-exterior-angle facts from Module 02, so do 02 before 03.
+exterior-angle facts from Module 02, so do 02 before 03. Module 04 uses Module
+02's polygon angle sum. Module 05 stands largely on its own. A sensible order is
+simply 01, 02, 03, 04, 05.

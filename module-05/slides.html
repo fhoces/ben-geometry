@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Module 5: Pythagoras</title>
+    <meta charset="utf-8" />
+    <script src="slides_files/header-attrs-2.29/header-attrs.js"></script>
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Module 5: Pythagoras
+]
+.subtitle[
+## Proofs you can see
+]
+
+---
+
+
+
+
+class: center, middle
+
+# Pythagoras
+
+### Proofs you can see
+
+For a right triangle, `a^2 + b^2 = c^2`. You know the formula. Today we *watch*
+it become true, three different ways.
+
+---
+
+# The claim, in pictures
+
+.pull-left[
+A **right triangle** has one 90-degree corner.
+
+- The two short sides are the **legs**, `a` and `b`.
+- The long side across from the corner is the **hypotenuse**, `c`.
+
+Build a square on each side. The claim: the two leg squares, added together,
+exactly fill the hypotenuse square.
+
+`a^2 + b^2 = c^2`
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/squares-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# The hook
+
+You can recite `a^2 + b^2 = c^2`.
+
+--
+
+But can you **prove** it? Show me *why* it has to be true, for every right
+triangle at once, not just the ones you tried?
+
+--
+
+We will do it three ways. Same fact, three pictures. Pick your favorite.
+
+---
+
+# Proof 1: the tilted square
+
+.pull-left[
+Big square, side `a + b`. Drop a copy of the triangle into each corner.
+
+The hole they leave is a tilted square of side **c**.
+
+Area two ways:
+
+- One square: `(a+b)^2 = a^2 + 2ab + b^2`
+- Pieces: `4 (1/2 ab) + c^2 = 2ab + c^2`
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/rearr-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Proof 1 finishes itself
+
+The two areas are the same square, so:
+
+```
+a^2 + 2ab + b^2  =  2ab + c^2
+```
+
+--
+
+Cancel `2ab` from both sides:
+
+```
+a^2 + b^2 = c^2
+```
+
+--
+
+The `2ab` was just the four triangles, hiding in plain sight. That is the whole
+proof.
+
+---
+
+# Proof 2: Garfield's trapezoid
+
+.pull-left[
+Found by James Garfield in 1876, **five years before** he became US president.
+
+Two triangles lean into a right **trapezoid**. The middle piece is forced to be a
+right triangle with both legs `c`.
+
+- As a trapezoid: `(1/2)(a+b)(a+b)`
+- As three triangles: `(1/2)ab + (1/2)ab + (1/2)c^2`
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/garfield-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Proof 2 finishes itself
+
+Set the two areas equal and multiply by 2:
+
+```
+(a+b)^2 = ab + ab + c^2
+```
+
+--
+
+```
+a^2 + 2ab + b^2 = 2ab + c^2
+```
+
+--
+
+```
+a^2 + b^2 = c^2
+```
+
+A president's doodle lands in the exact same place as Euclid's tilted square.
+
+---
+
+# Proof 3: similar triangles
+
+Drop a line from the right-angle corner straight down onto the hypotenuse. It
+splits `c` into two pieces, `p` and `q`, with `p + q = c`.
+
+--
+
+Each small triangle is a **shrunk copy** of the whole one (same three angles).
+Matching sides of similar triangles gives:
+
+```
+a^2 = c * p          b^2 = c * q
+```
+
+--
+
+Add them:
+
+```
+a^2 + b^2 = c*p + c*q = c(p + q) = c^2
+```
+
+No cutting, no area counting. Two similar triangles and one addition.
+
+---
+
+# Push further: triples
+
+.pull-left[
+Whole-number right triangles are **Pythagorean triples**:
+
+`3-4-5`, `5-12-13`, `8-15-17`, `7-24-25` ...
+
+Check one: `5^2 + 12^2 = 25 + 144 = 169 = 13^2`.
+
+There are infinitely many, and there is a **machine** that makes them.
+]
+
+.pull-right[
+**The triple machine.** Pick whole numbers `m &gt; n`:
+
+`(m^2 - n^2,  2mn,  m^2 + n^2)`
+
+is always a triple.
+
+- `m=2, n=1` gives `(3, 4, 5)`
+- `m=3, n=2` gives `(5, 12, 13)`
+- `m=4, n=1` gives `(15, 8, 17)`
+
+It never fails, because
+`(m^2-n^2)^2 + (2mn)^2 = (m^2+n^2)^2`.
+]
+
+---
+
+# Push further: where it breaks
+
+- **Not-right triangles.** If the angle is not 90 degrees, `a^2 + b^2` misses
+  `c^2`. The full fix is the **law of cosines**: `c^2 = a^2 + b^2 - 2ab cos C`.
+  At `C = 90`, `cos C = 0`, and Pythagoras drops right back out.
+
+--
+
+- **3D.** A box with edges `a, b, c` has space diagonal `d` with
+  `d^2 = a^2 + b^2 + c^2`. It is just Pythagoras used twice: once on the floor,
+  once standing up.
+
+---
+
+# Competition gem: the converse
+
+The theorem says: right angle `=&gt;` `a^2 + b^2 = c^2`.
+
+--
+
+The **converse** runs the arrow backwards: if `a^2 + b^2 = c^2`, then the angle
+opposite `c` *must* be a right angle.
+
+--
+
+That is the real reason a knotted 3-4-5 rope makes a perfect right corner, and
+why builders have trusted it for thousands of years.
+
+--
+
+**Prove it.** Build a fresh right triangle with legs `a` and `b`; its hypotenuse
+is `c`, so it has the same three sides as yours, so the triangles are congruent,
+so your angle is right too.
+
+---
+
+class: center, middle
+
+# The finish line
+
+That was the last build-and-prove module. You have compass constructions, the
+angle sum, circle angles, tilings, and now Pythagoras, each ending in a proof.
+
+**Next: compete.** A set of BMC-style problem sheets (angle chasing, cyclic
+quadrilaterals, constructions) that braid Modules 01 through 05 together, once
+Parts 1 and 2 feel solid.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

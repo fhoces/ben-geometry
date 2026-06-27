@@ -1,3 +1,5 @@
+[ben-geometry home](../README.md)  |  [< Prev: Module 01 -- Compass and Straightedge](../module-01/concepts.md)  |  [Next: Module 03 -- Circle secrets: the inscribed angle](../module-03/concepts.md)
+
 # 02 -- Why every triangle adds up to 180
 
 > **The hook.** Draw three triangles that look nothing alike: a long skinny one,
@@ -10,6 +12,8 @@
 
 **You need:** paper, pencil, scissors (or just tear), a straightedge.
 **Time:** 45 minutes. **Level:** this is where *proof* starts.
+
+**In this module:** [Do this](#do-this) - [Why it works](#why-does-it-work) - [Push further](#push-further) - [For the grown-up](#for-the-grown-up)
 
 ---
 
@@ -148,3 +152,7 @@ impossible for one to fail."
 - If the star problem clicks, that is a strong signal he is ready for a dedicated
   angle-chasing problem set. Next stop after this path is exploration 03, where
   angles meet circles.
+
+---
+
+[ben-geometry home](../README.md)  |  [< Prev: Module 01 -- Compass and Straightedge](../module-01/concepts.md)  |  [Next: Module 03 -- Circle secrets: the inscribed angle](../module-03/concepts.md)

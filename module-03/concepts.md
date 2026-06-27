@@ -1,3 +1,5 @@
+[ben-geometry home](../README.md)  |  [< Prev: Module 02 -- Why every triangle adds to 180](../module-02/concepts.md)  |  [Next: Module 04 -- Tilings: why only three shapes fill the floor](../module-04/concepts.md)
+
 # 03 -- Circle secrets: the inscribed angle
 
 > **The hook.** Draw a circle and a diameter straight across the middle, ends
@@ -10,6 +12,8 @@
 **You need:** compass, straightedge, protractor (just to be amazed, the proof
 needs none), pencil, paper.
 **Time:** 45 to 60 minutes. **Level:** the payoff sheet. Go slow.
+
+**In this module:** [Do this](#do-this) - [Why it works](#why-does-it-work) - [Push further](#push-further) - [For the grown-up](#for-the-grown-up)
 
 ---
 
@@ -139,3 +143,7 @@ same angle. That is why APB = AQB above.
 - Natural next step after this path: a dedicated angle-chasing and
   cyclic-quadrilateral problem set, which is squarely BMC territory. Say the word
   and I will build one.
+
+---
+
+[ben-geometry home](../README.md)  |  [< Prev: Module 02 -- Why every triangle adds to 180](../module-02/concepts.md)  |  [Next: Module 04 -- Tilings: why only three shapes fill the floor](../module-04/concepts.md)

@@ -1,0 +1,290 @@
+---
+title: "Module 4: Tilings"
+subtitle: "Why only three shapes fill the floor"
+output:
+  xaringan::moon_reader:
+    css: [default, default-fonts]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.align = "center", dev = "png",
+                      fig.width = 5, fig.height = 5, dpi = 150)
+blue   <- "#1769aa"
+orange <- "#c2410c"
+lblue  <- "#cfe3f3"
+lred   <- "#fdd9d0"
+
+hexpoly <- function(cx, cy, R, fill, border) {
+  a <- ((0:5)*60 + 90) * pi/180
+  polygon(cx + R*cos(a), cy + R*sin(a), col=fill, border=border, lwd=1.8)
+}
+
+draw_tri_tiling <- function(main="") {
+  h <- sqrt(3)/2; ny <- 3
+  par(mar=c(0.4,0.4,2,0.4))
+  plot(NA, xlim=c(0.5, 4.0), ylim=c(0, ny*h), asp=1, axes=FALSE,
+       xlab="", ylab="", main=main, cex.main=1.5)
+  for (r in 0:(ny-1)) {
+    y0 <- r*h; y1 <- y0+h; off <- (r %% 2)*0.5
+    for (i in -1:4) {
+      bx <- i + off
+      polygon(c(bx, bx+1, bx+0.5), c(y0,y0,y1), col=lblue, border=blue, lwd=1.8)
+      polygon(c(bx+0.5, bx+1.5, bx+1), c(y1,y1,y0), col=lblue, border=blue, lwd=1.8)
+    }
+  }
+}
+
+draw_sq_tiling <- function(main="") {
+  n <- 4
+  par(mar=c(0.4,0.4,2,0.4))
+  plot(NA, xlim=c(0,n), ylim=c(0,n), asp=1, axes=FALSE,
+       xlab="", ylab="", main=main, cex.main=1.5)
+  for (i in 0:(n-1)) for (j in 0:(n-1))
+    rect(i,j,i+1,j+1, col=lblue, border=blue, lwd=1.8)
+}
+
+draw_hex_tiling <- function(main="") {
+  R <- 1; w <- sqrt(3)*R; nc <- 3; nr <- 3
+  par(mar=c(0.4,0.4,2,0.4))
+  plot(NA, xlim=c(0, nc*w), ylim=c(0, nr*1.5*R), asp=1, axes=FALSE,
+       xlab="", ylab="", main=main, cex.main=1.5)
+  for (r in -1:(nr+1)) for (c in -1:(nc+1)) {
+    cx <- c*w + (r %% 2)*(w/2); cy <- r*1.5*R
+    hexpoly(cx, cy, R, lblue, blue)
+  }
+}
+
+draw_vertex360 <- function() {
+  par(mar=c(0,0,0,0))
+  plot(NA, xlim=c(-2.4,2.4), ylim=c(-2.4,2.4), asp=1, axes=FALSE, xlab="", ylab="")
+  R <- 1.4
+  for (phi in c(150,270,30)) {
+    pc <- R*c(cos(phi*pi/180), sin(phi*pi/180))
+    a  <- (phi+180 + 60*(0:5))*pi/180
+    polygon(pc[1]+R*cos(a), pc[2]+R*sin(a), col=lblue, border=blue, lwd=2.2)
+    text(0.55*cos(phi*pi/180), 0.55*sin(phi*pi/180), "120", cex=1.2, col=blue)
+  }
+  points(0,0, pch=19, cex=1.4)
+}
+
+draw_pentagon_gap <- function() {
+  par(mar=c(0,0,0,0))
+  plot(NA, xlim=c(-2.4,2.4), ylim=c(-2.0,2.6), asp=1, axes=FALSE, xlab="", ylab="")
+  Rp <- 1.3; s <- 2*Rp*sin(36*pi/180)
+  # gap wedge between 72 and 108 degrees
+  g <- c(72,108)*pi/180
+  polygon(c(0, s*cos(g[1]), s*cos(g[2])), c(0, s*sin(g[1]), s*sin(g[2])),
+          col=lred, border=NA)
+  for (phi in c(162,270,18)) {
+    pc <- Rp*c(cos(phi*pi/180), sin(phi*pi/180))
+    a  <- (phi+180 + 72*(0:4))*pi/180
+    polygon(pc[1]+Rp*cos(a), pc[2]+Rp*sin(a), col=lblue, border=blue, lwd=2.2)
+    text(0.5*cos(phi*pi/180), 0.5*sin(phi*pi/180), "108", cex=1.1, col=blue)
+  }
+  points(0,0, pch=19, cex=1.4)
+  text(0, 0.95, "36 gap", cex=1.2, col=orange, font=2)
+}
+```
+
+class: center, middle
+
+# Tilings
+
+### Why only three shapes fill the floor
+
+A tiled floor, a honeycomb. The pieces cover everything with no gaps and no
+overlaps. If every tile is the same regular shape, which shapes can do it?
+
+---
+
+# The setup
+
+A **tiling** covers the plane with tiles: **no gaps, no overlaps.**
+
+--
+
+Today's rule: every tile is the **same regular polygon** (all sides equal, all
+corners equal).
+
+--
+
+Which regular shapes can do it? Triangle? Square? Pentagon? Hexagon? Make a
+guess for each before we test them.
+
+---
+
+# The hook
+
+Try ringing a single point with copies of one shape, corner to corner.
+
+--
+
+- Equilateral **triangles**: they close up. Works.
+- **Squares**: four to a corner, like graph paper. Works.
+- **Hexagons**: lock together like a honeycomb. Works.
+
+--
+
+- Regular **pentagons**: push them together as tight as you can...
+
+--
+
+...a thin **wedge of gap** is always left over. Pentagons **never** close up.
+Why exactly those three shapes, and not the pentagon?
+
+---
+
+# Three that work
+
+```{r tilings3, fig.width=9, fig.height=3.2}
+par(mfrow=c(1,3))
+draw_tri_tiling("Triangles")
+draw_sq_tiling("Squares")
+draw_hex_tiling("Hexagons")
+```
+
+Triangle, square, hexagon. That is the whole list. The reason is a single idea
+about what happens at one **meeting-point**.
+
+---
+
+# The key question: one vertex
+
+.pull-left[
+Zoom in on any point where corners meet. To leave **no gap and no overlap**, the
+corners crowding around that point must sweep the **whole turn**:
+
+$$\text{they add to exactly } 360^\circ.$$
+
+Three hexagon corners do it: `120 + 120 + 120 = 360`.
+
+So the question becomes: **whose corner angle divides 360 evenly?**
+]
+
+.pull-right[
+```{r v360, fig.width=4.6, fig.height=4.6}
+draw_vertex360()
+```
+]
+
+---
+
+# The corner angle of a regular n-gon
+
+From **Module 02**: the angles inside an n-gon add to `(n - 2) * 180`.
+
+--
+
+A *regular* n-gon shares that total evenly over its n corners:
+
+$$\text{corner angle} = \frac{(n-2)\cdot 180}{n}$$
+
+--
+
+| n | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|
+| corner | 60 | 90 | 108 | 120 | 128.57... |
+
+For `k` copies to fit snugly around a point: `k * (corner) = 360`, so the corner
+must **divide 360 evenly**.
+
+---
+
+# Why must it be exactly those three?
+
+Check which corner angles divide 360:
+
+--
+
+- triangle, **60**: `360 / 60 = 6`. Six fit. **Works.**
+- square, **90**: `360 / 90 = 4`. **Works.**
+- hexagon, **120**: `360 / 120 = 3`. **Works.**
+
+--
+
+- pentagon, **108**: `360 / 108 = 3.33...`. Three give `324` (a `36` gap), four
+  give `432` (overlap). **No whole number fits.**
+
+--
+
+And **nothing past the hexagon** can work: for `n >= 7` the corner is between
+`120` and `180`, so only **two** could meet, and two angles under `180` never
+reach `360`. Only `60, 90, 120` divide 360. **Exactly three tilings.**
+
+---
+
+# The pentagon's gap, up close
+
+.pull-left[
+Three regular pentagons around a point:
+
+$$108 + 108 + 108 = 324.$$
+
+That leaves a `360 - 324 = 36^\circ` wedge. A fourth pentagon needs `108` but
+only `36` is left, so it overlaps.
+
+There is no whole number of `108`s that hits `360`. The gap is **forced**, for
+the same reason the three winners are forced.
+]
+
+.pull-right[
+```{r pgap, fig.width=4.6, fig.height=4.6}
+draw_pentagon_gap()
+```
+]
+
+---
+
+# Push further: mix the shapes
+
+Drop "all tiles the same." Keep two rules: corners at each vertex still total
+**360**, and every vertex looks the same. These are the **semiregular** tilings:
+
+--
+
+- **4.8.8**: square + two octagons. `90 + 135 + 135 = 360`. (the "stop sign")
+- **3.6.3.6**: `60 + 120 + 60 + 120 = 360`.
+- **3.3.3.3.6**: four triangles + a hexagon. `60*4 + 120 = 360`.
+- **3.4.6.4**: `60 + 90 + 120 + 90 = 360`.
+
+--
+
+There are exactly **eight** of them. Finding all eight is a great afternoon.
+
+---
+
+# Competition gem
+
+**The search BMC loves:** which multisets of regular-polygon corner angles add
+to exactly **360** at one point?
+
+--
+
+It is a *finite* hunt: a big-angle polygon leaves little room. For instance
+`3.4.4.6`: `60 + 90 + 90 + 120 = 360`. And `3.12.12`: `60 + 150 + 150 = 360`.
+
+--
+
+The twist: **a valid vertex need not tile the whole plane.** `3.4.4.6` passes the
+angle test at one point but cannot grow outward with every vertex matching.
+
+So the real problem has two parts: (1) list every angle-multiset summing to 360,
+then (2) decide which actually tile. Part 1 is arithmetic; part 2 is geometry.
+
+---
+
+class: center, middle
+
+# Next up
+
+**Module 5:** Pythagoras. We prove `a^2 + b^2 = c^2` with pictures you *watch*,
+not formulas you memorize: rearrangement, the Garfield trapezoid, similar
+triangles.
+
+And a bridge to Isa's room: her pattern blocks find this exact pentagon gap by
+hand, with no angles at all.
