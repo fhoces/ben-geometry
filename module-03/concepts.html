@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 -- Circle secrets: the inscribed angle</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         max-width: 760px; margin: 2.2rem auto; padding: 0 1.2rem; color: #1a1a1a; line-height: 1.6;
+         overflow-wrap: break-word; }
+  h1, h2, h3 { line-height: 1.25; }
+  h1 { margin-bottom: .3rem; }
+  h2 { margin-top: 2rem; }
+  a { color: #1769aa; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  blockquote { margin: 1.2rem 0; padding: .6rem 1rem; border-left: 4px solid #1769aa;
+               background: #f6f8fa; color: #333; }
+  code { background: #f0f0f0; padding: .1em .3em; border-radius: 3px;
+         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; }
+  pre { background: #f6f8fa; padding: .9rem 1rem; border-radius: 6px; overflow-x: auto; line-height: 1.4;
+        max-width: 100%; }
+  table { display: block; overflow-x: auto; }
+  pre code { background: none; padding: 0; font-size: .82em; }
+  table { border-collapse: collapse; width: 100%; margin: 1.2rem 0; }
+  th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid #e2e2e2; vertical-align: top; }
+  hr { border: none; border-top: 1px solid #e2e2e2; margin: 1.6rem 0; }
+  img { max-width: 100%; }
+  footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e2e2e2; color: #888; font-size: .85rem; }
+</style>
+</head>
+<body>
+<p><a href="../index.html">ben-geometry home</a>  |  <a href="../module-02/concepts.html">&lt; Prev: Module 02 -- Why every triangle adds to 180</a>  |  <a href="../module-04/concepts.html">Next: Module 04 -- Tilings: why only three shapes fill the floor</a></p>
+<h1 id="03-circle-secrets-the-inscribed-angle">03 -- Circle secrets: the inscribed angle</h1>
+<blockquote>
+<p><strong>The hook.</strong> Draw a circle and a diameter straight across the middle, ends
+<strong>A</strong> and <strong>B</strong>. Now pick <em>any</em> point <strong>P</strong> on the circle and draw P-to-A and
+P-to-B. Measure the angle at P. It is 90 degrees. Move P anywhere else on the
+circle: still 90. High up, near the edge, anywhere. The angle "standing on a
+diameter" is <em>always</em> a right angle. This is called Thales' theorem, and it is
+the doorway to the single most useful idea in competition geometry.</p>
+</blockquote>
+<p><strong>You need:</strong> compass, straightedge, protractor (just to be amazed, the proof
+needs none), pencil, paper.
+<strong>Time:</strong> 45 to 60 minutes. <strong>Level:</strong> the payoff sheet. Go slow.</p>
+<p><strong>In this module:</strong> <a href="#do-this">Do this</a> - <a href="#why-does-it-work">Why it works</a> - <a href="#push-further">Push further</a> - <a href="#for-the-grown-up">For the grown-up</a></p>
+<hr />
+<h2 id="do-this">Do this</h2>
+<h3 id="part-a-thales">Part A: Thales</h3>
+<ol>
+<li>Draw a circle and mark its center <strong>O</strong>.</li>
+<li>Draw a diameter: a straight line through O, hitting the circle at <strong>A</strong> and
+   <strong>B</strong>.</li>
+<li>Pick any point <strong>P</strong> on the circle (not A or B). Draw PA and PB.</li>
+<li>Measure angle APB with the protractor. Note it.</li>
+<li>Pick three or four different P's around the circle and repeat.</li>
+</ol>
+<pre><code>            P
+           /|\
+          / | \
+         /  |  \
+        A---O---B      angle at P is 90 degrees, for every P on the circle
+         \  |  /
+          \ | /
+           \|/
+            P'         (P' too: also 90)
+</code></pre>
+<p>Every P gives 90 degrees. Why can't it ever be 88 or 93?</p>
+<h3 id="part-b-the-bigger-secret">Part B: the bigger secret</h3>
+<ol>
+<li>Fresh circle, center O. Mark two points <strong>A</strong> and <strong>B</strong> on it (not a diameter
+   this time, just any two points).</li>
+<li>Draw the angle <strong>AOB</strong> at the center.</li>
+<li>Now pick a point <strong>P</strong> on the circle, on the <em>major</em> (longer) arc, and draw
+   the angle <strong>APB</strong> at the rim.</li>
+<li>Measure both. The rim angle APB is exactly <strong>half</strong> of the center angle AOB.</li>
+<li>Move P around the major arc and re-measure APB. It does not change. Every P on
+   that arc sees AB at the same angle.</li>
+</ol>
+<pre><code>            P                  Q
+             \                /
+              \              /
+               \            /
+                \          /
+        A--------+--------B
+                 |
+                 O          angle APB = angle AQB = (1/2) angle AOB
+</code></pre>
+<p>Two things to be amazed by: the rim angle is half the center angle, and <strong>all the
+rim points on the same arc see AB at the same angle.</strong></p>
+<hr />
+<h2 id="why-does-it-work">Why does it work?</h2>
+<h3 id="the-big-theorem-first-it-gives-thales-for-free">The big theorem first (it gives Thales for free)</h3>
+<p><strong>Inscribed angle theorem:</strong> an angle at the rim is half the angle at the center,
+when both stand on the same arc.</p>
+<p>Here is the cleanest case. Put P, A, B on the circle so that the line <strong>PO</strong>
+passes through the center. Draw OA. Now look at triangle OAP:</p>
+<ul>
+<li>OA and OP are both radii, so they are equal. The triangle is <strong>isosceles</strong>.</li>
+<li>Equal sides face equal angles, so angle OPA = angle OAP. Call each of them
+  <strong>t</strong>.</li>
+<li>The angle AOB at the center is the <em>exterior</em> angle of triangle OAP at O. An
+  exterior angle equals the sum of the two far interior angles (this follows
+  straight from exploration 02: the three angles make 180, and the exterior angle
+  plus the interior one at O also make 180). So angle AOB = t + t = <strong>2t</strong>.</li>
+</ul>
+<p>The rim angle APB is <strong>t</strong>. The center angle AOB is <strong>2t</strong>. The rim angle is half
+the center angle. Done, for this case. The general case (where PO does not pass
+through center) splits into one or two copies of this case by drawing the line
+PO; same idea.</p>
+<h3 id="thales-falls-out-instantly">Thales falls out instantly</h3>
+<p>When A and B are the ends of a <strong>diameter</strong>, the center angle AOB is a straight
+line, 180 degrees. The rim angle is half of that: <strong>90 degrees.</strong> That is Thales,
+and now you see it is not a coincidence, it is just the inscribed angle theorem
+with the center angle stretched to a straight line.</p>
+<h3 id="and-the-same-arc-same-angle-fact">And the "same arc, same angle" fact</h3>
+<p>Every rim point P on the same arc sees the <em>same</em> center angle AOB (the center
+does not move). Half of a fixed thing is a fixed thing. So they all see AB at the
+same angle. That is why APB = AQB above.</p>
+<hr />
+<h2 id="push-further">Push further</h2>
+<ul>
+<li><strong>Cyclic quadrilaterals (this is the BMC gold).</strong> Put four points on a circle
+  and join them into a quadrilateral. Then <strong>opposite angles add to 180.</strong> See if
+  Ben can prove it from the inscribed angle theorem. (Hint: each angle of the
+  quad is an inscribed angle; pair up the arcs they stand on, and the four arcs
+  make the whole circle.) "Four points lie on one circle" is one of the most
+  powerful things you can notice in a contest problem, and this is why.</li>
+<li><strong>The converse, used as a tool.</strong> If you ever see a right angle PAB-style
+  setup, P might be forced onto a circle with AB as diameter. Spotting hidden
+  circles is a top-tier olympiad move.</li>
+<li><strong>Competition gem.</strong> Two chords of a circle, AB and CD, cross at a point X
+  inside the circle. Prove that triangle AXC and triangle DXB have the same
+  shape (similar). Hint: hunt for two pairs of equal inscribed angles standing on
+  the same arcs. (This leads to the "intersecting chords" length rule
+  <code>AX times XB = CX times XD</code>, a classic.)</li>
+</ul>
+<hr />
+<h2 id="for-the-grown-up">For the grown-up</h2>
+<ul>
+<li>This is the highest-leverage sheet in the path. The inscribed angle theorem and
+  its cyclic-quadrilateral corollary are <em>everywhere</em> in competition geometry, so
+  it is worth doing patiently and coming back to.</li>
+<li>The proof leans on two things from exploration 02: the isosceles base-angles
+  fact and the exterior-angle fact. If those are shaky, revisit 02 first; the
+  proof here will feel like magic instead of logic otherwise.</li>
+<li>Let the measuring in Part B do its job before any proof. The "wait, all these
+  different points give the <em>same</em> angle" surprise is the motivation. Without that
+  surprise, the theorem is just a formula.</li>
+<li>Common stumble: in the proof, forgetting <em>why</em> OA = OP. The answer ("both are
+  radii of the same circle") is the quiet engine behind almost every circle
+  proof. Point at it explicitly.</li>
+<li>Natural next step after this path: a dedicated angle-chasing and
+  cyclic-quadrilateral problem set, which is squarely BMC territory. Say the word
+  and I will build one.</li>
+</ul>
+<hr />
+<p><a href="../index.html">ben-geometry home</a>  |  <a href="../module-02/concepts.html">&lt; Prev: Module 02 -- Why every triangle adds to 180</a>  |  <a href="../module-04/concepts.html">Next: Module 04 -- Tilings: why only three shapes fill the floor</a></p>
+<footer>Part of <a href="https://github.com/fhoces">fhoces</a>'s math-tutoring collection.</footer>
+</body>
+</html>

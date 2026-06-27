@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 -- Pythagoras: proofs you can see</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         max-width: 760px; margin: 2.2rem auto; padding: 0 1.2rem; color: #1a1a1a; line-height: 1.6;
+         overflow-wrap: break-word; }
+  h1, h2, h3 { line-height: 1.25; }
+  h1 { margin-bottom: .3rem; }
+  h2 { margin-top: 2rem; }
+  a { color: #1769aa; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  blockquote { margin: 1.2rem 0; padding: .6rem 1rem; border-left: 4px solid #1769aa;
+               background: #f6f8fa; color: #333; }
+  code { background: #f0f0f0; padding: .1em .3em; border-radius: 3px;
+         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; }
+  pre { background: #f6f8fa; padding: .9rem 1rem; border-radius: 6px; overflow-x: auto; line-height: 1.4;
+        max-width: 100%; }
+  table { display: block; overflow-x: auto; }
+  pre code { background: none; padding: 0; font-size: .82em; }
+  table { border-collapse: collapse; width: 100%; margin: 1.2rem 0; }
+  th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid #e2e2e2; vertical-align: top; }
+  hr { border: none; border-top: 1px solid #e2e2e2; margin: 1.6rem 0; }
+  img { max-width: 100%; }
+  footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e2e2e2; color: #888; font-size: .85rem; }
+</style>
+</head>
+<body>
+<p><a href="../index.html">ben-geometry home</a>  |  <a href="../module-04/concepts.html">&lt; Prev: Module 04 -- Tilings: why only three shapes fill the floor</a>  |  <em>(last module)</em></p>
+<h1 id="05-pythagoras-proofs-you-can-see">05 -- Pythagoras: proofs you can see</h1>
+<blockquote>
+<p><strong>The hook.</strong> You already know <code>a^2 + b^2 = c^2</code> for a right triangle. The
+point of this module is <em>not</em> the formula. The point is that you can <strong>watch</strong>
+it happen. We are going to see three different proofs, three pictures that each
+force the formula to be true, instead of memorizing one. By the end you will be
+able to <em>make a right angle appear out of nowhere</em> just by checking three
+numbers.</p>
+</blockquote>
+<p><strong>You need:</strong> grid paper, a pencil, scissors (optional but fun), a ruler.
+<strong>Time:</strong> 45 to 60 minutes. <strong>Level:</strong> the payoff module, real proofs.</p>
+<p><strong>In this module:</strong> <a href="#do-this">Do this</a> - <a href="#why-does-it-work">Why it works</a> - <a href="#push-further">Push further</a> - <a href="#for-the-grown-up">For the grown-up</a></p>
+<p>A <strong>right triangle</strong> has one 90-degree corner. The two short sides touching that
+corner are the <strong>legs</strong>, <code>a</code> and <code>b</code>. The long side across from it is the
+<strong>hypotenuse</strong>, <code>c</code>. The claim is that the square built on the hypotenuse has the
+same area as the two squares built on the legs, added together.</p>
+<hr />
+<h2 id="do-this">Do this</h2>
+<h3 id="move-1-build-the-three-squares">Move 1: build the three squares</h3>
+<ol>
+<li>On grid paper, draw a right triangle with legs 3 and 4 squares (the
+   hypotenuse will come out to exactly 5, you will see why soon).</li>
+<li>On the side of length 3, draw the square that sticks out away from the
+   triangle. Count its little boxes: <code>3 x 3 = 9</code>.</li>
+<li>On the side of length 4, draw its square sticking out. Count: <code>4 x 4 = 16</code>.</li>
+<li>On the slanted side, draw <em>its</em> square sticking out. This one is tilted, so
+   count its area by the trick below.</li>
+</ol>
+<p>Now add the two leg squares: <code>9 + 16 = 25</code>. Look at the big tilted square. Its
+area is also <strong>25</strong>. The two small squares fill up the big one exactly.</p>
+<pre><code>                 +-----+
+                 | 9   |   leg square, 3 x 3
+                 |     |
+        +--------+-----+
+        |       /|
+        |      / |   right triangle, legs 3 and 4
+        | c   /  |
+        |    /   |        +----------+
+        |   /    |        |          |
+   c^2  |  /     |        |   16     |  leg square, 4 x 4
+ tilted | /      |        |          |
+ square |/       |        +----------+
+        +--------+
+   (real picture is in the slides; this is just a reminder)
+</code></pre>
+<h3 id="move-2-count-a-tilted-squares-area">Move 2: count a tilted square's area</h3>
+<p>The big square on the hypotenuse is tilted, so you cannot just read off a side
+length. Trick: draw the smallest <em>upright</em> square that surrounds it. For our
+3-4-5 triangle, the tilted square fits inside a 7-by-7 box (area 49). Sitting in
+the four corners of that box are four copies of your right triangle, each with
+area <code>(1/2)(3)(4) = 6</code>. So the tilted square is <code>49 - 4 x 6 = 49 - 24 = 25</code>.
+There it is again: <strong>25</strong>.</p>
+<h3 id="move-3-make-a-right-angle-with-a-rope">Move 3: make a right angle with a rope</h3>
+<p>Tie 12 evenly spaced knots in a loop of string (ancient Egyptian builders really
+did this). Peg it into a triangle with sides 3, 4, and 5 knots. The corner
+between the 3-side and the 4-side is a <strong>perfect right angle</strong>, every time. You
+just built a 90-degree angle with nothing but counting. Hold onto why that works;
+it is the competition gem.</p>
+<hr />
+<h2 id="why-does-it-work">Why does it work?</h2>
+<p>One formula, three different pictures. Pick the one you like; each one is a full
+proof.</p>
+<h3 id="proof-1-the-rearrangement-the-tilted-square">Proof 1: the rearrangement (the tilted square)</h3>
+<p>Take a big square with side <code>a + b</code>. Drop one copy of the right triangle into
+each of the four corners. The four triangles leave a square-shaped hole in the
+middle, and that hole has side <code>c</code> (each of its sides is a hypotenuse).</p>
+<p>Now find the big square's area two ways.</p>
+<ul>
+<li><strong>As one square:</strong> <code>(a + b)^2 = a^2 + 2ab + b^2</code>.</li>
+<li><strong>As its pieces:</strong> four triangles plus the hole <code>= 4 x (1/2)ab + c^2 = 2ab + c^2</code>.</li>
+</ul>
+<p>These are the same area, so set them equal:</p>
+<pre><code>a^2 + 2ab + b^2 = 2ab + c^2
+</code></pre>
+<p>Cancel the <code>2ab</code> from both sides and you are left with <code>a^2 + b^2 = c^2</code>. The
+<code>2ab</code> was just the four triangles hiding in plain sight.</p>
+<h3 id="proof-2-president-garfields-trapezoid">Proof 2: President Garfield's trapezoid</h3>
+<p>James Garfield found this in 1876, five years before he became US president.
+Take two copies of the right triangle and lean them together into a right
+<strong>trapezoid</strong> (a four-sided shape with two parallel sides). The parallel sides
+have lengths <code>a</code> and <code>b</code>, and the distance between them is <code>a + b</code>. The slanted
+top edge, plus the two hypotenuses meeting at the bottom, leave a clean right
+angle in the middle, so the middle piece is a right triangle with both legs <code>c</code>.</p>
+<p>Area two ways again.</p>
+<ul>
+<li><strong>As a trapezoid:</strong> <code>(1/2)(a + b)(a + b)</code> (average of the parallel sides, times
+  the height).</li>
+<li><strong>As three triangles:</strong> <code>(1/2)ab + (1/2)ab + (1/2)c^2</code>.</li>
+</ul>
+<p>Set them equal and multiply everything by 2:</p>
+<pre><code>(a + b)^2 = ab + ab + c^2  =&gt;  a^2 + 2ab + b^2 = 2ab + c^2  =&gt;  a^2 + b^2 = c^2
+</code></pre>
+<p>Same finish as Proof 1, but from half the picture. That is the elegant part: a
+president's doodle and Euclid's tilted square land in the exact same place.</p>
+<h3 id="proof-3-similar-triangles">Proof 3: similar triangles</h3>
+<p>Drop a straight line from the right-angle corner down onto the hypotenuse, hitting
+it at a right angle. It splits the hypotenuse <code>c</code> into two pieces, call them <code>p</code>
+and <code>q</code>, so <code>p + q = c</code>.</p>
+<p>Here is the magic: each of the two small triangles you just made is a <em>shrunk
+copy</em> of the whole original triangle (same three angles). Matching the
+corresponding sides of similar triangles gives two clean facts:</p>
+<pre><code>a^2 = c * p        (the triangle on the a side)
+b^2 = c * q        (the triangle on the b side)
+</code></pre>
+<p>Add them: <code>a^2 + b^2 = c*p + c*q = c(p + q) = c * c = c^2</code>. No squares to cut out,
+no areas to count, just two similar triangles and one addition.</p>
+<hr />
+<h2 id="push-further">Push further</h2>
+<ul>
+<li><strong>Pythagorean triples.</strong> Whole-number right triangles like 3-4-5 are called
+  Pythagorean triples. The next few: 5-12-13, 8-15-17, 7-24-25. Check one:
+  <code>5^2 + 12^2 = 25 + 144 = 169 = 13^2</code>. They feel rare, but there are infinitely
+  many, and there is a machine that spits them out.</li>
+<li><strong>The triple machine.</strong> Pick any two whole numbers <code>m &gt; n</code>. Then
+  <code>(m^2 - n^2, 2mn, m^2 + n^2)</code> is <em>always</em> a triple. Try <code>m = 2, n = 1</code>:
+  <code>(3, 4, 5)</code>. Try <code>m = 3, n = 2</code>: <code>(5, 12, 13)</code>. Try <code>m = 4, n = 1</code>:
+  <code>(15, 8, 17)</code>. It never fails, because the algebra works out:
+  <code>(m^2 - n^2)^2 + (2mn)^2 = m^4 + 2m^2n^2 + n^4 = (m^2 + n^2)^2</code>.</li>
+<li><strong>It only works for right triangles.</strong> For a triangle that is not right,
+  <code>a^2 + b^2</code> does <em>not</em> equal <code>c^2</code>; it overshoots or undershoots depending on
+  whether the angle is sharp or wide. (The full repair is the <strong>law of cosines</strong>,
+  <code>c^2 = a^2 + b^2 - 2ab cos C</code>. When <code>C = 90</code> degrees, <code>cos C = 0</code> and the extra
+  term vanishes, handing Pythagoras right back.)</li>
+<li><strong>One more dimension.</strong> The space diagonal of a box with edges <code>a</code>, <code>b</code>, <code>c</code>
+  has length <code>d</code>, where <code>d^2 = a^2 + b^2 + c^2</code>. It is just Pythagoras used twice:
+  once on the floor of the box, once standing up.</li>
+<li><strong>Competition gem.</strong> Prove the <strong>converse</strong>: if a triangle has sides with
+  <code>a^2 + b^2 = c^2</code>, then the angle opposite <code>c</code> <em>must</em> be a right angle. (That is
+  the real reason the 3-4-5 knotted rope makes a right angle, and why builders
+  trust it.) One clean way: build a brand-new right triangle with legs <code>a</code> and
+  <code>b</code>; its hypotenuse is <code>sqrt(a^2 + b^2) = c</code> by the theorem, so it has the exact
+  same three side lengths as your triangle, so the two triangles are congruent,
+  so your triangle's third angle is the right angle too. As a second challenge,
+  use the triple machine to generate five different triples and check each one.</li>
+</ul>
+<hr />
+<h2 id="for-the-grown-up">For the grown-up</h2>
+<ul>
+<li>The whole module rests on one idea: a single fact can have many proofs, and
+  <em>seeing</em> one is better than reciting the formula. If Ben already "knows
+  Pythagoras," that is the perfect setup. Ask him to prove it. The blank look is
+  the hook.</li>
+<li>Proof 1 (rearrangement) is the most physical; cutting four paper triangles and
+  shuffling them inside an <code>(a + b)</code> square makes it land. Proof 2 (Garfield) is
+  the slickest once Proof 1 is understood. Proof 3 (similar triangles) is the most
+  grown-up and needs Module 03's comfort with similar shapes; save it for last or
+  skip it if similarity is not solid yet.</li>
+<li>Common stumble: counting the tilted square by trying to measure its slanted
+  side. Steer to the surrounding-box trick (area of box minus four triangles)
+  instead. That move is the heart of Proof 1.</li>
+<li>Common stumble: thinking the converse is "obvious" or the same as the theorem.
+  It is not. The theorem says right angle =&gt; <code>a^2 + b^2 = c^2</code>; the converse runs
+  the arrow the other way, and it is what makes the rope trick work. Getting Ben
+  to feel that the two directions are different statements is a real logic win.</li>
+<li>Where this course goes next: every module has ended with a competition gem.
+  The dedicated finish line is a set of BMC-style problem sheets (angle chasing,
+  cyclic quadrilaterals, constructions) that braid Modules 01 through 05 together.
+  This module is the last of the build-and-prove set; the next step is to compete.</li>
+</ul>
+<hr />
+<p><a href="../index.html">ben-geometry home</a>  |  <a href="../module-04/concepts.html">&lt; Prev: Module 04 -- Tilings: why only three shapes fill the floor</a>  |  <em>(last module)</em></p>
+<footer>Part of <a href="https://github.com/fhoces">fhoces</a>'s math-tutoring collection.</footer>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 -- Why every triangle adds up to 180</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         max-width: 760px; margin: 2.2rem auto; padding: 0 1.2rem; color: #1a1a1a; line-height: 1.6;
+         overflow-wrap: break-word; }
+  h1, h2, h3 { line-height: 1.25; }
+  h1 { margin-bottom: .3rem; }
+  h2 { margin-top: 2rem; }
+  a { color: #1769aa; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  blockquote { margin: 1.2rem 0; padding: .6rem 1rem; border-left: 4px solid #1769aa;
+               background: #f6f8fa; color: #333; }
+  code { background: #f0f0f0; padding: .1em .3em; border-radius: 3px;
+         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; }
+  pre { background: #f6f8fa; padding: .9rem 1rem; border-radius: 6px; overflow-x: auto; line-height: 1.4;
+        max-width: 100%; }
+  table { display: block; overflow-x: auto; }
+  pre code { background: none; padding: 0; font-size: .82em; }
+  table { border-collapse: collapse; width: 100%; margin: 1.2rem 0; }
+  th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid #e2e2e2; vertical-align: top; }
+  hr { border: none; border-top: 1px solid #e2e2e2; margin: 1.6rem 0; }
+  img { max-width: 100%; }
+  footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e2e2e2; color: #888; font-size: .85rem; }
+</style>
+</head>
+<body>
+<p><a href="../index.html">ben-geometry home</a>  |  <a href="../module-01/concepts.html">&lt; Prev: Module 01 -- Compass and Straightedge</a>  |  <a href="../module-03/concepts.html">Next: Module 03 -- Circle secrets: the inscribed angle</a></p>
+<h1 id="02-why-every-triangle-adds-up-to-180">02 -- Why every triangle adds up to 180</h1>
+<blockquote>
+<p><strong>The hook.</strong> Draw three triangles that look nothing alike: a long skinny one,
+a fat one, a pointy one. Tear the three corners off each. Slide the three torn
+corners together so their points touch. Every single time, the three corners
+line up into a perfectly straight line. A straight line is 180 degrees. So the
+three angles of <em>any</em> triangle add to 180. The question that makes this math
+and not arts-and-crafts: <strong>why must this happen for every triangle, including
+ones you have not drawn yet?</strong></p>
+</blockquote>
+<p><strong>You need:</strong> paper, pencil, scissors (or just tear), a straightedge.
+<strong>Time:</strong> 45 minutes. <strong>Level:</strong> this is where <em>proof</em> starts.</p>
+<p><strong>In this module:</strong> <a href="#do-this">Do this</a> - <a href="#why-does-it-work">Why it works</a> - <a href="#push-further">Push further</a> - <a href="#for-the-grown-up">For the grown-up</a></p>
+<hr />
+<h2 id="do-this">Do this</h2>
+<ol>
+<li>Draw three very different triangles, big ones, filling the page.</li>
+<li>On each, color or shade the three corners so you can tell them apart.</li>
+<li>Tear (do not cut neatly, tearing makes it obvious) the three corners off.</li>
+<li>Put the three torn corners together, points meeting at one spot, edges
+   touching.</li>
+</ol>
+<pre><code>   torn corners reassembled at one point:
+
+      \   |   /
+   ____\__|__/____      they fill exactly a straight line
+       (1) (2) (3)      = 180 degrees, every time
+</code></pre>
+<p>Do it for all three triangles. It always closes up flat. Three torn corners,
+three different triangles, one straight line each.</p>
+<p>Now the honest question: you tried it three times. Maybe you got lucky three
+times. How do you know triangle number 4,000,000, the one nobody has drawn, also
+works? Trying more triangles will never settle it; there are infinitely many. We
+need an argument.</p>
+<hr />
+<h2 id="why-does-it-work">Why does it work?</h2>
+<h3 id="first-a-smaller-fact-the-z-rule-alternate-angles">First, a smaller fact: the "Z" rule (alternate angles)</h3>
+<p>Draw two <strong>parallel</strong> lines (use both edges of your ruler, that guarantees they
+are parallel). Now draw one slanted line crossing both. It makes a "Z" shape.</p>
+<pre><code>   ===========\=========   line 1
+               \
+                \           the two marked angles, inside the Z,
+   ==============\=======   line 2  are EQUAL
+</code></pre>
+<p>The two angles tucked inside the Z (one at the top line, one at the bottom, on
+opposite sides of the slant) are equal. This is the alternate angles rule, and it
+is <em>the</em> fact about parallel lines. Convince yourself with the ruler: slide one
+angle along the slant line until it lands on the other; they match.</p>
+<h3 id="now-the-proof">Now the proof</h3>
+<p>Take any triangle ABC. Through the top vertex, draw a line <strong>parallel to the
+bottom side</strong>.</p>
+<pre><code>        x  A  y
+        \  |  /          a line through A, parallel to BC
+         \ | /
+          \|/
+           A
+          / \
+         /   \
+        /     \
+       B-------C
+       b       c
+</code></pre>
+<p>At the top vertex A, three angles sit along that straight parallel line: call
+them <strong>x</strong>, the triangle's angle <strong>A</strong>, and <strong>y</strong>. Because they lie along a
+straight line, <code>x + A + y = 180</code>.</p>
+<p>Now use the Z rule twice:
+- Angle <strong>x</strong> and the triangle's angle at <strong>B</strong> are alternate angles across the
+  parallel lines, so <strong>x = B</strong>.
+- Angle <strong>y</strong> and the triangle's angle at <strong>C</strong> are alternate angles, so
+  <strong>y = C</strong>.</p>
+<p>Substitute: <code>x + A + y = 180</code> becomes <code>B + A + C = 180</code>.</p>
+<p>That is it. We never used the specific shape of the triangle, only that the line
+through A was parallel to BC, which you can always draw. So it holds for <strong>every</strong>
+triangle at once. That is the leap: from "I tore three and they worked" to "it is
+impossible for one to fail."</p>
+<hr />
+<h2 id="push-further">Push further</h2>
+<ul>
+<li><strong>Four sides?</strong> Any quadrilateral splits into two triangles by one diagonal.
+  Two triangles, so <code>2 x 180 = 360</code>. A five-sided polygon splits into three
+  triangles: 540. In general an n-sided polygon gives <code>(n - 2) x 180</code>. Have Ben
+  derive the formula himself by splitting into triangles.</li>
+<li><strong>The walking-turtle argument (a beautiful one).</strong> Imagine walking all the way
+  around the outside of any polygon and back to your start, facing your original
+  direction. The total amount you <em>turned</em> is exactly one full turn, 360 degrees,
+  no matter how many sides. Those turns are the <strong>exterior angles</strong>. So the
+  exterior angles of any convex polygon add to 360, full stop. This is often
+  slicker than the interior-angle formula, and it is a real BMC-style way of
+  thinking.</li>
+<li><strong>Competition gem (the five-pointed star).</strong> Draw a five-pointed star in one
+  stroke. It has five sharp points. <strong>What do the five point-angles add up to?</strong></li>
+</ul>
+<p><code>*
+         / \
+    *---+---+---*
+     \ /     \ /
+      X       X
+     / \     / \
+    *   \   /   *
+         \ /
+          *      (a rough star -- draw your own)</code></p>
+<p>The answer is a clean <strong>180</strong> degrees, and it does not depend on how lopsided
+  your star is. Hint: each point is the tip of a little triangle; chase the
+  angles using the 180 rule and the straight-line rule. This is exactly the kind
+  of angle-chase that shows up at math circle.</p>
+<hr />
+<h2 id="for-the-grown-up">For the grown-up</h2>
+<ul>
+<li>The single most important moment here is <em>not</em> the proof. It is the question
+  "we tried three, why does that settle infinitely many?" Sit in that discomfort
+  with him before reaching for the parallel line. The need for proof should feel
+  <em>earned</em>, like the experiment left a gap that only an argument can fill.</li>
+<li>The Z rule (alternate angles) is the one piece we take on faith from the
+  hands-on sliding. If he wants to know <em>why</em> alternate angles are equal, that is
+  a deeper question about what "parallel" even means, and it is fine to say "we
+  will take this one as our trusted starting block for today." Real geometry is
+  built on a small number of trusted starting blocks (axioms); picking them is
+  part of the game.</li>
+<li>Common stumble: drawing the helper line through A but <em>not</em> parallel to BC. The
+  whole proof hinges on parallel. Use the two edges of the ruler so it is exactly
+  parallel.</li>
+<li>If the star problem clicks, that is a strong signal he is ready for a dedicated
+  angle-chasing problem set. Next stop after this path is exploration 03, where
+  angles meet circles.</li>
+</ul>
+<hr />
+<p><a href="../index.html">ben-geometry home</a>  |  <a href="../module-01/concepts.html">&lt; Prev: Module 01 -- Compass and Straightedge</a>  |  <a href="../module-03/concepts.html">Next: Module 03 -- Circle secrets: the inscribed angle</a></p>
+<footer>Part of <a href="https://github.com/fhoces">fhoces</a>'s math-tutoring collection.</footer>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 -- Compass and Straightedge: the oldest game in math</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         max-width: 760px; margin: 2.2rem auto; padding: 0 1.2rem; color: #1a1a1a; line-height: 1.6;
+         overflow-wrap: break-word; }
+  h1, h2, h3 { line-height: 1.25; }
+  h1 { margin-bottom: .3rem; }
+  h2 { margin-top: 2rem; }
+  a { color: #1769aa; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  blockquote { margin: 1.2rem 0; padding: .6rem 1rem; border-left: 4px solid #1769aa;
+               background: #f6f8fa; color: #333; }
+  code { background: #f0f0f0; padding: .1em .3em; border-radius: 3px;
+         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; }
+  pre { background: #f6f8fa; padding: .9rem 1rem; border-radius: 6px; overflow-x: auto; line-height: 1.4;
+        max-width: 100%; }
+  table { display: block; overflow-x: auto; }
+  pre code { background: none; padding: 0; font-size: .82em; }
+  table { border-collapse: collapse; width: 100%; margin: 1.2rem 0; }
+  th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid #e2e2e2; vertical-align: top; }
+  hr { border: none; border-top: 1px solid #e2e2e2; margin: 1.6rem 0; }
+  img { max-width: 100%; }
+  footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e2e2e2; color: #888; font-size: .85rem; }
+</style>
+</head>
+<body>
+<p><a href="../index.html">ben-geometry home</a>  |  <em>(first module)</em>  |  <a href="../module-02/concepts.html">Next: Module 02 -- Why every triangle adds to 180</a></p>
+<h1 id="01-compass-and-straightedge-the-oldest-game-in-math">01 -- Compass and Straightedge: the oldest game in math</h1>
+<blockquote>
+<p><strong>The hook.</strong> With a compass and an unmarked ruler (no numbers, you only use
+the edge), the ancient Greeks built perfect shapes more than 2000 years ago.
+No measuring. No protractor. Can you make a <em>perfect</em> equilateral triangle, a
+triangle where you are sure all three sides are exactly equal, without measuring
+a single thing?</p>
+</blockquote>
+<p><strong>You need:</strong> a compass, a straightedge (a ruler is fine, but you may only use
+its edge, never its numbers), a pencil, paper.
+<strong>Time:</strong> 30 to 45 minutes. <strong>Level:</strong> warm-up, mostly hands.</p>
+<p><strong>In this module:</strong> <a href="#do-this">Do this</a> - <a href="#why-does-it-work">Why it works</a> - <a href="#push-further">Push further</a> - <a href="#for-the-grown-up">For the grown-up</a></p>
+<p>The one rule of this game: you may only do two things.
+1. With the straightedge, draw a straight line through two points.
+2. With the compass, draw a circle, given a center point and a radius you set by
+   placing the two compass legs on two points.</p>
+<p>Everything below is built from just those two moves.</p>
+<hr />
+<h2 id="do-this">Do this</h2>
+<h3 id="move-1-the-perfect-triangle">Move 1: the perfect triangle</h3>
+<p>This is literally Proposition 1 of Euclid's <em>Elements</em>, the first thing in the
+oldest geometry textbook.</p>
+<ol>
+<li>Draw a segment. Call its ends <strong>A</strong> and <strong>B</strong>. This is your one and only ruler.</li>
+<li>Put the compass point on <strong>A</strong>, pencil on <strong>B</strong>. Draw a full circle.</li>
+<li>Without changing the compass width, put the point on <strong>B</strong>, pencil on <strong>A</strong>.
+   Draw a second full circle.</li>
+<li>The two circles cross at two points. Pick the top one, call it <strong>C</strong>.</li>
+<li>Use the straightedge to draw <strong>A</strong>-to-<strong>C</strong> and <strong>B</strong>-to-<strong>C</strong>.</li>
+</ol>
+<p>You have a triangle. Here is the question that matters: <em>how do you know</em> all
+three sides are equal? You never measured. (Hold that thought for "Why does it
+work?" below.)</p>
+<pre><code>        C
+       / \
+      /   \         both circles have the same radius = length AB
+     /     \
+    A-------B
+   (.)     (.)      &lt;- the two compass points
+</code></pre>
+<h3 id="move-2-cut-a-segment-exactly-in-half-perpendicular-bisector">Move 2: cut a segment exactly in half (perpendicular bisector)</h3>
+<ol>
+<li>Draw a segment <strong>A</strong> to <strong>B</strong>.</li>
+<li>Compass point on <strong>A</strong>, open it to a bit more than half of AB, draw an arc
+   above and below the segment.</li>
+<li><em>Same width</em>, compass point on <strong>B</strong>, draw arcs that cross the first two.</li>
+<li>The arcs meet at two points. Draw the line through them.</li>
+</ol>
+<p>That line cuts AB exactly in half <strong>and</strong> crosses it at a perfect right angle.
+You just found the midpoint without measuring, and built a 90-degree angle for
+free.</p>
+<h3 id="move-3-the-six-petal-flower-and-a-hidden-hexagon">Move 3: the six-petal flower (and a hidden hexagon)</h3>
+<ol>
+<li>Draw a circle. Do <strong>not</strong> change the compass width for the rest of this.</li>
+<li>Put the compass point anywhere <em>on</em> the circle and make a small mark where the
+   pencil crosses the circle.</li>
+<li>Move the point to that new mark, make the next mark. Keep walking around.</li>
+<li>Count how many steps it takes to get back to the start.</li>
+</ol>
+<p>It is exactly <strong>six</strong>, every time. Now connect the six marks in order with the
+straightedge: a perfect regular hexagon. Connect every mark to the center and
+you get the six-petal flower you have probably seen drawn in margins forever.</p>
+<pre><code>        *           six marks, each one compass-width
+      /   \          from its neighbors
+     *     *
+     |  .  |         . = center
+     *     *
+      \   /
+        *
+</code></pre>
+<p>Why <em>exactly</em> six, and not "about six"? That is the best puzzle in this whole
+sheet. See below.</p>
+<hr />
+<h2 id="why-does-it-work">Why does it work?</h2>
+<p><strong>The triangle.</strong> Side AB is the radius of <em>both</em> circles (you never changed the
+width). Side AC is a radius of the circle centered at A, so AC = AB. Side BC is a
+radius of the circle centered at B, so BC = AB. All three equal the same radius,
+so they equal each other. It is not "close to equal." It is <em>forced</em> to be equal,
+for any starting segment AB you could have drawn. That is the difference between
+drawing a triangle and <em>proving</em> one.</p>
+<p><strong>The six marks.</strong> Connect three things: the center, one mark, and the next mark.
+Two of those sides are radii of the circle, and the third side is your fixed
+compass width, which is also that same radius. So every one of those little
+triangles is equilateral, which means each one has a 60-degree angle at the
+center. Angles all the way around the center add to 360. And 360 / 60 = 6. The
+hexagon falls out of the fact that <em>the side of a regular hexagon equals the
+radius of the circle around it.</em> That is a genuinely surprising fact, and you
+just built it.</p>
+<hr />
+<h2 id="push-further">Push further</h2>
+<ul>
+<li><strong>Bisect any angle.</strong> Given an angle, put the compass point on the corner and
+  mark both arms. From those two marks, swing equal arcs that cross. The line
+  from the corner through that crossing splits the angle exactly in half. (Why?
+  Hint: look for two triangles that have to be identical.)</li>
+<li><strong>Build a square</strong> using only the perpendicular-bisector move twice.</li>
+<li><strong>The 2000-year-old cliffhanger.</strong> Some shapes <em>can</em> be built this way and some
+  <em>cannot</em>, and it took until the 1800s to prove which. You <strong>can</strong> build a
+  regular pentagon (5 sides) and a 17-sided regular polygon (Gauss did it at 19,
+  and asked for it on his tombstone). You <strong>cannot</strong> build a regular 7-sided
+  polygon, you <strong>cannot</strong> trisect a general angle into three equal parts with
+  these tools, and you <strong>cannot</strong> "square the circle." Those impossibilities are
+  real theorems, not "nobody has figured it out yet." Ask Ben to guess which are
+  possible before you tell him; the answers surprise everyone.</li>
+<li><strong>Competition gem.</strong> Construct the center of a circle when someone has erased
+  the center and left you only the circle. (Hint: any chord's perpendicular
+  bisector passes through the center. How many chords do you need?)</li>
+</ul>
+<hr />
+<h2 id="for-the-grown-up">For the grown-up</h2>
+<ul>
+<li>The whole point of move 1 is the question "how do you <em>know</em> the sides are
+  equal." If Ben measures with the ruler to check, gently push back: the ruler is
+  only an edge here. The argument ("all three are the same radius") is the win,
+  and it is his first taste of a proof that covers <em>every</em> case at once.</li>
+<li>For the hexagon, resist explaining first. Let him discover the count is exactly
+  six, get surprised, and only then chase the "why." The equilateral-triangle
+  reason is very satisfying once he sees it.</li>
+<li>Common stumble: changing the compass width between steps. If the flower does
+  not close up neatly into six, that is almost always the cause.</li>
+<li>If he loves this, Euclidea (see the path README) is the perfect next hour: it
+  turns these exact moves into levels.</li>
+</ul>
+<hr />
+<p><a href="../index.html">ben-geometry home</a>  |  <em>(first module)</em>  |  <a href="../module-02/concepts.html">Next: Module 02 -- Why every triangle adds to 180</a></p>
+<footer>Part of <a href="https://github.com/fhoces">fhoces</a>'s math-tutoring collection.</footer>
+</body>
+</html>
