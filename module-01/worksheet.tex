@@ -1,0 +1,74 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{xcolor}
+\definecolor{benblue}{HTML}{1769AA}
+
+\newcommand{\drawbox}[1]{%
+  \par\vspace{4pt}\noindent
+  \fbox{\rule{0pt}{#1}\rule{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{0pt}}%
+  \par\vspace{6pt}}
+
+\newcommand{\task}[1]{\par\medskip\noindent\textbf{\color{benblue}#1}\par\nopagebreak}
+
+\title{\vspace{-1.5cm}\textbf{Compass and Straightedge}\\[-2pt]
+  \large The oldest game in math}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.2cm}
+
+\noindent\textbf{The one rule.} You may only do two things:
+(1) with the straightedge, draw a line through two points;
+(2) with the compass, draw a circle from a center and a radius you set on two
+points. The ruler's numbers are off limits. It is only an edge.
+
+\section*{Build 1: the perfect triangle}
+\begin{enumerate}[leftmargin=*]
+  \item Draw a segment, ends $A$ and $B$.
+  \item Compass on $A$, pencil on $B$: draw a circle. Same width, compass on $B$:
+        draw another.
+  \item Call the top crossing $C$. Draw $AC$ and $BC$.
+\end{enumerate}
+\task{Do it here:}
+\drawbox{4.5cm}
+\task{Why are all three sides equal, even though you never measured? Write the reason.}
+\drawbox{2.2cm}
+
+\section*{Build 2: cut a segment exactly in half}
+Compass on $A$ (opened past halfway), arc above and below. Same width on $B$,
+arcs crossing. Draw the line through the two crossings. It halves $AB$ \emph{and}
+makes a right angle.
+\drawbox{4cm}
+
+\section*{Build 3: the six-petal flower}
+Draw a circle. \textbf{Keep the compass width fixed.} Step the point around the
+circle, marking as you go. Connect the marks.
+\task{How many steps to get back to start? Count: \underline{\hspace{2cm}}}
+\drawbox{4.5cm}
+\task{Why is it \emph{exactly} that number? (Hint: connect the center to two
+next-door marks. What kind of triangle is that?)}
+\drawbox{2.2cm}
+
+\section*{Push further}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Bisect an angle} with only compass and straightedge.
+  \item \textbf{Build a square.}
+  \item \textbf{Competition gem.} Someone erased the center of a circle. Find it
+        again with compass and straightedge. (Hint: a chord's perpendicular
+        bisector passes through the center.)
+  \item \textbf{True or false?} You can build each of these with compass and
+        straightedge. Guess first, then ask.
+        \begin{itemize}
+          \item A regular pentagon (5 sides). \hfill T \quad / \quad F
+          \item A regular 7-sided polygon. \hfill T \quad / \quad F
+          \item Cutting any angle into three equal parts. \hfill T \quad / \quad F
+        \end{itemize}
+\end{enumerate}
+
+\end{document}

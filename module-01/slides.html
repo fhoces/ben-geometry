@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Module 1: Compass and Straightedge</title>
+    <meta charset="utf-8" />
+    <script src="slides_files/header-attrs-2.29/header-attrs.js"></script>
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Module 1: Compass and Straightedge
+]
+.subtitle[
+## The oldest game in math
+]
+
+---
+
+
+
+
+class: center, middle
+
+# Compass and Straightedge
+
+### The oldest game in math
+
+With one compass and one unmarked ruler, the ancient Greeks built perfect shapes
+more than 2000 years ago. No measuring.
+
+---
+
+# The whole game has two moves
+
+You may only ever do two things:
+
+--
+
+1. **Straightedge:** draw a straight line through two points.
+
+--
+
+2. **Compass:** draw a circle, given a center and a radius you set by placing the
+   two legs on two points.
+
+--
+
+That is it. Everything today is built from just these two moves. The ruler has
+numbers, but we never use them. It is only an edge.
+
+---
+
+# The hook
+
+Can you make a **perfect** equilateral triangle, where you are sure all three
+sides are exactly equal...
+
+--
+
+...without measuring a single thing?
+
+--
+
+Not "looks equal." *Forced* to be equal. Let's build it, then see why it must be.
+
+---
+
+# Build it (this is Euclid, Proposition 1)
+
+.pull-left[
+1. Draw a segment. Call the ends **A** and **B**.
+2. Compass point on **A**, pencil on **B**: draw a circle.
+3. Same width, point on **B**, pencil on **A**: draw a second circle.
+4. The circles cross. Call the top crossing **C**.
+5. Draw **AC** and **BC**.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/tri-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Why must the sides be equal?
+
+You never measured. So how do we *know*?
+
+--
+
+- **AB** is the radius of both circles (you never changed the width).
+- **AC** is a radius of the circle centered at A, so `AC = AB`.
+- **BC** is a radius of the circle centered at B, so `BC = AB`.
+
+--
+
+All three equal the same radius, so they equal each other.
+
+--
+
+This is not "close." It is **forced**, for *any* starting segment AB. That jump,
+from one drawing to every possible drawing, is what a **proof** is.
+
+---
+
+# Move 2: cut a segment exactly in half
+
+The perpendicular bisector. Same trick, twice:
+
+1. Compass point on **A**, opened past halfway, arc above and below.
+2. Same width, point on **B**, arcs crossing the first two.
+3. Draw the line through the two crossings.
+
+--
+
+That line cuts **AB** exactly in half **and** makes a perfect right angle, with no
+protractor.
+
+---
+
+# Move 3: the six-petal flower
+
+.pull-left[
+1. Draw a circle. **Do not change the compass width again.**
+2. Put the point anywhere on the circle, mark where the pencil crosses it.
+3. Walk to that mark, make the next one. Keep going.
+4. Count the steps back to start.
+
+It is **exactly six**, every time. Connect them: a perfect hexagon.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/hex-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Why *exactly* six?
+
+Connect the center to two next-door marks.
+
+--
+
+- Two of those sides are radii of the circle.
+- The third side is your fixed compass width... which is also that radius.
+
+--
+
+So every little triangle is **equilateral**, which means a **60 degree** angle at
+the center.
+
+--
+
+Angles all the way around the center add to **360**. And `360 / 60 = 6`.
+
+The hexagon falls out of one surprising fact: a regular hexagon's side equals the
+radius of the circle around it.
+
+---
+
+# Push further
+
+- **Bisect any angle** with the compass (hint: find two triangles that must be
+  identical).
+- **Build a square** using the perpendicular-bisector move twice.
+
+--
+
+- **The 2000-year cliffhanger.** Some shapes *can* be built and some *cannot*, and
+  it took until the 1800s to prove which:
+  - Pentagon (5 sides): **yes**. A 17-sided regular polygon: **yes** (Gauss, age 19).
+  - 7-sided regular polygon: **no**. Trisecting a general angle: **no**. Squaring
+    the circle: **no**.
+
+These are real theorems, not "nobody figured it out yet."
+
+---
+
+# Competition gem
+
+Someone hands you a circle but has **erased the center**. With only compass and
+straightedge, find the center.
+
+--
+
+Hint: any chord's perpendicular bisector passes through the center. How many
+chords do you need?
+
+---
+
+class: center, middle
+
+# Next up
+
+**Module 2:** tear the corners off any triangle. They always make a straight
+line. Why *always*? That is where proof really begins.
+
+Then play: **euclidea.xyz** turns these exact moves into puzzle levels.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

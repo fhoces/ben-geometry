@@ -1,0 +1,8 @@
+# LaTeX build cruft
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.toc

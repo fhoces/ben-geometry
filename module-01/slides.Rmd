@@ -1,0 +1,219 @@
+---
+title: "Module 1: Compass and Straightedge"
+subtitle: "The oldest game in math"
+output:
+  xaringan::moon_reader:
+    css: [default, default-fonts]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.align = "center", dev = "png",
+                      fig.width = 5, fig.height = 5, dpi = 150)
+blue   <- "#1769aa"
+orange <- "#c2410c"
+```
+
+class: center, middle
+
+# Compass and Straightedge
+
+### The oldest game in math
+
+With one compass and one unmarked ruler, the ancient Greeks built perfect shapes
+more than 2000 years ago. No measuring.
+
+---
+
+# The whole game has two moves
+
+You may only ever do two things:
+
+--
+
+1. **Straightedge:** draw a straight line through two points.
+
+--
+
+2. **Compass:** draw a circle, given a center and a radius you set by placing the
+   two legs on two points.
+
+--
+
+That is it. Everything today is built from just these two moves. The ruler has
+numbers, but we never use them. It is only an edge.
+
+---
+
+# The hook
+
+Can you make a **perfect** equilateral triangle, where you are sure all three
+sides are exactly equal...
+
+--
+
+...without measuring a single thing?
+
+--
+
+Not "looks equal." *Forced* to be equal. Let's build it, then see why it must be.
+
+---
+
+# Build it (this is Euclid, Proposition 1)
+
+.pull-left[
+1. Draw a segment. Call the ends **A** and **B**.
+2. Compass point on **A**, pencil on **B**: draw a circle.
+3. Same width, point on **B**, pencil on **A**: draw a second circle.
+4. The circles cross. Call the top crossing **C**.
+5. Draw **AC** and **BC**.
+]
+
+.pull-right[
+```{r tri, fig.width=5, fig.height=4.2}
+par(mar=c(0,0,0,0), pty="s")
+A <- c(0,0); B <- c(1,0); r <- 1
+t <- seq(0,2*pi,length.out=300)
+plot(NA, xlim=c(-1.15,2.15), ylim=c(-1.25,1.35), asp=1, axes=FALSE, xlab="", ylab="")
+lines(A[1]+r*cos(t), A[2]+r*sin(t), col="grey70")
+lines(B[1]+r*cos(t), B[2]+r*sin(t), col="grey70")
+C <- c(0.5, sqrt(3)/2)
+polygon(c(A[1],B[1],C[1]), c(A[2],B[2],C[2]), border=blue, lwd=4)
+points(rbind(A,B,C), pch=19, cex=1.3)
+text(A[1]-0.1,A[2]-0.05,"A", cex=1.4)
+text(B[1]+0.1,B[2]-0.05,"B", cex=1.4)
+text(C[1],C[2]+0.13,"C", cex=1.4)
+```
+]
+
+---
+
+# Why must the sides be equal?
+
+You never measured. So how do we *know*?
+
+--
+
+- **AB** is the radius of both circles (you never changed the width).
+- **AC** is a radius of the circle centered at A, so `AC = AB`.
+- **BC** is a radius of the circle centered at B, so `BC = AB`.
+
+--
+
+All three equal the same radius, so they equal each other.
+
+--
+
+This is not "close." It is **forced**, for *any* starting segment AB. That jump,
+from one drawing to every possible drawing, is what a **proof** is.
+
+---
+
+# Move 2: cut a segment exactly in half
+
+The perpendicular bisector. Same trick, twice:
+
+1. Compass point on **A**, opened past halfway, arc above and below.
+2. Same width, point on **B**, arcs crossing the first two.
+3. Draw the line through the two crossings.
+
+--
+
+That line cuts **AB** exactly in half **and** makes a perfect right angle, with no
+protractor.
+
+---
+
+# Move 3: the six-petal flower
+
+.pull-left[
+1. Draw a circle. **Do not change the compass width again.**
+2. Put the point anywhere on the circle, mark where the pencil crosses it.
+3. Walk to that mark, make the next one. Keep going.
+4. Count the steps back to start.
+
+It is **exactly six**, every time. Connect them: a perfect hexagon.
+]
+
+.pull-right[
+```{r hex, fig.width=5, fig.height=4.6}
+par(mar=c(0,0,0,0), pty="s")
+t <- seq(0,2*pi,length.out=300)
+plot(cos(t), sin(t), type="l", col="grey70", asp=1, axes=FALSE, xlab="", ylab="")
+ang <- seq(0, 2*pi, length.out=7)
+x <- cos(ang); y <- sin(ang)
+polygon(x, y, border=blue, lwd=4)
+segments(0,0, x[-7], y[-7], col=orange, lwd=2)
+points(x[-7], y[-7], pch=19, cex=1.3)
+points(0,0, pch=3, cex=1.6)
+```
+]
+
+---
+
+# Why *exactly* six?
+
+Connect the center to two next-door marks.
+
+--
+
+- Two of those sides are radii of the circle.
+- The third side is your fixed compass width... which is also that radius.
+
+--
+
+So every little triangle is **equilateral**, which means a **60 degree** angle at
+the center.
+
+--
+
+Angles all the way around the center add to **360**. And `360 / 60 = 6`.
+
+The hexagon falls out of one surprising fact: a regular hexagon's side equals the
+radius of the circle around it.
+
+---
+
+# Push further
+
+- **Bisect any angle** with the compass (hint: find two triangles that must be
+  identical).
+- **Build a square** using the perpendicular-bisector move twice.
+
+--
+
+- **The 2000-year cliffhanger.** Some shapes *can* be built and some *cannot*, and
+  it took until the 1800s to prove which:
+  - Pentagon (5 sides): **yes**. A 17-sided regular polygon: **yes** (Gauss, age 19).
+  - 7-sided regular polygon: **no**. Trisecting a general angle: **no**. Squaring
+    the circle: **no**.
+
+These are real theorems, not "nobody figured it out yet."
+
+---
+
+# Competition gem
+
+Someone hands you a circle but has **erased the center**. With only compass and
+straightedge, find the center.
+
+--
+
+Hint: any chord's perpendicular bisector passes through the center. How many
+chords do you need?
+
+---
+
+class: center, middle
+
+# Next up
+
+**Module 2:** tear the corners off any triangle. They always make a straight
+line. Why *always*? That is where proof really begins.
+
+Then play: **euclidea.xyz** turns these exact moves into puzzle levels.
