@@ -18,11 +18,6 @@ blue   <- "#1769aa"
 orange <- "#c2410c"
 ```
 
-```{css, echo=FALSE}
-.code-demo .remark-code { font-size: 0.55em; }
-.remark-slide-content { padding: 1em 2em; }
-```
-
 class: center, middle
 
 # Compass and Straightedge
@@ -119,38 +114,18 @@ from one drawing to every possible drawing, is what a **proof** is.
 
 ---
 
-class: code-demo
-
 # Move 2: cut a segment exactly in half
 
-.pull-left[
-This is the same construction, drawn in R. Every line is one of the two moves:
-`lines(...)` is a compass arc, `segments(...)` is a straightedge line.
+The perpendicular bisector. Same trick, twice:
 
-```{r bisect-code, echo=TRUE, eval=FALSE}
-A <- c(0, 0); B <- c(2, 0)   # the segment
-r <- 1.3                     # compass past halfway
-t <- seq(0, 2*pi, length.out = 200)  # 200 angles around the circle
-plot(NA, asp = 1, axes = FALSE, ann = FALSE,
-     xlim = c(-.7, 2.7), ylim = c(-1.7, 1.7))
-for (C in list(A, B))        # the two arcs
-  lines(C[1] + r*cos(t),
-        C[2] + r*sin(t), col = "grey70")
-segments(0, 0, 2, 0, lwd = 3)   # the segment AB
-h <- sqrt(r^2 - 1)              # arcs meet at x = 1
-segments(1, h, 1, -h, col = blue, lwd = 3)
-points(rbind(A, B), pch = 19)
-text(c(0, 2), -0.3, c("A", "B"))
-```
-]
+1. Compass point on **A**, opened past halfway, arc above and below.
+2. Same width, point on **B**, arcs crossing the first two.
+3. Draw the line through the two crossings.
 
-.pull-right[
-The blue line through the two arc crossings cuts **AB** exactly in half **and**
-makes a perfect right angle, with no protractor.
+--
 
-```{r bisect-fig, ref.label="bisect-code", echo=FALSE, fig.width=4, fig.height=3.6, out.width="86%"}
-```
-]
+That line cuts **AB** exactly in half **and** makes a perfect right angle, with no
+protractor.
 
 ---
 
