@@ -23,6 +23,10 @@ class: center, middle, inverse, title-slide
 
 
 
+&lt;style type="text/css"&gt;
+.why { clear: both; margin-top: 0.1em; font-size: 85%; }
+&lt;/style&gt;
+
 class: center, middle
 
 # Compass and Straightedge
@@ -71,6 +75,10 @@ Not "looks equal." *Forced* to be equal. Let's build it, then see why it must be
 
 # Build it (this is Euclid, Proposition 1)
 
+**How do you *force* three equal sides, not just eyeball them? Two circles do it.**
+
+--
+
 .pull-left[
 1. Draw a segment. Call the ends **A** and **B**.
 2. Compass point on **A**, pencil on **B**: draw a circle.
@@ -78,6 +86,8 @@ Not "looks equal." *Forced* to be equal. Let's build it, then see why it must be
 4. The circles cross. Call the top crossing **C**.
 5. Draw **AC** and **BC**.
 ]
+
+--
 
 .pull-right[
 &lt;img src="slides_files/figure-html/tri-1.png" style="display: block; margin: auto;" /&gt;
@@ -87,7 +97,7 @@ Not "looks equal." *Forced* to be equal. Let's build it, then see why it must be
 
 # Why must the sides be equal?
 
-You never measured. So how do we *know*?
+**You never measured. So how do we *know* all three came out equal?**
 
 --
 
@@ -108,37 +118,70 @@ from one drawing to every possible drawing, is what a **proof** is.
 
 # Move 2: cut a segment exactly in half
 
-The perpendicular bisector. Same trick, twice:
-
-1. Compass point on **A**, opened past halfway, arc above and below.
-2. Same width, point on **B**, arcs crossing the first two.
-3. Draw the line through the two crossings.
+**Can you find the exact middle of a segment, no ruler markings, and be *sure*
+it is exact?**
 
 --
 
-That line cuts **AB** exactly in half **and** makes a perfect right angle, with no
-protractor.
+.pull-left[
+Same trick as the triangle, done twice:
+
+1. Compass point on **A**, opened past halfway: arc above and below.
+2. Same width, point on **B**: arcs crossing the first two.
+3. Draw the line through the two crossings.
+]
+
+--
+
+.pull-right[
+&lt;img src="slides_files/figure-html/bisect-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.why[
+**Why it is exact (no rhombus needed).** Both crossings **P**, **Q** sit one
+compass-width from **A** and **B**. Triangles **PAQ** and **PBQ** match
+side-for-side (SSS), so **PQ** halves the angle at **P**. Then **APM** and **BPM**
+share **PM**, have **PA = PB** and equal angles at **P**: congruent, so **AM = BM**
+and the angles at **M** are equal, hence each a **right angle**.
+]
 
 ---
 
-# Move 3: the six-petal flower
+# Move 3: walk the compass around a circle
+
+**Keep one compass width and step it around a circle, marking as you go. How many
+marks until you land back on the start?**
+
+--
 
 .pull-left[
 1. Draw a circle. **Do not change the compass width again.**
 2. Put the point anywhere on the circle, mark where the pencil crosses it.
 3. Walk to that mark, make the next one. Keep going.
 4. Count the steps back to start.
-
-It is **exactly six**, every time. Connect them: a perfect hexagon.
 ]
+
+--
 
 .pull-right[
 &lt;img src="slides_files/figure-html/hex-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
+--
+
+.why[
+**Exactly six, every time.** Connect the marks and you have a perfect hexagon.
+]
+
 ---
 
 # Why *exactly* six?
+
+**Six every time, never five or seven. What forces the count?**
+
+--
 
 Connect the center to two next-door marks.
 

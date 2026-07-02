@@ -71,6 +71,11 @@ We will do it three ways. Same fact, three pictures. Pick your favorite.
 
 # Proof 1: the tilted square
 
+**Slot four copies of the triangle into the corners of a square of side `a + b`.
+Count that square's area two ways: what has to match?**
+
+--
+
 .pull-left[
 Big square, side `a + b`. Drop a copy of the triangle into each corner.
 
@@ -82,6 +87,8 @@ Area two ways:
 - Pieces: `4 (1/2 ab) + c^2 = 2ab + c^2`
 ]
 
+--
+
 .pull-right[
 &lt;img src="slides_files/figure-html/rearr-1.png" style="display: block; margin: auto;" /&gt;
 ]
@@ -89,6 +96,11 @@ Area two ways:
 ---
 
 # Proof 1 finishes itself
+
+**We counted one square two ways. Set the two counts equal: what cancels, and
+what is left?**
+
+--
 
 The two areas are the same square, so:
 
@@ -113,6 +125,11 @@ proof.
 
 # Proof 2: Garfield's trapezoid
 
+**Two triangle-copies lean together into a trapezoid. What is the piece wedged
+between them forced to be?**
+
+--
+
 .pull-left[
 Found by James Garfield in 1876, **five years before** he became US president.
 
@@ -123,6 +140,8 @@ right triangle with both legs `c`.
 - As three triangles: `(1/2)ab + (1/2)ab + (1/2)c^2`
 ]
 
+--
+
 .pull-right[
 &lt;img src="slides_files/figure-html/garfield-1.png" style="display: block; margin: auto;" /&gt;
 ]
@@ -130,6 +149,11 @@ right triangle with both legs `c`.
 ---
 
 # Proof 2 finishes itself
+
+**Set the trapezoid's two counts equal and tidy up. Does a president's doodle
+land anywhere different from Euclid?**
+
+--
 
 Set the two areas equal and multiply by 2:
 
@@ -155,13 +179,19 @@ A president's doodle lands in the exact same place as Euclid's tilted square.
 
 # Proof 3: similar triangles
 
-Drop a line from the right-angle corner straight down onto the hypotenuse. It
-splits `c` into two pieces, `p` and `q`, with `p + q = c`.
+**Forget squares. Drop one line from the right-angle corner onto the hypotenuse.
+Can two smaller triangles finish the proof on their own?**
 
 --
 
-Each small triangle is a **shrunk copy** of the whole one (same three angles).
-Matching sides of similar triangles gives:
+That line splits `c` into two pieces, `p` and `q`, with `p + q = c`.
+
+--
+
+Each small triangle has the same three angles as the whole one (each keeps a
+right angle and shares one more, so the third matches too, since a triangle's
+angles sum to 180). Same angles means a **shrunk copy**, so its sides shrink by
+one fixed factor, which forces:
 
 ```
 a^2 = c * p          b^2 = c * q
@@ -175,7 +205,7 @@ Add them:
 a^2 + b^2 = c*p + c*q = c(p + q) = c^2
 ```
 
-No cutting, no area counting. Two similar triangles and one addition.
+No cutting, no area counting. Two shrunk copies and one addition.
 
 ---
 
@@ -224,11 +254,12 @@ It never fails, because
 
 # Competition gem: the converse
 
-The theorem says: right angle `=&gt;` `a^2 + b^2 = c^2`.
+**The theorem turns a right angle into `a^2 + b^2 = c^2`. Does that arrow run
+backwards too?**
 
 --
 
-The **converse** runs the arrow backwards: if `a^2 + b^2 = c^2`, then the angle
+The **converse** claims it does: if `a^2 + b^2 = c^2`, then the angle
 opposite `c` *must* be a right angle.
 
 --
@@ -238,9 +269,9 @@ why builders have trusted it for thousands of years.
 
 --
 
-**Prove it.** Build a fresh right triangle with legs `a` and `b`; its hypotenuse
-is `c`, so it has the same three sides as yours, so the triangles are congruent,
-so your angle is right too.
+**Prove it.** Build a fresh right triangle with legs `a` and `b`; by the forward
+theorem its hypotenuse is `c`, so it has the same three sides as yours, so the two
+triangles are congruent (SSS), so your angle is right too.
 
 ---
 

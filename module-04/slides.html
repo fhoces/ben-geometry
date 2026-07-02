@@ -23,6 +23,10 @@ class: center, middle, inverse, title-slide
 
 
 
+&lt;style type="text/css"&gt;
+.why { clear: both; margin-top: 0.1em; font-size: 85%; }
+&lt;/style&gt;
+
 class: center, middle
 
 # Tilings
@@ -82,24 +86,39 @@ about what happens at one **meeting-point**.
 
 # The key question: one vertex
 
+**Zoom in on any point where tile corners meet. What has to be true about all the angles crowding around that one point?**
+
+--
+
 .pull-left[
-Zoom in on any point where corners meet. To leave **no gap and no overlap**, the
-corners crowding around that point must sweep the **whole turn**:
+To leave **no gap and no overlap**, the corners around that point must sweep the
+**whole turn**:
 
 `$$\text{they add to exactly } 360^\circ.$$`
 
 Three hexagon corners do it: `120 + 120 + 120 = 360`.
-
-So the question becomes: **whose corner angle divides 360 evenly?**
 ]
+
+--
 
 .pull-right[
 &lt;img src="slides_files/figure-html/v360-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
+--
+
+.why[
+So the whole puzzle shrinks to one arithmetic question: **whose corner angle
+divides 360 evenly?**
+]
+
 ---
 
 # The corner angle of a regular n-gon
+
+**To test any shape, we need one number first: how wide is a single corner of a regular n-gon?**
+
+--
 
 From **Module 02**: the angles inside an n-gon add to `(n - 2) * 180`.
 
@@ -115,6 +134,8 @@ A *regular* n-gon shares that total evenly over its n corners:
 |---|---|---|---|---|---|
 | corner | 60 | 90 | 108 | 120 | 128.57... |
 
+--
+
 For `k` copies to fit snugly around a point: `k * (corner) = 360`, so the corner
 must **divide 360 evenly**.
 
@@ -122,7 +143,7 @@ must **divide 360 evenly**.
 
 # Why must it be exactly those three?
 
-Check which corner angles divide 360:
+**Which corner angles actually divide 360, and could any shape bigger than a hexagon sneak in?**
 
 --
 
@@ -145,20 +166,30 @@ reach `360`. Only `60, 90, 120` divide 360. **Exactly three tilings.**
 
 # The pentagon's gap, up close
 
+**Three pentagons crowd a point but do not quite close. Exactly how much is left over, and can a fourth one fill it?**
+
+--
+
 .pull-left[
 Three regular pentagons around a point:
 
 `$$108 + 108 + 108 = 324.$$`
 
-That leaves a `360 - 324 = 36^\circ` wedge. A fourth pentagon needs `108` but
-only `36` is left, so it overlaps.
-
-There is no whole number of `108`s that hits `360`. The gap is **forced**, for
-the same reason the three winners are forced.
+That leaves a `\(360 - 324 = 36^\circ\)` wedge. A fourth pentagon needs `\(108^\circ\)` but
+only `\(36^\circ\)` is left, so it overlaps.
 ]
+
+--
 
 .pull-right[
 &lt;img src="slides_files/figure-html/pgap-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.why[
+There is no whole number of `108`s that hits `360`. The gap is **forced**, for
+the same reason the three winners are forced.
 ]
 
 ---

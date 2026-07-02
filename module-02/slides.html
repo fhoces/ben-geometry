@@ -23,6 +23,10 @@ class: center, middle, inverse, title-slide
 
 
 
+&lt;style type="text/css"&gt;
+.why { clear: both; margin-top: 0.1em; font-size: 85%; }
+&lt;/style&gt;
+
 class: center, middle
 
 # Why every triangle adds up to 180
@@ -36,6 +40,11 @@ together into one straight line. Always. Why *always*?
 
 # The experiment
 
+**Tear the three corners off any triangle and slide them together, points
+touching. What do the three corners make?**
+
+--
+
 .pull-left[
 1. Draw three triangles that look nothing alike: a long skinny one, a fat one, a
    pointy one.
@@ -44,12 +53,18 @@ together into one straight line. Always. Why *always*?
 4. Slide the torn corners together, points touching.
 ]
 
+--
+
 .pull-right[
 &lt;img src="slides_files/figure-html/tear-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
+--
+
+.why[
 The three corners fill exactly a straight angle. A straight line is **180
 degrees**, so the three angles add to 180.
+]
 
 ---
 
@@ -76,6 +91,11 @@ and this is where it starts.
 
 # First, a smaller fact: the "Z" rule
 
+**Two parallel lines, one slanted line crossing both, makes a Z. What is true
+about the two angles tucked inside the Z?**
+
+--
+
 .pull-left[
 Two **parallel** lines (use both edges of your ruler). One slanted line crossing
 both makes a **Z**.
@@ -86,15 +106,26 @@ of the slant, are **equal**.
 This is the **alternate angles** rule. It is *the* fact about parallel lines.
 ]
 
+--
+
 .pull-right[
 &lt;img src="slides_files/figure-html/zrule-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
+--
+
+.why[
 Slide one marked angle along the slant until it lands on the other: they match.
+]
 
 ---
 
 # Now the proof
+
+**To prove it for every triangle at once, what one line should you add through
+vertex A?**
+
+--
 
 .pull-left[
 Take any triangle **ABC**. Through the top vertex **A**, draw a line **parallel
@@ -105,6 +136,8 @@ Three angles sit along that straight line at A: **x**, the apex angle **A**, and
 
 `$$x + A + y = 180.$$`
 ]
+
+--
 
 .pull-right[
 &lt;img src="slides_files/figure-html/proof-1.png" style="display: block; margin: auto;" /&gt;
@@ -122,6 +155,11 @@ Now the **Z rule**, twice:
 ---
 
 # The leap
+
+**We have `x + A + y = 180` along the line at A. How does that become a fact
+about the triangle's own three angles?**
+
+--
 
 Start from the straight line at A:
 
@@ -145,7 +183,12 @@ and they worked" to "it is *impossible* for one to fail."
 
 ---
 
-# More sides? Split into triangles
+# What about polygons with more sides?
+
+**You proved a triangle is 180. What does a four-sided shape add to? A
+five-sided? An n-sided one?**
+
+--
 
 .pull-left[
 Any polygon cuts into triangles from one corner.
@@ -158,18 +201,24 @@ An **n**-sided polygon makes `\(n - 2\)` triangles:
 `$$(n - 2) \times 180.$$`
 ]
 
+--
+
 .pull-right[
 &lt;img src="slides_files/figure-html/poly-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
+--
+
+.why[
 Have Ben derive the formula himself by drawing the cuts.
+]
 
 ---
 
 # The walking-turtle trick
 
-Imagine walking all the way around the outside of any polygon and back to your
-start, facing your original direction.
+**Walk all the way around the outside of any polygon, back to your start,
+facing the way you began. How much have you turned in total?**
 
 --
 

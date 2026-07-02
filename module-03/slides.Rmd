@@ -18,6 +18,10 @@ blue   <- "#1769aa"
 orange <- "#c2410c"
 ```
 
+```{css, echo=FALSE}
+.why { clear: both; margin-top: 0.1em; font-size: 85%; }
+```
+
 class: center, middle
 
 # Circle Secrets
@@ -53,25 +57,22 @@ about how those two angles are related.
 
 # The hook: Thales
 
+**Stand at any point on a circle's rim and look at the two ends of a diameter.
+What angle do you see there, and does moving the point change it?**
+
+--
+
 .pull-left[
-Draw a diameter **AB**. Pick any point **P** on the circle and join it to A and B.
-
---
-
-Measure angle **APB**: it is **90 degrees**.
-
---
-
-Move P anywhere else on the rim. Still 90. High, low, near the edge.
-
---
-
-The angle "standing on a diameter" is *always* a right angle. Why can it never be
-88 or 93?
+1. Draw a diameter **AB**.
+2. Pick any point **P** on the circle and join it to A and B.
+3. Measure the angle **APB**.
+4. Now slide **P** somewhere else and measure again.
 ]
 
+--
+
 .pull-right[
-```{r thales, fig.width=5, fig.height=4.6}
+```{r thales, fig.width=5, fig.height=3.5}
 par(mar=c(0,0,0,0), pty="s")
 t <- seq(0, 2*pi, length.out=300)
 plot(cos(t), sin(t), type="l", col="grey70", asp=1, axes=FALSE, xlab="", ylab="",
@@ -94,28 +95,34 @@ text(cos(100*pi/180)-0.04, sin(100*pi/180)+0.13, "P", cex=1.3)
 ```
 ]
 
+--
+
+.why[
+It is **90 degrees**, every time: high, low, near the edge. The angle "standing on
+a diameter" is *always* a right angle. Why can it never be 88 or 93?
+]
+
 ---
 
 # The bigger secret
 
+**Forget the diameter. Put A and B *anywhere* on the circle. The center sees them
+at one angle and a rim point sees them at another. How are those two angles
+related?**
+
+--
+
 .pull-left[
-Forget the diameter. Put **A** and **B** *anywhere* on the circle.
-
-- Draw the **center angle AOB**.
-- Pick **P** on the longer arc and draw the **rim angle APB**.
-
---
-
-The rim angle is exactly **half** the center angle.
-
---
-
-If the center angle is **2t**, the rim angle is **t**. The diameter was just the
-special case where the center angle was a straight 180.
+1. Put **A** and **B** anywhere on the circle.
+2. Draw the **center angle AOB**.
+3. Pick **P** on the longer arc and draw the **rim angle APB**.
+4. Compare the two.
 ]
 
+--
+
 .pull-right[
-```{r rim, fig.width=5, fig.height=4.6}
+```{r rim, fig.width=5, fig.height=3.5}
 par(mar=c(0,0,0,0), pty="s")
 d2r <- function(d) d * pi/180
 t <- seq(0, 2*pi, length.out=300)
@@ -139,9 +146,22 @@ text(0, -0.2, "2t", col=orange, cex=1.2)
 ```
 ]
 
+--
+
+.why[
+The rim angle is exactly **half** the center angle. If the center angle is **2t**,
+the rim angle is **t**. The diameter was just the special case where the center
+angle was a straight 180.
+]
+
 ---
 
 # Why must it be true?
+
+**You measured it and it held. But measuring is not proving. What forces the rim
+angle to be exactly half, for every position of P?**
+
+--
 
 .pull-left[
 Take the clean case: the line **PO** runs through the center to the far point
@@ -149,16 +169,16 @@ Take the clean case: the line **PO** runs through the center to the far point
 
 - **OA** and **OP** are both radii, so triangle **OAP** is **isosceles**.
 - Equal sides face equal angles, so angle OPA = angle OAP. Call each **t**.
-- The center angle **AOB** is the *exterior* angle of the triangle at O, so it
-  equals t + t = **2t**.
+- Those three angles of triangle OAP add to 180 (you proved this in Module 2), so
+  angle AOP = 180 - 2t.
+- Angles AOP and AOB share the straight line PB, so they add to 180 too. Hence
+  angle AOB = 180 - (180 - 2t) = **2t**.
+]
 
 --
 
-Rim angle = **t**. Center angle = **2t**. The rim is half the center.
-]
-
 .pull-right[
-```{r proof, fig.width=5, fig.height=4.6}
+```{r proof, fig.width=5, fig.height=3.4}
 par(mar=c(0,0,0,0), pty="s")
 d2r <- function(d) d * pi/180
 t <- seq(0, 2*pi, length.out=300)
@@ -180,9 +200,21 @@ text(-0.16, -0.26, "2t", col=orange, cex=1.1)
 ```
 ]
 
+--
+
+.why[
+Since O sits on PB, the rim angle APB is just angle OPA = **t**. Center angle =
+**2t**. The rim is half the center.
+]
+
 ---
 
 # Thales falls out for free
+
+**We just proved the rim angle is half the center angle. So what does that force
+Thales's right angle to be?**
+
+--
 
 When A and B are the ends of a **diameter**, the center angle AOB is a straight
 line: **180 degrees**.
@@ -198,24 +230,24 @@ center angle stretched flat. One theorem, both facts.
 
 ---
 
-# Same arc, same angle
+# Slide the rim point along the arc
+
+**Move P to a new spot Q on the same arc and look at AB again. Does the angle it
+sees AB at get bigger, get smaller, or stay put?**
+
+--
 
 .pull-left[
-Every rim point on the same arc sees the *same* center angle AOB. The center O
-never moves.
-
---
-
-Half of one fixed thing is one fixed thing.
-
---
-
-So **every** point on that arc sees AB at the **same** angle: APB = AQB, no matter
-where P and Q sit on the arc.
+1. Keep A and B fixed; the center O never moves.
+2. So the center angle AOB is one fixed size.
+3. Any rim point on the arc sees AB as an inscribed angle, half of that fixed
+   center angle.
 ]
 
+--
+
 .pull-right[
-```{r samearc, fig.width=5, fig.height=4.6}
+```{r samearc, fig.width=5, fig.height=3.5}
 par(mar=c(0,0,0,0), pty="s")
 d2r <- function(d) d * pi/180
 t <- seq(0, 2*pi, length.out=300)
@@ -237,28 +269,32 @@ text(Q[1]+0.1,  Q[2]+0.1,  "Q", cex=1.3)
 ```
 ]
 
+--
+
+.why[
+Half of one fixed thing is one fixed thing, so **every** point on the arc sees AB
+at the **same** angle: APB = AQB, wherever P and Q sit on the arc.
+]
+
 ---
 
 # Push further: cyclic quadrilaterals
 
+**Put four points on a circle and join them in order. Pick two opposite corners
+and add their angles. What do you always get?**
+
+--
+
 .pull-left[
-Put four points on a circle and join them into a quadrilateral.
-
---
-
-**Opposite angles add to 180.**
-
-Each corner is an inscribed angle. The arcs they stand on pair up to cover the
-whole circle, and the whole circle is 360. Half of 360 is 180.
-
---
-
-"These four points lie on one circle" is one of the most powerful things to spot
-in a contest problem, and this is exactly why.
+- Each corner is an inscribed angle, half the arc it stands on.
+- Two opposite corners stand on the two arcs that together cover the whole
+  circle.
 ]
 
+--
+
 .pull-right[
-```{r cyclic, fig.width=5, fig.height=4.6}
+```{r cyclic, fig.width=5, fig.height=3.5}
 par(mar=c(0,0,0,0), pty="s")
 d2r <- function(d) d * pi/180
 t <- seq(0, 2*pi, length.out=300)
@@ -271,6 +307,14 @@ points(V, pch=19, cex=1.2)
 labs <- c("A","B","C","D")
 for (i in 1:4) text(V[i,1]*1.16, V[i,2]*1.16, labs[i], cex=1.3)
 ```
+]
+
+--
+
+.why[
+**Opposite angles add to 180.** The two arcs cover the whole circle (360), and
+half of 360 is 180. "These four points lie on one circle" is one of the most
+powerful things to spot in a contest problem, and this is exactly why.
 ]
 
 ---
