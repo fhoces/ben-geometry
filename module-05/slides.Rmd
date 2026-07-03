@@ -326,8 +326,9 @@ why builders have trusted it for thousands of years.
 --
 
 **Prove it.** Build a fresh right triangle with legs `a` and `b`; by the forward
-theorem its hypotenuse is `c`, so it has the same three sides as yours, so the two
-triangles are congruent (SSS), so your angle is right too.
+theorem its hypotenuse is `c`, so it has the same three sides as yours. Two
+triangles with the same three sides are exact copies, so your angle must match
+its right angle.
 
 ---
 

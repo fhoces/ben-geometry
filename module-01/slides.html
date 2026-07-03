@@ -25,6 +25,8 @@ class: center, middle, inverse, title-slide
 
 &lt;style type="text/css"&gt;
 .why { clear: both; margin-top: 0.1em; font-size: 85%; }
+.red { color: #c0392b; font-weight: bold; }
+.grn { color: #1b7a3d; font-weight: bold; }
 &lt;/style&gt;
 
 class: center, middle
@@ -134,17 +136,81 @@ Same trick as the triangle, done twice:
 --
 
 .pull-right[
-&lt;img src="slides_files/figure-html/bisect-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/bisect0-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
---
+---
 
-.why[
-**Why it is exact (no rhombus needed).** Both crossings **P**, **Q** sit one
-compass-width from **A** and **B**. Triangles **PAQ** and **PBQ** match
-side-for-side (SSS), so **PQ** halves the angle at **P**. Then **APM** and **BPM**
-share **PM**, have **PA = PB** and equal angles at **P**: congruent, so **AM = BM**
-and the angles at **M** are equal, hence each a **right angle**.
+# Move 2: cut a segment exactly in half
+
+**Why is it exact? No measuring happened, so we prove it.**
+
+.pull-left[
+- The red segments .red[PA], .red[PB], .red[QA], .red[QB] are each exactly one
+  **radius** long: that is how the two arcs were drawn.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/bisect1-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Move 2: cut a segment exactly in half
+
+**Why is it exact? No measuring happened, so we prove it.**
+
+.pull-left[
+- The red segments PA, PB, QA, QB are each one **radius** long.
+- So triangle .red[PAQ] and triangle .grn[PBQ] have the same three sides, which
+  forces them to be exact copies (mirror images). That makes **PQ** cut the angle
+  at **P** (the angle **APB**, between **PA** and **PB**) into two equal halves.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/bisect2-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Move 2: cut a segment exactly in half
+
+**A tool we need: why do two sides plus the angle between them fix a triangle?**
+
+.pull-left[
+Think of the two sides as sticks joined at a corner **P**, like a hinge.
+
+- Leave the hinge loose and the far end swings (dashed): the third side gets
+  longer or shorter, a *different* triangle each time.
+- Fix the angle at the hinge and both far ends are locked. The third side has no
+  choice left.
+
+So two sides with a **fixed angle between them** allow exactly **one** triangle.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/hinge-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Move 2: cut a segment exactly in half
+
+**Why is it exact? No measuring happened, so we prove it.**
+
+.pull-left[
+- The red segments PA, PB, QA, QB are each one **radius** long.
+- Triangles PAQ and PBQ have the same three sides, so **PQ** halves the angle at **P**.
+- Now triangle .red[APM] and triangle .grn[BPM] have two matching sides (shared
+  **PM**, and **PA = PB**) with the **same angle at P** between them, so by the
+  hinge rule they are exact copies.
+- Exact copies have equal parts: **AM = BM**, so **M** is the midpoint. Their angles
+  at **M** are equal too, and since **A, M, B** lie on a straight line those two
+  angles add to 180, so each must be a **right angle**.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/bisect3-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---

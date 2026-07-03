@@ -16,10 +16,77 @@ knitr::opts_chunk$set(echo = FALSE, fig.align = "center", dev = "png",
                       fig.width = 5, fig.height = 5, dpi = 150)
 blue   <- "#1769aa"
 orange <- "#c2410c"
+red_c  <- "#c0392b"
+grn_c  <- "#1b7a3d"
+
+# Perpendicular-bisector figure. step 0 = plain construction; steps 1-3 add the
+# colored highlights that match the proof bullets on the build slides.
+draw_bisect <- function(step = 0) {
+  par(mar=c(0,0,0,0), pty="s")
+  A <- c(0,0); B <- c(2,0); r <- 1.3; M <- c(1,0)
+  yc <- sqrt(r^2 - 1); P <- c(1, yc); Q <- c(1, -yc)
+  plot(NA, xlim=c(-0.55,2.55), ylim=c(-1.3,1.4), asp=1, axes=FALSE, xlab="", ylab="")
+  aA <- seq(-52, 52, length.out=120) * pi/180
+  lines(A[1]+r*cos(aA), A[2]+r*sin(aA), col="grey75", lwd=2)
+  aB <- seq(128, 232, length.out=120) * pi/180
+  lines(B[1]+r*cos(aB), B[2]+r*sin(aB), col="grey75", lwd=2)
+  segments(A[1],A[2], B[1],B[2], col="grey30", lwd=3)
+  segments(M[1], -1.05, M[1], 1.1, col=blue, lwd=4)
+  sq <- 0.13
+  polygon(c(1,1+sq,1+sq,1), c(0,0,sq,sq), border=orange, lwd=2)
+  segments(0.5,-0.07,0.5,0.07, col=orange, lwd=2)
+  segments(1.5,-0.07,1.5,0.07, col=orange, lwd=2)
+  if (step == 1) {
+    for (X in list(A,B)) segments(P[1],P[2],X[1],X[2], col=red_c, lwd=3)
+    for (X in list(A,B)) segments(Q[1],Q[2],X[1],X[2], col=red_c, lwd=3)
+  }
+  if (step == 2) {
+    polygon(c(P[1],A[1],Q[1]), c(P[2],A[2],Q[2]), border=red_c, lwd=3, col=adjustcolor(red_c,0.10))
+    polygon(c(P[1],B[1],Q[1]), c(P[2],B[2],Q[2]), border=grn_c, lwd=3, col=adjustcolor(grn_c,0.10))
+  }
+  if (step == 3) {
+    polygon(c(A[1],P[1],M[1]), c(A[2],P[2],M[2]), border=red_c, lwd=3, col=adjustcolor(red_c,0.12))
+    polygon(c(B[1],P[1],M[1]), c(B[2],P[2],M[2]), border=grn_c, lwd=3, col=adjustcolor(grn_c,0.12))
+  }
+  points(rbind(A,B), pch=19, cex=1.3)
+  points(rbind(P,Q), pch=19, cex=1.0, col="grey30")
+  points(M[1],M[2], pch=19, cex=1.0, col=blue)
+  text(A[1]-0.14, -0.02, "A", cex=1.4)
+  text(B[1]+0.14, -0.02, "B", cex=1.4)
+  text(0.82, -0.16, "M", cex=1.2, col=blue)
+  text(1.17, yc+0.03, "P", cex=1.2, col="grey30")
+  text(1.17, -yc-0.03, "Q", cex=1.2, col="grey30")
+}
+
+# Hinge illustration for the "two sides + the angle between them" rule.
+# Solid = the fixed triangle; dashed ghost = a different hinge angle, different triangle.
+draw_hinge <- function() {
+  par(mar=c(0,0,0,0), pty="s")
+  P <- c(0,0); La <- 1.7; Lm <- 1.25
+  A <- P + c(La, 0)
+  th1 <- 52*pi/180; M  <- P + Lm*c(cos(th1), sin(th1))
+  th2 <- 88*pi/180; M2 <- P + Lm*c(cos(th2), sin(th2))
+  plot(NA, xlim=c(-0.15,1.95), ylim=c(-0.35,1.5), asp=1, axes=FALSE, xlab="", ylab="")
+  segments(P[1],P[2], M2[1],M2[2], col=adjustcolor(grn_c,0.35), lwd=3, lty=2)
+  segments(A[1],A[2], M2[1],M2[2], col="grey65", lwd=2, lty=2)
+  points(M2[1],M2[2], pch=1, cex=1.1, col=adjustcolor(grn_c,0.6))
+  text(M2[1]-0.14, M2[2]+0.06, "M?", cex=1.0, col=adjustcolor(grn_c,0.75))
+  segments(P[1],P[2], A[1],A[2], col=red_c, lwd=4)
+  segments(P[1],P[2], M[1],M[2], col=grn_c, lwd=4)
+  segments(A[1],A[2], M[1],M[2], col="grey40", lwd=3)
+  aa <- seq(0, th1, length.out=40); rr <- 0.34
+  lines(P[1]+rr*cos(aa), P[2]+rr*sin(aa), col="grey30", lwd=2)
+  points(rbind(P,A,M), pch=19, cex=1.1)
+  text(P[1]-0.02, P[2]-0.15, "P", cex=1.3)
+  text(A[1]+0.08, A[2]-0.02, "A", cex=1.3)
+  text(M[1]+0.07, M[2]+0.07, "M", cex=1.3)
+}
 ```
 
 ```{css, echo=FALSE}
 .why { clear: both; margin-top: 0.1em; font-size: 85%; }
+.red { color: #c0392b; font-weight: bold; }
+.grn { color: #1b7a3d; font-weight: bold; }
 ```
 
 class: center, middle
@@ -142,45 +209,91 @@ Same trick as the triangle, done twice:
 --
 
 .pull-right[
-```{r bisect, fig.width=5, fig.height=3.3}
-par(mar=c(0,0,0,0), pty="s")
-A <- c(0,0); B <- c(2,0); r <- 1.3
-M <- c(1,0)
-yc <- sqrt(r^2 - 1)
-Ptop <- c(1, yc); Pbot <- c(1, -yc)
-plot(NA, xlim=c(-0.55,2.55), ylim=c(-1.3,1.4), asp=1, axes=FALSE, xlab="", ylab="")
-# equal-width arcs from A and B (grey construction marks)
-aA <- seq(-52, 52, length.out=120) * pi/180
-lines(A[1]+r*cos(aA), A[2]+r*sin(aA), col="grey70", lwd=2)
-aB <- seq(128, 232, length.out=120) * pi/180
-lines(B[1]+r*cos(aB), B[2]+r*sin(aB), col="grey70", lwd=2)
-# the given segment, then the bisector through the two crossings
-segments(A[1],A[2], B[1],B[2], col="grey30", lwd=3)
-segments(M[1], -1.05, M[1], 1.1, col=blue, lwd=4)
-# right-angle mark and equal-half ticks
-sq <- 0.13
-polygon(c(1, 1+sq, 1+sq, 1), c(0, 0, sq, sq), border=orange, lwd=2)
-segments(0.5,-0.07, 0.5,0.07, col=orange, lwd=2)
-segments(1.5,-0.07, 1.5,0.07, col=orange, lwd=2)
-points(rbind(A,B), pch=19, cex=1.3)
-points(rbind(Ptop,Pbot), pch=19, cex=1.0, col="grey30")
-points(M[1],M[2], pch=19, cex=1.0, col=blue)
-text(A[1]-0.14, -0.02, "A", cex=1.4)
-text(B[1]+0.14, -0.02, "B", cex=1.4)
-text(0.82, -0.16, "M", cex=1.2, col=blue)
-text(1.17, yc+0.03, "P", cex=1.2, col="grey30")
-text(1.17, -yc-0.03, "Q", cex=1.2, col="grey30")
+```{r bisect0, fig.width=5, fig.height=3.8}
+draw_bisect(0)
 ```
 ]
 
---
+---
 
-.why[
-**Why it is exact (no rhombus needed).** Both crossings **P**, **Q** sit one
-compass-width from **A** and **B**. Triangles **PAQ** and **PBQ** match
-side-for-side (SSS), so **PQ** halves the angle at **P**. Then **APM** and **BPM**
-share **PM**, have **PA = PB** and equal angles at **P**: congruent, so **AM = BM**
-and the angles at **M** are equal, hence each a **right angle**.
+# Move 2: cut a segment exactly in half
+
+**Why is it exact? No measuring happened, so we prove it.**
+
+.pull-left[
+- The red segments .red[PA], .red[PB], .red[QA], .red[QB] are each exactly one
+  **radius** long: that is how the two arcs were drawn.
+]
+
+.pull-right[
+```{r bisect1, fig.width=5, fig.height=3.8}
+draw_bisect(1)
+```
+]
+
+---
+
+# Move 2: cut a segment exactly in half
+
+**Why is it exact? No measuring happened, so we prove it.**
+
+.pull-left[
+- The red segments PA, PB, QA, QB are each one **radius** long.
+- So triangle .red[PAQ] and triangle .grn[PBQ] have the same three sides, which
+  forces them to be exact copies (mirror images). That makes **PQ** cut the angle
+  at **P** (the angle **APB**, between **PA** and **PB**) into two equal halves.
+]
+
+.pull-right[
+```{r bisect2, fig.width=5, fig.height=3.8}
+draw_bisect(2)
+```
+]
+
+---
+
+# Move 2: cut a segment exactly in half
+
+**A tool we need: why do two sides plus the angle between them fix a triangle?**
+
+.pull-left[
+Think of the two sides as sticks joined at a corner **P**, like a hinge.
+
+- Leave the hinge loose and the far end swings (dashed): the third side gets
+  longer or shorter, a *different* triangle each time.
+- Fix the angle at the hinge and both far ends are locked. The third side has no
+  choice left.
+
+So two sides with a **fixed angle between them** allow exactly **one** triangle.
+]
+
+.pull-right[
+```{r hinge, fig.width=5, fig.height=3.6}
+draw_hinge()
+```
+]
+
+---
+
+# Move 2: cut a segment exactly in half
+
+**Why is it exact? No measuring happened, so we prove it.**
+
+.pull-left[
+- The red segments PA, PB, QA, QB are each one **radius** long.
+- Triangles PAQ and PBQ have the same three sides, so **PQ** halves the angle at **P**.
+- Now triangle .red[APM] and triangle .grn[BPM] have two matching sides (shared
+  **PM**, and **PA = PB**) with the **same angle at P** between them, so by the
+  hinge rule they are exact copies.
+- Exact copies have equal parts: **AM = BM**, so **M** is the midpoint. Their angles
+  at **M** are equal too, and since **A, M, B** lie on a straight line those two
+  angles add to 180, so each must be a **right angle**.
+]
+
+.pull-right[
+```{r bisect3, fig.width=5, fig.height=3.8}
+draw_bisect(3)
+```
 ]
 
 ---
