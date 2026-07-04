@@ -4,8 +4,8 @@ The authoritative scope for the course. Self-contained modules that, in order,
 climb from *seeing* to *proving* to *competing*. Ben has done BMC, so every
 module ends at a real proof or a contest-flavored problem.
 
-Modules 01 through 05 are built (full trio each: concepts, slides, worksheet).
-Part 3, a dedicated BMC-style problem set, is the planned next step.
+Modules 01 through 06 are built (full trio each: concepts, slides, worksheet).
+Part 3 is Module 06, a dedicated BMC-style problem set that reuses Parts 1 and 2.
 
 ## Part 1 -- See it (build with your hands)
 
@@ -63,15 +63,28 @@ Part 3, a dedicated BMC-style problem set, is the planned next step.
 - **Competition gem:** prove the converse, or generate several triples from the
   m, n machine.
 
-## Part 3 -- Compete with it *(planned)*
+## Part 3 -- Compete with it
 
-Each module already ends with a competition gem. The dedicated next step is a set
-of BMC-style problem sheets (angle chasing, cyclic quadrilaterals, constructions)
-once Parts 1 and 2 are solid.
+### Module 06 -- The contest toolkit: angle chasing and hidden circles
+- **Hook:** a triangle where only the angle at A is known; the bisectors of B and
+  C meet at I, and angle BIC is forced by A alone. Plus a figure whose four
+  points "happen" to lie on one circle.
+- **Built:** a single capstone problem set (ten problems) that reuses only the
+  facts from Modules 01 to 05. No new theorems; the five tools aimed on purpose.
+- **Proved:** the incenter angle `90 + A/2`; the golden 36-72 triangle's three
+  equal lengths (the pentagon's engine); cyclic-quadrilateral opposite angles;
+  the reverse-Thales "hidden circle" move; and two constructions with proofs (the
+  angle bisector, and the circumcircle through three points).
+- **Competition gem:** "Fact 5." The bisector of A meets the circumcircle again at
+  M, and M is the same distance from B, from C, and from the incenter I.
+- **Format:** problem-set-centric. The worksheet is the star; `concepts.md` is the
+  full solution key and grown-up guide; the slides work two examples (the incenter
+  angle and the hidden circle), then hand the rest over.
 
 ## Prerequisites
 
 Module 01 needs nothing. Module 03 leans on the isosceles-triangle and
 exterior-angle facts from Module 02, so do 02 before 03. Module 04 uses Module
-02's polygon angle sum. Module 05 stands largely on its own. A sensible order is
-simply 01, 02, 03, 04, 05.
+02's polygon angle sum. Module 05 stands largely on its own. Module 06 leans on
+Modules 01 (constructions), 02, and 03 (inscribed angle, cyclic quads), so it
+comes last. A sensible order is simply 01, 02, 03, 04, 05, then 06 as the capstone.

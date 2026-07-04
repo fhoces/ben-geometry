@@ -1,0 +1,312 @@
+---
+title: "Module 6: The contest toolkit"
+subtitle: "Angle chasing and hidden circles"
+output:
+  xaringan::moon_reader:
+    css: [default, default-fonts]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.align = "center", dev = "png",
+                      fig.width = 5, fig.height = 4.5, dpi = 150)
+blue   <- "#1769aa"
+orange <- "#c2410c"
+red_c  <- "#c0392b"
+grn_c  <- "#1b7a3d"
+
+# Incenter figure for problem A1. step 0 = plain triangle + I + bisectors;
+# step 1 highlights the two base half-angles (red, matching the .red text);
+# step 2 highlights the target angle BIC (green).
+draw_incenter <- function(step = 0) {
+  par(mar=c(0,0,0,0), pty="s")
+  angB <- 70; angC <- 60           # so angle A = 50
+  B <- c(0,0); C <- c(4,0); a <- 4
+  cAB <- a*sin(angC*pi/180)/sin(50*pi/180)
+  A   <- B + cAB*c(cos(angB*pi/180), sin(angB*pi/180))
+  bCA <- a*sin(angB*pi/180)/sin(50*pi/180)
+  I   <- (a*A + bCA*B + cAB*C)/(a + bCA + cAB)
+  plot(NA, xlim=c(-0.5,4.5), ylim=c(-0.6, A[2]+0.5), asp=1, axes=FALSE, xlab="", ylab="")
+  polygon(c(A[1],B[1],C[1]), c(A[2],B[2],C[2]), border=blue, lwd=4)
+  bcol <- if (step >= 1) red_c else "grey55"
+  blw  <- if (step >= 1) 3 else 2
+  segments(B[1],B[2], I[1],I[2], col=bcol, lwd=blw)
+  segments(C[1],C[2], I[1],I[2], col=bcol, lwd=blw)
+  segments(A[1],A[2], I[1],I[2], col="grey72", lwd=1, lty=2)
+  points(rbind(A,B,C), pch=19, cex=1.2)
+  points(I[1],I[2], pch=19, cex=1.3, col=if (step >= 2) grn_c else "grey30")
+  text(A[1], A[2]+0.24, "A", cex=1.3)
+  text(B[1]-0.2, B[2]-0.02, "B", cex=1.3)
+  text(C[1]+0.2, C[2]-0.02, "C", cex=1.3)
+  text(I[1]+0.28, I[2]-0.05, "I", cex=1.2, col=if (step >= 2) grn_c else "grey30")
+  text(A[1]+0.36, A[2]-0.62, "50", cex=1.1, col=blue)
+  if (step >= 1) {
+    text(0.78, 0.32, "B/2", cex=1.0, col=red_c)
+    text(3.22, 0.32, "C/2", cex=1.0, col=red_c)
+  }
+  if (step >= 2) text(I[1]-0.02, I[2]+0.34, "?", cex=1.5, col=grn_c)
+}
+
+# Hidden-circle figure for problem C3. step 0 = quadrilateral with the two right
+# angles; step 1 reveals the circle with AC as diameter; step 2 highlights chord
+# AB and the two equal angles (green) that stand on it.
+draw_hidden <- function(step = 0) {
+  par(mar=c(0,0,0,0), pty="s")
+  r <- 1.6; O <- c(0,0)
+  A <- c(-r,0); C <- c(r,0)
+  B <- r*c(cos( 62*pi/180), sin( 62*pi/180))
+  D <- r*c(cos(-118*pi/180), sin(-118*pi/180))
+  plot(NA, xlim=c(-r-0.5,r+0.5), ylim=c(-r-0.5,r+0.5), asp=1, axes=FALSE, xlab="", ylab="")
+  if (step >= 1) {
+    tt <- seq(0, 2*pi, length.out=220)
+    lines(O[1]+r*cos(tt), O[2]+r*sin(tt), col="grey62", lty=2)
+    segments(A[1],A[2], C[1],C[2], col="grey58", lwd=1)
+  }
+  raSquare <- function(P, U, V, d=0.17, col="grey30") {
+    u <- U/sqrt(sum(U^2)); v <- V/sqrt(sum(V^2))
+    polygon(c(P[1], P[1]+d*u[1], P[1]+d*(u+v)[1], P[1]+d*v[1]),
+            c(P[2], P[2]+d*u[2], P[2]+d*(u+v)[2], P[2]+d*v[2]), border=col, lwd=2)
+  }
+  polygon(c(A[1],B[1],C[1],D[1]), c(A[2],B[2],C[2],D[2]), border=blue, lwd=4)
+  if (step >= 2) segments(A[1],A[2], B[1],B[2], col=orange, lwd=5)
+  raSquare(B, A-B, C-B); raSquare(D, A-D, C-D)
+  points(rbind(A,B,C,D), pch=19, cex=1.2)
+  text(A[1]-0.2, A[2], "A", cex=1.3)
+  text(B[1]+0.06, B[2]+0.22, "B", cex=1.3)
+  text(C[1]+0.2, C[2], "C", cex=1.3)
+  text(D[1]-0.06, D[2]-0.24, "D", cex=1.3)
+  if (step >= 2) {
+    text(C[1]-0.34, C[2]+0.16, "x", cex=1.2, col=grn_c)
+    text(D[1]+0.34, D[2]+0.14, "x", cex=1.2, col=grn_c)
+  }
+}
+```
+
+class: center, middle
+
+# The contest toolkit
+
+### Angle chasing and hidden circles
+
+You spent five modules *proving* things are true. Now you have a toolbox. A
+contest hands you a picture and a question; the tools knock it over.
+
+---
+
+```{css, echo=FALSE}
+.remark-code, .remark-inline-code { font-size: 80%; }
+.remark-slide-content { padding: 1em 2em; }
+.why { clear: both; margin-top: 0.1em; font-size: 85%; }
+.red { color: #c0392b; font-weight: bold; }
+.grn { color: #1b7a3d; font-weight: bold; }
+.org { color: #c2410c; font-weight: bold; }
+```
+
+# You already own every tool
+
+Nothing new today. Just five facts you proved, plus the nerve to use them.
+
+--
+
+1. A triangle's angles add to **180**.
+2. Equal sides face **equal angles** (and backwards).
+3. An **exterior angle** equals the two far angles added.
+4. A rim angle is **half** the center angle; every rim point on one arc sees a
+   chord at the **same** angle.
+5. An angle on a diameter is **90**, and backwards: anything that sees a segment
+   at 90 sits on the circle with that segment as diameter.
+
+--
+
+The whole sheet is these five, aimed on purpose.
+
+---
+
+# One number. Can you find the angle?
+
+**Triangle ABC. The angle at A is 50. Split angle B in half, split angle C in
+half; the two splitters cross at I. What is angle BIC?**
+
+--
+
+.pull-left[
+You are *not* told angle B.
+
+You are *not* told angle C.
+
+Only the **50**. Watch it be enough.
+]
+
+.pull-right[
+```{r inc0, fig.width=5, fig.height=4.3}
+draw_incenter(0)
+```
+]
+
+---
+
+# One number. Can you find the angle?
+
+**Write down what you actually know.** The splitters cut B and C in half.
+
+--
+
+.pull-left[
+- The angle .red[B/2] sits at the B corner of triangle BIC.
+- The angle .red[C/2] sits at the C corner.
+
+So triangle BIC already has two of its three angles named, even though we do not
+know B or C yet.
+]
+
+.pull-right[
+```{r inc1, fig.width=5, fig.height=4.3}
+draw_incenter(1)
+```
+]
+
+---
+
+# One number. Can you find the angle?
+
+**Triangle BIC adds to 180**, like every triangle:
+
+$$\text{angle } BIC = 180 - \tfrac{B}{2} - \tfrac{C}{2}$$
+
+--
+
+.pull-left[
+Here is the move. .red[B/2] + .red[C/2] is half of (B + C). And B + C is whatever
+is left after A:
+
+$$B + C = 180 - 50 = 130,\quad \tfrac{B+C}{2} = 65$$
+
+So .grn[angle BIC] = 180 - 65 = **115**.
+]
+
+.pull-right[
+```{r inc2, fig.width=5, fig.height=4.3}
+draw_incenter(2)
+```
+]
+
+---
+
+# The 50 was all you needed
+
+You never learned B or C on their own. The same two lines give the rule for
+*every* triangle:
+
+--
+
+$$\text{angle } BIC = 180 - \tfrac{B+C}{2} = 180 - \tfrac{180 - A}{2} = 90 + \tfrac{A}{2}$$
+
+--
+
+**Angle BIC depends on A alone.** Any triangle with 50 at A has angle BIC = 115,
+however lopsided B and C are. That is why one number was enough.
+
+---
+
+# The most useful instinct in the game
+
+**When two angles are equal for no clear reason, or you spot two right angles,
+go looking for a hidden circle.**
+
+--
+
+Here is the pattern in its purest form.
+
+**Quadrilateral ABCD has a right angle at B and a right angle at D. Prove the
+angle at C (looking at A and B) equals the angle at D (looking at A and B).**
+
+--
+
+Two right angles, sitting there. That is the tell.
+
+---
+
+# Find the hidden circle
+
+.pull-left[
+**B sees AC at 90.** By the backwards-Thales rule, B must sit on the circle with
+**AC as its diameter**.
+
+**D also sees AC at 90**, so D sits on that *same* circle.
+
+All four points A, B, C, D are on one circle. It was hiding in the two right
+angles.
+]
+
+.pull-right[
+```{r hid1, fig.width=5, fig.height=4.5}
+draw_hidden(1)
+```
+]
+
+---
+
+# Now they are on a circle, so...
+
+.pull-left[
+Both .grn[angle ACB] (at C) and .grn[angle ADB] (at D) stand on the same
+.org[chord AB], from the same side.
+
+Same segment, same angle, so angle ACB = angle ADB.
+
+Done. The hard part was never the angle. It was *seeing the circle*.
+]
+
+.pull-right[
+```{r hid2, fig.width=5, fig.height=4.5}
+draw_hidden(2)
+```
+]
+
+---
+
+# Your turn (the worksheet)
+
+Two worked. Eight to go. Same five tools every time.
+
+.pull-left[
+**Angle chasing**
+- W1, W2: warm-ups.
+- A2: the golden 36-72 triangle, where one line makes **three** equal lengths
+  appear (it builds the pentagon).
+
+**Cyclic quadrilaterals**
+- C1: prove opposite angles add to 180.
+- C2: same-segment, in one line each.
+]
+
+.pull-right[
+**Constructions** (compass only)
+- D1: cut an angle exactly in half, and prove it.
+- D2: the circle through all three corners of a triangle.
+
+**The challenge**
+- E1: "Fact 5." The angle bisector hits the circle again at M; show M is the same
+  distance from B, from C, and from the incenter I.
+]
+
+---
+
+# The one habit
+
+**Before you hunt the angle you want, write every angle you already know onto the
+picture.**
+
+--
+
+- The known angles are free. Mark them all.
+- Two equal angles, or a right angle standing on a segment: reach for a circle.
+- A protractor checks an answer. It never finds one; the tools do.
+
+--
+
+That is the whole game. Go break some problems.

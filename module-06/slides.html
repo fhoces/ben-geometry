@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Module 6: The contest toolkit</title>
+    <meta charset="utf-8" />
+    <script src="slides_files/header-attrs-2.29/header-attrs.js"></script>
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Module 6: The contest toolkit
+]
+.subtitle[
+## Angle chasing and hidden circles
+]
+
+---
+
+
+
+
+class: center, middle
+
+# The contest toolkit
+
+### Angle chasing and hidden circles
+
+You spent five modules *proving* things are true. Now you have a toolbox. A
+contest hands you a picture and a question; the tools knock it over.
+
+---
+
+&lt;style type="text/css"&gt;
+.remark-code, .remark-inline-code { font-size: 80%; }
+.remark-slide-content { padding: 1em 2em; }
+.why { clear: both; margin-top: 0.1em; font-size: 85%; }
+.red { color: #c0392b; font-weight: bold; }
+.grn { color: #1b7a3d; font-weight: bold; }
+.org { color: #c2410c; font-weight: bold; }
+&lt;/style&gt;
+
+# You already own every tool
+
+Nothing new today. Just five facts you proved, plus the nerve to use them.
+
+--
+
+1. A triangle's angles add to **180**.
+2. Equal sides face **equal angles** (and backwards).
+3. An **exterior angle** equals the two far angles added.
+4. A rim angle is **half** the center angle; every rim point on one arc sees a
+   chord at the **same** angle.
+5. An angle on a diameter is **90**, and backwards: anything that sees a segment
+   at 90 sits on the circle with that segment as diameter.
+
+--
+
+The whole sheet is these five, aimed on purpose.
+
+---
+
+# One number. Can you find the angle?
+
+**Triangle ABC. The angle at A is 50. Split angle B in half, split angle C in
+half; the two splitters cross at I. What is angle BIC?**
+
+--
+
+.pull-left[
+You are *not* told angle B.
+
+You are *not* told angle C.
+
+Only the **50**. Watch it be enough.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/inc0-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# One number. Can you find the angle?
+
+**Write down what you actually know.** The splitters cut B and C in half.
+
+--
+
+.pull-left[
+- The angle .red[B/2] sits at the B corner of triangle BIC.
+- The angle .red[C/2] sits at the C corner.
+
+So triangle BIC already has two of its three angles named, even though we do not
+know B or C yet.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/inc1-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# One number. Can you find the angle?
+
+**Triangle BIC adds to 180**, like every triangle:
+
+`$$\text{angle } BIC = 180 - \tfrac{B}{2} - \tfrac{C}{2}$$`
+
+--
+
+.pull-left[
+Here is the move. .red[B/2] + .red[C/2] is half of (B + C). And B + C is whatever
+is left after A:
+
+`$$B + C = 180 - 50 = 130,\quad \tfrac{B+C}{2} = 65$$`
+
+So .grn[angle BIC] = 180 - 65 = **115**.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/inc2-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# The 50 was all you needed
+
+You never learned B or C on their own. The same two lines give the rule for
+*every* triangle:
+
+--
+
+`$$\text{angle } BIC = 180 - \tfrac{B+C}{2} = 180 - \tfrac{180 - A}{2} = 90 + \tfrac{A}{2}$$`
+
+--
+
+**Angle BIC depends on A alone.** Any triangle with 50 at A has angle BIC = 115,
+however lopsided B and C are. That is why one number was enough.
+
+---
+
+# The most useful instinct in the game
+
+**When two angles are equal for no clear reason, or you spot two right angles,
+go looking for a hidden circle.**
+
+--
+
+Here is the pattern in its purest form.
+
+**Quadrilateral ABCD has a right angle at B and a right angle at D. Prove the
+angle at C (looking at A and B) equals the angle at D (looking at A and B).**
+
+--
+
+Two right angles, sitting there. That is the tell.
+
+---
+
+# Find the hidden circle
+
+.pull-left[
+**B sees AC at 90.** By the backwards-Thales rule, B must sit on the circle with
+**AC as its diameter**.
+
+**D also sees AC at 90**, so D sits on that *same* circle.
+
+All four points A, B, C, D are on one circle. It was hiding in the two right
+angles.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/hid1-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Now they are on a circle, so...
+
+.pull-left[
+Both .grn[angle ACB] (at C) and .grn[angle ADB] (at D) stand on the same
+.org[chord AB], from the same side.
+
+Same segment, same angle, so angle ACB = angle ADB.
+
+Done. The hard part was never the angle. It was *seeing the circle*.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/hid2-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Your turn (the worksheet)
+
+Two worked. Eight to go. Same five tools every time.
+
+.pull-left[
+**Angle chasing**
+- W1, W2: warm-ups.
+- A2: the golden 36-72 triangle, where one line makes **three** equal lengths
+  appear (it builds the pentagon).
+
+**Cyclic quadrilaterals**
+- C1: prove opposite angles add to 180.
+- C2: same-segment, in one line each.
+]
+
+.pull-right[
+**Constructions** (compass only)
+- D1: cut an angle exactly in half, and prove it.
+- D2: the circle through all three corners of a triangle.
+
+**The challenge**
+- E1: "Fact 5." The angle bisector hits the circle again at M; show M is the same
+  distance from B, from C, and from the incenter I.
+]
+
+---
+
+# The one habit
+
+**Before you hunt the angle you want, write every angle you already know onto the
+picture.**
+
+--
+
+- The known angles are free. Mark them all.
+- Two equal angles, or a right angle standing on a segment: reach for a circle.
+- A protractor checks an answer. It never finds one; the tools do.
+
+--
+
+That is the whole game. Go break some problems.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

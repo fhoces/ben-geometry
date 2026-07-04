@@ -24,9 +24,10 @@ You do not need to be ahead of him; `concepts.md` tells you what to draw out.
 | 03 | [Circle secrets: the inscribed angle](module-03/) | Any diameter, any point on the circle: always a right angle. | ready |
 | 04 | [Tilings: why only three shapes fill the floor](module-04/) | Only triangles, squares, and hexagons tile with no gaps. Why only those three? | ready |
 | 05 | [Pythagoras: proofs you can see](module-05/) | a^2 + b^2 = c^2, shown three ways you watch instead of memorize. | ready |
+| 06 | [The contest toolkit](module-06/) | One number forces an angle you were never told; two right angles hide a circle. The BMC problem set. | ready |
 
-See [`learning-plan.md`](learning-plan.md) for the full road map and what's next
-(a dedicated BMC-style competition problem set).
+See [`learning-plan.md`](learning-plan.md) for the full road map. Module 06 is
+Part 3: a BMC-style problem set that puts the first five modules to work.
 
 ## The path, in one line
 
@@ -35,7 +36,8 @@ See [`learning-plan.md`](learning-plan.md) for the full road map and what's next
 most useful idea in olympiad geometry (the inscribed angle), so do it slowly. 04
 turns that angle-sum into a tiling theorem (only three regular shapes fill the
 floor). 05 closes Part 2 with Pythagoras, proved three different ways you can
-watch instead of memorize.
+watch instead of memorize. 06 is Part 3: a contest problem set that aims all of
+it on purpose, angle chasing, hidden circles, and provable constructions.
 
 ## Tools that pair well
 

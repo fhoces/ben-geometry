@@ -1,4 +1,4 @@
-[ben-geometry home](../README.md)  |  [< Prev: Module 04 -- Tilings: why only three shapes fill the floor](../module-04/concepts.md)  |  _(last module)_
+[ben-geometry home](../README.md)  |  [< Prev: Module 04 -- Tilings: why only three shapes fill the floor](../module-04/concepts.md)  |  [Next: Module 06 -- The contest toolkit >](../module-06/concepts.md)
 
 # 05 -- Pythagoras: proofs you can see
 
@@ -196,4 +196,4 @@ no areas to count, just two similar triangles and one addition.
 
 ---
 
-[ben-geometry home](../README.md)  |  [< Prev: Module 04 -- Tilings: why only three shapes fill the floor](../module-04/concepts.md)  |  _(last module)_
+[ben-geometry home](../README.md)  |  [< Prev: Module 04 -- Tilings: why only three shapes fill the floor](../module-04/concepts.md)  |  [Next: Module 06 -- The contest toolkit >](../module-06/concepts.md)
