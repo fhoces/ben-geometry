@@ -83,12 +83,6 @@ draw_hinge <- function() {
 }
 ```
 
-```{css, echo=FALSE}
-.why { clear: both; margin-top: 0.1em; font-size: 85%; }
-.red { color: #c0392b; font-weight: bold; }
-.grn { color: #1b7a3d; font-weight: bold; }
-```
-
 class: center, middle
 
 # Compass and Straightedge
@@ -99,6 +93,12 @@ With one compass and one unmarked ruler, the ancient Greeks built perfect shapes
 more than 2000 years ago. No measuring.
 
 ---
+
+```{css, echo=FALSE}
+.why { clear: both; margin-top: 0.1em; font-size: 85%; }
+.red { color: #c0392b; font-weight: bold; }
+.grn { color: #1b7a3d; font-weight: bold; }
+```
 
 # The whole game has two moves
 

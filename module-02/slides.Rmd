@@ -24,10 +24,6 @@ arc <- function(cx, cy, r, a1, a2, col, lwd = 3) {
 }
 ```
 
-```{css, echo=FALSE}
-.why { clear: both; margin-top: 0.1em; font-size: 85%; }
-```
-
 class: center, middle
 
 # Why every triangle adds up to 180
@@ -38,6 +34,10 @@ Draw any triangle you like. Tear off its three corners. They always snap
 together into one straight line. Always. Why *always*?
 
 ---
+
+```{css, echo=FALSE}
+.why { clear: both; margin-top: 0.1em; font-size: 85%; }
+```
 
 # The experiment
 

@@ -91,10 +91,6 @@ draw_pentagon_gap <- function() {
 }
 ```
 
-```{css, echo=FALSE}
-.why { clear: both; margin-top: 0.1em; font-size: 85%; }
-```
-
 class: center, middle
 
 # Tilings
@@ -105,6 +101,10 @@ A tiled floor, a honeycomb. The pieces cover everything with no gaps and no
 overlaps. If every tile is the same regular shape, which shapes can do it?
 
 ---
+
+```{css, echo=FALSE}
+.why { clear: both; margin-top: 0.1em; font-size: 85%; }
+```
 
 # The setup
 

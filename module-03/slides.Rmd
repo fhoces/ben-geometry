@@ -18,10 +18,6 @@ blue   <- "#1769aa"
 orange <- "#c2410c"
 ```
 
-```{css, echo=FALSE}
-.why { clear: both; margin-top: 0.1em; font-size: 85%; }
-```
-
 class: center, middle
 
 # Circle Secrets
@@ -32,6 +28,10 @@ Draw a circle, a diameter straight across it, and pick any point on the rim. Joi
 it to the two ends of the diameter. The angle you get is a right angle. Always.
 
 ---
+
+```{css, echo=FALSE}
+.why { clear: both; margin-top: 0.1em; font-size: 85%; }
+```
 
 # The setup
 
