@@ -87,6 +87,35 @@ you get the six-petal flower you have probably seen drawn in margins forever.
 Why *exactly* six, and not "about six"? That is the best puzzle in this whole
 sheet. See below.
 
+### Bonus: fold a hexaflexagon
+
+You just built a hexagon with tools. Here is the same hexagon built from
+nothing but folded paper: a **hexaflexagon**, a paper loop that flexes open to
+reveal a hidden second (and third) face.
+
+Watch first: [Vi Hart, Hexaflexagons](https://www.khanacademy.org/math/math-for-fun-and-glory/vi-hart/hexaflexagons/v/hexaflexagons)
+(from the course [watch list](../watch-list.md)).
+
+1. Take a long strip of paper. Fold one corner up so the bottom edge lines up
+   with the side edge: that crease is exactly 60 degrees, an equilateral
+   triangle corner.
+2. Fold the strip back the other way along the top edge of that triangle.
+   Keep folding back and forth the same way, all the way down the strip,
+   until you have **ten** triangles. Trim off anything left over.
+3. Using those same creases, curl the chain of ten triangles around into a
+   flat loop. Triangle 10 should land right behind triangle 1. Glue or tape
+   it there.
+4. You now have a flat hexagon, folded from paper instead of drawn with a
+   compass. But it is hiding two more faces. Pinch three corners that skip
+   one another (1, 3, 5) up to meet in the middle; the other three corners
+   pop open on their own. Push down through the middle and a new face
+   unfolds flat.
+5. Keep flexing (there is more than one way to fold it shut) to cycle
+   through all three faces. Color each face a different pattern before you
+   fold, so you can see the change.
+
+Step-by-step figures are in the slides.
+
 ---
 
 ## Why does it work?

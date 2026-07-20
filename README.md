@@ -1,5 +1,7 @@
 # ben-geometry
 
+**[View the course online](https://fhoces.github.io/ben-geometry/)**
+
 Geometry for Ben (11). He has done Berkeley Math Circle, so this does not stop at
 "and that's the answer." Each module climbs from *seeing* geometry to *proving*
 it to *competing* with it.
@@ -44,6 +46,8 @@ it on purpose, angle chasing, hidden circles, and provable constructions.
 - A real **compass** with a locking radius wheel, and an unmarked straightedge.
 - **Euclidea** (euclidea.xyz): gamified compass-and-straightedge puzzles, perfect
   right after module 01.
+- [`watch-list.md`](watch-list.md): a 4-week video sequence (Vi Hart, 3Blue1Brown,
+  Numberphile) to get Ben hooked, paired with hands-on activities each week.
 
 More in the collection's [`../resources.md`](../resources.md).
 
