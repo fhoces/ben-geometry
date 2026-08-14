@@ -83,8 +83,8 @@ draw_hinge <- function() {
 }
 
 # Hexaflexagon build figures (bonus tie-in to the Move 3 hexagon).
-draw_flex_strip <- function(n = 10) {
-  par(mar=c(0,0,0,0), pty="s")
+draw_flex_strip <- function(n = 10, highlight_ends = FALSE) {
+  par(mar=c(0,0,0,0))
   s <- 1; h <- sqrt(3)/2
   xmax <- (n+1)*s/2
   plot(NA, xlim=c(-0.15, xmax+0.15), ylim=c(-0.2, h+0.2), asp=1, axes=FALSE, xlab="", ylab="")
@@ -94,9 +94,12 @@ draw_flex_strip <- function(n = 10) {
     } else {
       x <- c((i-1)*s/2, (i+1)*s/2, i*s/2); y <- c(h, h, 0)
     }
-    col_i <- if (i %% 2 == 1) adjustcolor(blue, 0.15) else adjustcolor(orange, 0.15)
-    polygon(x, y, border="grey30", lwd=1.5, col=col_i)
-    text(mean(x), mean(y), i, cex=0.75, col="grey30")
+    is_end <- highlight_ends && (i == 1 || i == n)
+    col_i <- if (is_end) adjustcolor(red_c, 0.20) else if (i %% 2 == 1) adjustcolor(blue, 0.15) else adjustcolor(orange, 0.15)
+    bord_i <- if (is_end) red_c else "grey30"
+    polygon(x, y, border=bord_i, lwd=if (is_end) 2.5 else 1.5, col=col_i)
+    text(mean(x), mean(y), i, cex=if (is_end) 1.05 else 0.75,
+         col=if (is_end) red_c else "grey30", font=if (is_end) 2 else 1)
   }
 }
 
@@ -134,6 +137,136 @@ draw_flex_newface <- function() {
   segments(0,0, x[-7], y[-7], col=grn_c, lwd=2)
   points(x[-7], y[-7], pch=19, cex=1.2, col=grn_c)
   points(0,0, pch=3, cex=1.4, col=grn_c)
+}
+
+# Move 4: bisect any angle (SSS congruence, same idea as Move 2's proof).
+angle_bisect_pts <- function() {
+  O <- c(0,0); ang1 <- 0; ang2 <- 70*pi/180; r1 <- 1.3
+  A <- r1*c(cos(ang1), sin(ang1)); B <- r1*c(cos(ang2), sin(ang2))
+  r2 <- 1.15
+  d <- sqrt(sum((B-A)^2)); mid <- (A+B)/2; h <- sqrt(r2^2 - (d/2)^2)
+  dir <- (B-A)/d; perp <- c(-dir[2], dir[1])
+  Q <- mid - h*perp   # far branch: verified numerically to sit on the true 35-degree bisector
+  list(O=O, A=A, B=B, Q=Q, ang1=ang1, ang2=ang2, r1=r1, r2=r2)
+}
+
+draw_angle_bisect <- function(step) {
+  p <- angle_bisect_pts()
+  par(mar=c(0,0,0,0), pty="s")
+  plot(NA, xlim=c(-0.3,2.3), ylim=c(-0.3,2.15), asp=1, axes=FALSE, xlab="", ylab="")
+  raylen <- 2.05
+  segments(p$O[1],p$O[2], raylen*cos(p$ang1), raylen*sin(p$ang1), col="grey30", lwd=2)
+  segments(p$O[1],p$O[2], raylen*cos(p$ang2), raylen*sin(p$ang2), col="grey30", lwd=2)
+  points(p$O[1],p$O[2], pch=19, cex=1.1)
+  text(p$O[1]-0.1,p$O[2]-0.08,"O",cex=1.2)
+  if (step >= 1) {
+    t <- seq(p$ang1, p$ang2, length.out=60)
+    lines(p$r1*cos(t), p$r1*sin(t), col=blue, lwd=2, lty=2)
+    points(rbind(p$A,p$B), pch=19, cex=1.1, col=blue)
+    text(p$A[1]+0.11,p$A[2]-0.05,"A",cex=1.15,col=blue)
+    text(p$B[1]+0.02,p$B[2]+0.13,"B",cex=1.15,col=blue)
+  }
+  if (step >= 2) {
+    tA <- seq(58,93,length.out=60)*pi/180
+    lines(p$A[1]+p$r2*cos(tA), p$A[2]+p$r2*sin(tA), col="grey60", lty=3)
+    tB <- seq(-23,12,length.out=60)*pi/180
+    lines(p$B[1]+p$r2*cos(tB), p$B[2]+p$r2*sin(tB), col="grey60", lty=3)
+    points(p$Q[1],p$Q[2], pch=19, cex=1.1, col=orange)
+    text(p$Q[1]+0.12,p$Q[2],"Q",cex=1.15,col=orange)
+  }
+  if (step >= 3) {
+    segments(p$O[1],p$O[2], p$Q[1],p$Q[2], col=orange, lwd=3)
+    polygon(c(p$O[1],p$A[1],p$Q[1]), c(p$O[2],p$A[2],p$Q[2]), border=red_c, lwd=2.5, col=adjustcolor(red_c,0.10))
+    polygon(c(p$O[1],p$B[1],p$Q[1]), c(p$O[2],p$B[2],p$Q[2]), border=grn_c, lwd=2.5, col=adjustcolor(grn_c,0.10))
+    aa <- seq(p$ang1, 35*pi/180, length.out=20)
+    lines(0.35*cos(aa), 0.35*sin(aa), col=red_c, lwd=2)
+    bb <- seq(35*pi/180, p$ang2, length.out=20)
+    lines(0.42*cos(bb), 0.42*sin(bb), col=grn_c, lwd=2)
+  }
+}
+
+# Richmond's 1893 compass-and-straightedge construction of the regular 17-gon.
+# Points computed exactly (not just drawn by eye) and checked against the
+# closed-form vertex coordinates cos(2*pi*k/17); see module dev notes.
+purp_c <- "#7b3fa0"
+
+richmond17_pts <- function() {
+  O <- c(0,0); A <- c(1,0); B <- c(0,1); I <- c(0,0.25)
+  ang <- function(P, from) { v <- P - from; atan2(v[2], v[1]) }
+  hit_axis <- function(P, theta) { t <- -P[2]/sin(theta); c(P[1] + t*cos(theta), 0) }
+  angOIA <- atan(4)                                    # right triangle OIA, right angle at O
+  dirIO <- ang(O, I); dirIA <- ang(A, I)
+  dirIE <- dirIO + (angOIA/4) * sign(dirIA - dirIO)     # quarter the angle (bisect twice)
+  E <- hit_axis(I, dirIE)
+  F <- hit_axis(I, dirIE - pi/4)                        # 45 degrees further round
+  cAF <- (A + F)/2; rAF <- sqrt(sum((A - F)^2))/2
+  K <- c(0, cAF[2] + sqrt(rAF^2 - cAF[1]^2))            # circle on AF meets OB
+  rE <- sqrt(sum((E - K)^2))
+  N3 <- c(E[1] + rE, 0); N5 <- c(E[1] - rE, 0)          # circle centered E meets OA
+  P3 <- c(N3[1], sqrt(1 - N3[1]^2)); P5 <- c(N5[1], sqrt(1 - N5[1]^2))
+  verts <- lapply(0:16, function(k) c(cos(2*pi*k/17), sin(2*pi*k/17)))
+  list(O=O, A=A, B=B, I=I, E=E, F=F, K=K, N3=N3, N5=N5, P3=P3, P5=P5, verts=verts)
+}
+
+circ17 <- function(cx, cy, r, ...) {
+  t <- seq(0, 2*pi, length.out=200); lines(cx + r*cos(t), cy + r*sin(t), ...)
+}
+
+draw_richmond <- function(step) {
+  p <- richmond17_pts()
+  par(mar=c(0,0,0,0), pty="s")
+  plot(NA, xlim=c(-1.35,1.35), ylim=c(-0.3,1.35), asp=1, axes=FALSE, xlab="", ylab="")
+  circ17(0, 0, 1, col="grey55", lwd=2)
+  segments(p$O[1],p$O[2], p$A[1],p$A[2], col="grey30", lwd=2)
+  segments(p$O[1],p$O[2], p$B[1],p$B[2], col="grey30", lwd=2)
+  points(rbind(p$O,p$A,p$B), pch=19, cex=1.0)
+  text(p$O[1]-0.07,p$O[2]-0.06,"O",cex=1.1); text(p$A[1]+0.07,p$A[2]-0.03,"A",cex=1.1)
+  text(p$B[1]-0.02,p$B[2]+0.08,"B",cex=1.1)
+  points(p$I[1],p$I[2], pch=19, cex=1.0, col=blue)
+  text(p$I[1]-0.08,p$I[2],"I",cex=1.1,col=blue)
+  if (step >= 1) {
+    segments(p$I[1],p$I[2], p$A[1],p$A[2], col=blue, lty=2, lwd=1.5)
+    points(p$E[1],p$E[2], pch=19, cex=1.0, col=orange)
+    segments(p$I[1],p$I[2], p$E[1],p$E[2], col=orange, lwd=2)
+    text(p$E[1],p$E[2]-0.08,"E",cex=1.1,col=orange)
+  }
+  if (step >= 2) {
+    points(p$F[1],p$F[2], pch=19, cex=1.0, col=red_c)
+    segments(p$I[1],p$I[2], p$F[1],p$F[2], col=red_c, lwd=2)
+    text(p$F[1],p$F[2]-0.08,"F",cex=1.1,col=red_c)
+    cAF <- (p$A+p$F)/2; rAF <- sqrt(sum((p$A-p$F)^2))/2
+    circ17(cAF[1],cAF[2],rAF, col="grey70", lty=3)
+    points(p$K[1],p$K[2], pch=19, cex=1.0, col=grn_c)
+    text(p$K[1]+0.08,p$K[2],"K",cex=1.1,col=grn_c)
+  }
+  if (step >= 3) {
+    rE <- sqrt(sum((p$E-p$K)^2))
+    circ17(p$E[1],p$E[2],rE, col="grey70", lty=3)
+    points(rbind(p$N3,p$N5), pch=19, cex=0.9, col=purp_c)
+    text(p$N3[1],p$N3[2]-0.07,"N3",cex=0.95,col=purp_c)
+    text(p$N5[1],p$N5[2]-0.07,"N5",cex=0.95,col=purp_c)
+    segments(p$N3[1],0,p$N3[1],p$P3[2], col=purp_c, lty=2)
+    segments(p$N5[1],0,p$N5[1],p$P5[2], col=purp_c, lty=2)
+    points(rbind(p$P3,p$P5), pch=19, cex=1.2, col="black")
+    text(p$P3[1]+0.09,p$P3[2],"P3",cex=1.05,font=2)
+    text(p$P5[1]-0.09,p$P5[2],"P5",cex=1.05,font=2)
+  }
+}
+
+draw_richmond_final <- function() {
+  p <- richmond17_pts()
+  par(mar=c(0,0,0,0), pty="s")
+  plot(NA, xlim=c(-1.35,1.35), ylim=c(-1.35,1.35), asp=1, axes=FALSE, xlab="", ylab="")
+  circ17(0, 0, 1, col="grey75", lwd=1.5)
+  verts <- p$verts
+  xs <- sapply(verts, `[`, 1); ys <- sapply(verts, `[`, 2)
+  polygon(xs, ys, border=blue, lwd=3)
+  points(xs, ys, pch=19, cex=0.8)
+  points(p$A[1],p$A[2], pch=19, cex=1.1, col="black")
+  text(p$A[1]+0.09,p$A[2]-0.06,"A",cex=1.05)
+  points(rbind(p$P3,p$P5), pch=19, cex=1.1, col=purp_c)
+  text(p$P3[1]+0.11,p$P3[2],"P3",cex=0.95,col=purp_c)
+  text(p$P5[1]-0.11,p$P5[2],"P5",cex=0.95,col=purp_c)
 }
 ```
 
@@ -417,6 +550,52 @@ radius of the circle around it.
 
 ---
 
+# Move 4: bisect any angle
+
+**One more move before the bonus round: cut *any* angle exactly in half, no
+protractor.**
+
+--
+
+.pull-left[
+1. Draw any angle: two rays from a corner **O**.
+2. Compass point on **O**, one arc crossing both rays: call the crossings
+   **A** and **B**.
+3. Compass point on **A**, a width more than half of **AB**: arc. Same
+   width, point on **B**: another arc, crossing the first.
+4. Call that crossing **Q**. Draw ray **OQ**.
+]
+
+--
+
+.pull-right[
+```{r abis2, fig.width=5, fig.height=4.3}
+draw_angle_bisect(2)
+```
+]
+
+---
+
+# Why does it work?
+
+**Same question as Move 2: nothing was measured, so how do we know it's exact?**
+
+.pull-left[
+- **OA = OB**: same compass width (step 2).
+- **AQ = BQ**: same compass width (step 3).
+- Triangle .red[OAQ] and triangle .grn[OBQ] share the third side, **OQ**.
+- Same three sides forces them to be exact copies, so the angles at **O**,
+  .red[AOQ] and .grn[BOQ], must be equal.
+]
+
+.pull-right[
+```{r abis3, fig.width=5, fig.height=4.3}
+draw_angle_bisect(3)
+```
+]
+
+---
+
 class: center, middle
 
 # Bonus build: fold a hexaflexagon
@@ -446,7 +625,7 @@ triangles using only folds?**
 --
 
 .pull-right[
-```{r flexstrip, fig.width=6, fig.height=2.6}
+```{r flexstrip, fig.width=8, fig.height=2.6}
 draw_flex_strip()
 ```
 ]
@@ -464,6 +643,10 @@ itself?**
 1. Using the same creases, curl the chain around into a flat loop.
 2. Triangle 10 lands right behind triangle 1.
 3. Glue or tape triangle 10 to the back of triangle 1.
+
+```{r flexstrip2, fig.width=5.5, fig.height=1.8}
+draw_flex_strip(highlight_ends = TRUE)
+```
 ]
 
 --
@@ -528,8 +711,6 @@ see them change.
 
 # Push further
 
-- **Bisect any angle** with the compass (hint: find two triangles that must be
-  identical).
 - **Build a square** using the perpendicular-bisector move twice.
 
 --
@@ -558,9 +739,156 @@ chords do you need?
 
 class: center, middle
 
+# Bonus: Gauss's 17-gon
+
+You built a hexagon today by walking a compass around a circle six times. At
+19, Gauss proved you can do the same trick for a **17**-sided regular polygon,
+the heptadecagon, using only compass and straightedge.
+
+Watch: [Numberphile, The Amazing Heptadecagon](https://www.youtube.com/watch?v=87uo2TPrsl8)
+(from the course [watch list](../watch-list.md))
+
+---
+
+# Why 17 is hard
+
+**Six was easy: every step was the same 60 degree triangle. Why can't you just
+guess your way to a 17-gon step?**
+
+--
+
+Nobody can *draw* 1/17 of a circle directly, the way the hexagon's 60 degrees
+just falls out of an equilateral triangle. Gauss's breakthrough was an
+**algebra** proof that a certain length is buildable at all. Turning that
+algebra into an actual ruler-and-compass recipe took another mathematician,
+Herbert Richmond, almost 100 years later (1893). Here is his recipe, reusing
+only moves from today.
+
+---
+
+# Step 1: quarter an angle
+
+**You already built a bisector for any angle (Move 4, above). What if you
+bisect it twice?**
+
+--
+
+.pull-left[
+1. Draw perpendicular radii **OA**, **OB** of a circle.
+2. Mark **I** on **OB**, one quarter of the way from **O**.
+3. Bisect angle **OIA** (at corner **I**), then bisect *that* half again.
+4. Where the result crosses **OA**: call it **E**.
+]
+
+--
+
+.pull-right[
+```{r rich1, fig.width=5, fig.height=4.6}
+draw_richmond(1)
+```
+]
+
+---
+
+# Step 2: 45 degrees, then a circle
+
+**You know how to build a 45 degree angle too: bisect a right angle. Use it
+to step past E.**
+
+--
+
+.pull-left[
+1. From **I**, turn another 45 degrees past **E**. Where that crosses **OA**
+   (extended past **O**): call it **F**.
+2. Draw the circle with **AF** as its diameter (its center is the midpoint of
+   **AF**, its radius half of **AF**).
+3. That circle crosses **OB** at a new point: call it **K**.
+]
+
+--
+
+.pull-right[
+```{r rich2, fig.width=5, fig.height=4.6}
+draw_richmond(2)
+```
+]
+
+---
+
+# Step 3: one more circle finds the answer
+
+**Almost there. One more circle, centered at E this time.**
+
+--
+
+.pull-left[
+1. Draw the circle centered at **E** through **K**.
+2. It crosses **OA** at two points: **N3** and **N5**.
+3. Raise a perpendicular at each (Move 2's trick) up to the big circle: those
+   land at **P3** and **P5**.
+]
+
+--
+
+.pull-right[
+```{r rich3, fig.width=5, fig.height=4.6}
+draw_richmond(3)
+```
+]
+
+--
+
+.why[
+**P3** and **P5** are *exactly* 3/17 and 5/17 of the way around the circle
+from **A**. No measuring, just circles and perpendiculars.
+]
+
+---
+
+# Step 4: finish it like Move 3
+
+**You now have two exact landmarks. Getting all 17 vertices is just today's
+Move 3, one more time.**
+
+--
+
+.pull-left[
+1. Copy the chord from **P3** to **P5** (compass, same trick as Move 1):
+   that arc is 2/17 of the circle. Step it off from **A** to land on the
+   point 2/17 of the way around.
+2. The gap between *that* point and **P3** is exactly 1/17, the true side
+   length of the 17-gon.
+3. Set the compass to that width and walk it around the circle 17 times,
+   exactly like Move 3. Connect the marks.
+]
+
+--
+
+.pull-right[
+```{r rich4, fig.width=5, fig.height=5}
+draw_richmond_final()
+```
+]
+
+--
+
+.why[
+Every step of Gauss and Richmond's 17-gon was already in your toolkit today:
+bisecting an angle (twice), building 45 degrees, raising a perpendicular,
+and walking the compass around. The hard part was knowing *where* to point
+them, and that took algebra, not a better compass.
+]
+
+---
+
+class: center, middle
+
 # Next up
 
 **Module 2:** tear the corners off any triangle. They always make a straight
 line. Why *always*? That is where proof really begins.
 
 Then play: **euclidea.xyz** turns these exact moves into puzzle levels.
+
+On the phone: **Shadowmatic** or **Hidden Valley** are good geometry-flavored
+games to try too.

@@ -68,6 +68,10 @@
   https://www.khanacademy.org/math/math-for-fun-and-glory/vi-hart
 - **Mathologer: Visualising Pythagoras, ultimate proofs and crazy contortions**
   https://www.youtube.com/watch?v=p-0SOWbzUYI
+- **Numberphile: The Amazing Heptadecagon** (Gauss's 17-gon, ~9 min)
+  https://www.youtube.com/watch?v=87uo2TPrsl8
+  → *Ties to Module 1's "2000-year cliffhanger": the slides work the actual
+  compass-and-straightedge construction, step by step*
 - **Stand-up Maths (Matt Parker) channel:** look for anything where he builds a physical contraption
   https://www.youtube.com/@standupmaths
 

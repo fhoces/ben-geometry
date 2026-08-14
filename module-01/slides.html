@@ -270,6 +270,48 @@ radius of the circle around it.
 
 ---
 
+# Move 4: bisect any angle
+
+**One more move before the bonus round: cut *any* angle exactly in half, no
+protractor.**
+
+--
+
+.pull-left[
+1. Draw any angle: two rays from a corner **O**.
+2. Compass point on **O**, one arc crossing both rays: call the crossings
+   **A** and **B**.
+3. Compass point on **A**, a width more than half of **AB**: arc. Same
+   width, point on **B**: another arc, crossing the first.
+4. Call that crossing **Q**. Draw ray **OQ**.
+]
+
+--
+
+.pull-right[
+&lt;img src="slides_files/figure-html/abis2-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Why does it work?
+
+**Same question as Move 2: nothing was measured, so how do we know it's exact?**
+
+.pull-left[
+- **OA = OB**: same compass width (step 2).
+- **AQ = BQ**: same compass width (step 3).
+- Triangle .red[OAQ] and triangle .grn[OBQ] share the third side, **OQ**.
+- Same three sides forces them to be exact copies, so the angles at **O**,
+  .red[AOQ] and .grn[BOQ], must be equal.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/abis3-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
 class: center, middle
 
 # Bonus build: fold a hexaflexagon
@@ -315,6 +357,8 @@ itself?**
 1. Using the same creases, curl the chain around into a flat loop.
 2. Triangle 10 lands right behind triangle 1.
 3. Glue or tape triangle 10 to the back of triangle 1.
+
+&lt;img src="slides_files/figure-html/flexstrip2-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 --
@@ -373,8 +417,6 @@ see them change.
 
 # Push further
 
-- **Bisect any angle** with the compass (hint: find two triangles that must be
-  identical).
 - **Build a square** using the perpendicular-bisector move twice.
 
 --
@@ -403,12 +445,151 @@ chords do you need?
 
 class: center, middle
 
+# Bonus: Gauss's 17-gon
+
+You built a hexagon today by walking a compass around a circle six times. At
+19, Gauss proved you can do the same trick for a **17**-sided regular polygon,
+the heptadecagon, using only compass and straightedge.
+
+Watch: [Numberphile, The Amazing Heptadecagon](https://www.youtube.com/watch?v=87uo2TPrsl8)
+(from the course [watch list](../watch-list.md))
+
+---
+
+# Why 17 is hard
+
+**Six was easy: every step was the same 60 degree triangle. Why can't you just
+guess your way to a 17-gon step?**
+
+--
+
+Nobody can *draw* 1/17 of a circle directly, the way the hexagon's 60 degrees
+just falls out of an equilateral triangle. Gauss's breakthrough was an
+**algebra** proof that a certain length is buildable at all. Turning that
+algebra into an actual ruler-and-compass recipe took another mathematician,
+Herbert Richmond, almost 100 years later (1893). Here is his recipe, reusing
+only moves from today.
+
+---
+
+# Step 1: quarter an angle
+
+**You already built a bisector for any angle (Move 4, above). What if you
+bisect it twice?**
+
+--
+
+.pull-left[
+1. Draw perpendicular radii **OA**, **OB** of a circle.
+2. Mark **I** on **OB**, one quarter of the way from **O**.
+3. Bisect angle **OIA** (at corner **I**), then bisect *that* half again.
+4. Where the result crosses **OA**: call it **E**.
+]
+
+--
+
+.pull-right[
+&lt;img src="slides_files/figure-html/rich1-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Step 2: 45 degrees, then a circle
+
+**You know how to build a 45 degree angle too: bisect a right angle. Use it
+to step past E.**
+
+--
+
+.pull-left[
+1. From **I**, turn another 45 degrees past **E**. Where that crosses **OA**
+   (extended past **O**): call it **F**.
+2. Draw the circle with **AF** as its diameter (its center is the midpoint of
+   **AF**, its radius half of **AF**).
+3. That circle crosses **OB** at a new point: call it **K**.
+]
+
+--
+
+.pull-right[
+&lt;img src="slides_files/figure-html/rich2-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Step 3: one more circle finds the answer
+
+**Almost there. One more circle, centered at E this time.**
+
+--
+
+.pull-left[
+1. Draw the circle centered at **E** through **K**.
+2. It crosses **OA** at two points: **N3** and **N5**.
+3. Raise a perpendicular at each (Move 2's trick) up to the big circle: those
+   land at **P3** and **P5**.
+]
+
+--
+
+.pull-right[
+&lt;img src="slides_files/figure-html/rich3-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.why[
+**P3** and **P5** are *exactly* 3/17 and 5/17 of the way around the circle
+from **A**. No measuring, just circles and perpendiculars.
+]
+
+---
+
+# Step 4: finish it like Move 3
+
+**You now have two exact landmarks. Getting all 17 vertices is just today's
+Move 3, one more time.**
+
+--
+
+.pull-left[
+1. Copy the chord from **P3** to **P5** (compass, same trick as Move 1):
+   that arc is 2/17 of the circle. Step it off from **A** to land on the
+   point 2/17 of the way around.
+2. The gap between *that* point and **P3** is exactly 1/17, the true side
+   length of the 17-gon.
+3. Set the compass to that width and walk it around the circle 17 times,
+   exactly like Move 3. Connect the marks.
+]
+
+--
+
+.pull-right[
+&lt;img src="slides_files/figure-html/rich4-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.why[
+Every step of Gauss and Richmond's 17-gon was already in your toolkit today:
+bisecting an angle (twice), building 45 degrees, raising a perpendicular,
+and walking the compass around. The hard part was knowing *where* to point
+them, and that took algebra, not a better compass.
+]
+
+---
+
+class: center, middle
+
 # Next up
 
 **Module 2:** tear the corners off any triangle. They always make a straight
 line. Why *always*? That is where proof really begins.
 
 Then play: **euclidea.xyz** turns these exact moves into puzzle levels.
+
+On the phone: **Shadowmatic** or **Hidden Valley** are good geometry-flavored
+games to try too.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

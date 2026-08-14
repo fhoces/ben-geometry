@@ -87,6 +87,17 @@ you get the six-petal flower you have probably seen drawn in margins forever.
 Why *exactly* six, and not "about six"? That is the best puzzle in this whole
 sheet. See below.
 
+### Move 4: bisect any angle
+
+1. Draw any angle: two rays from a corner **O**.
+2. Compass point on **O**, one arc that crosses *both* rays. Call the
+   crossings **A** and **B**. (Same trick as Move 1: one width, two marks.)
+3. Compass point on **A**, some width more than half of **AB**, draw an arc.
+   *Same width*, point on **B**, draw an arc that crosses the first.
+4. Call that crossing **Q**. Draw the ray **OQ**.
+
+That ray cuts the angle exactly in half. See why below.
+
 ### Bonus: fold a hexaflexagon
 
 You just built a hexagon with tools. Here is the same hexagon built from
@@ -136,14 +147,17 @@ hexagon falls out of the fact that *the side of a regular hexagon equals the
 radius of the circle around it.* That is a genuinely surprising fact, and you
 just built it.
 
+**The angle bisector.** OA and OB are both one radius (same compass width in
+step 2), so OA = OB. AQ and BQ are both one radius too (same compass width in
+step 3), so AQ = BQ. Triangle OAQ and triangle OBQ share the third side, OQ.
+Same three sides forces them to be exact copies (mirror images), so the angle
+at O in each, angle AOQ and angle BOQ, must be equal. That is the whole
+proof: no protractor, just two triangles that are forced to match.
+
 ---
 
 ## Push further
 
-- **Bisect any angle.** Given an angle, put the compass point on the corner and
-  mark both arms. From those two marks, swing equal arcs that cross. The line
-  from the corner through that crossing splits the angle exactly in half. (Why?
-  Hint: look for two triangles that have to be identical.)
 - **Build a square** using only the perpendicular-bisector move twice.
 - **The 2000-year-old cliffhanger.** Some shapes *can* be built this way and some
   *cannot*, and it took until the 1800s to prove which. You **can** build a
@@ -172,6 +186,36 @@ just built it.
   not close up neatly into six, that is almost always the cause.
 - If he loves this, Euclidea (see the path README) is the perfect next hour: it
   turns these exact moves into levels.
+
+---
+
+## Watch this: the video that started it
+
+The "17-sided regular polygon: yes" line under Push further is not a throwaway
+fact. Watch [Numberphile, The Amazing Heptadecagon](https://www.youtube.com/watch?v=87uo2TPrsl8)
+(from the course [watch list](../watch-list.md)) for the story: Gauss was 19,
+hadn't decided between math and philology, and this result (plus the proof of
+*which* polygons are constructible at all) is what tipped him into math for
+good.
+
+The video tells the story; the slides for this module work the actual
+construction, step by step, using **Herbert Richmond's 1893 recipe**. It is
+worth watching because every single move in it is one you already know from
+today:
+
+1. **Quarter an angle** (Move 4, bisect twice) to find a point **E**.
+2. **Build a 45-degree angle** (bisect a right angle) to find a point **F**,
+   then draw a circle on **AF** as diameter to find a point **K**.
+3. **One more circle**, centered at **E** through **K**, then **raise
+   perpendiculars** (Move 2's trick) to land two exact points on the circle,
+   3/17 and 5/17 of the way around.
+4. **Copy chords and walk the compass** (Move 1 and Move 3's tricks) to turn
+   those two points into all 17 vertices.
+
+Gauss's real contribution was algebra, proving a certain length is
+constructible at all, not a cleverer compass. The construction is proof that
+"you can build a regular 17-gon" is not folklore: it is 15 lines of moves you
+already own after today.
 
 ---
 
