@@ -36,6 +36,7 @@ together into one straight line. Always. Why *always*?
 
 &lt;style type="text/css"&gt;
 .why { clear: both; margin-top: 0.1em; font-size: 85%; }
+.step { clear: both; display: block; margin-top: 0.3em; }
 &lt;/style&gt;
 
 # The experiment
@@ -89,7 +90,37 @@ and this is where it starts.
 
 ---
 
-# First, a smaller fact: the "Z" rule
+# An even smaller fact: crossing lines
+
+**Two straight lines cross. Look at the two angles directly opposite each
+other, across the crossing point. What is true about them?**
+
+--
+
+.pull-left[
+Two lines cross at a point and make **four** angles around it. Going around,
+label them **a**, **b**, **a**, **b**, so the two **a**'s sit directly
+opposite each other (and so do the two **b**'s).
+
+**The two opposite angles are equal.**
+]
+
+--
+
+.pull-right[
+&lt;img src="slides_files/figure-html/crossing-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.why[
+**a** and **b** sit side by side along each line, so `a + b = 180` both
+times. Both **a**'s equal `180 - b`, so they match. No parallel lines needed.
+]
+
+---
+
+# Now stretch it to parallel lines: the Z rule
 
 **Two parallel lines, one slanted line crossing both, makes a Z. What is true
 about the two angles tucked inside the Z?**
@@ -97,13 +128,9 @@ about the two angles tucked inside the Z?**
 --
 
 .pull-left[
-Two **parallel** lines (use both edges of your ruler). One slanted line crossing
-both makes a **Z**.
-
-The two angles tucked inside the Z, one at each parallel line, on opposite sides
-of the slant, are **equal**.
-
-This is the **alternate angles** rule. It is *the* fact about parallel lines.
+Two **parallel** lines (use both edges of your ruler). One slanted line
+crossing both makes a **Z**, with an angle **a** at the top crossing and an
+angle tucked inside the Z at the bottom crossing.
 ]
 
 --
@@ -114,8 +141,37 @@ This is the **alternate angles** rule. It is *the* fact about parallel lines.
 
 --
 
+.step[
+Slide angle **a** straight down the slanted line to the bottom crossing. The
+lines are exactly parallel, so it lands with the same tilt and the same
+width: call it **a'** (grey). Only its position moved.
+]
+
+---
+
+# Finishing the Z rule
+
+**We slid a down to a'. How does a' finish the job?**
+
+--
+
+**a'** and the Z-angle sit directly opposite each other at the bottom
+crossing.
+
+--
+
+So by the crossing-lines fact from the last slide, **a' = Z-angle**.
+
+--
+
+Chain it together: `a = a'` (sliding along a parallel line), and `a' =` the
+Z-angle (opposite angles at a crossing). So `a =` the Z-angle.
+
+--
+
 .why[
-Slide one marked angle along the slant until it lands on the other: they match.
+That is the Z rule, now built from the one opposite-angles fact instead of
+just "trust the ruler."
 ]
 
 ---

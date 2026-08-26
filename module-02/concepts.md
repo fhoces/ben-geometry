@@ -45,7 +45,27 @@ need an argument.
 
 ## Why does it work?
 
-### First, a smaller fact: the "Z" rule (alternate angles)
+### An even smaller fact first: crossing lines
+
+Draw any two straight lines crossing each other. They make four angles around
+the crossing point. Label them a, b, a, b going around, so the two a's sit
+directly opposite one another.
+
+```
+        a
+      \   /
+    b  \ /  b        the two a's (opposite each other)
+      / \             are EQUAL. So are the two b's.
+     /   \
+        a
+```
+
+Why: a and b sit side by side along one of the lines, so `a + b = 180`. The
+other a and that same b sit side by side along the other line, so
+`a + b = 180` there too. Both a's equal `180 - b`, so they equal each other.
+This needs no parallel lines at all, it is true for any two crossing lines.
+
+### Now stretch it to parallel lines: the "Z" rule (alternate angles)
 
 Draw two **parallel** lines (use both edges of your ruler, that guarantees they
 are parallel). Now draw one slanted line crossing both. It makes a "Z" shape.
@@ -53,14 +73,23 @@ are parallel). Now draw one slanted line crossing both. It makes a "Z" shape.
 ```
    ===========\=========   line 1
                \
-                \           the two marked angles, inside the Z,
-   ==============\=======   line 2  are EQUAL
+                \           the marked angle inside the Z at line 2
+   ==============\=======   line 2  equals the one at line 1
 ```
 
 The two angles tucked inside the Z (one at the top line, one at the bottom, on
-opposite sides of the slant) are equal. This is the alternate angles rule, and it
-is *the* fact about parallel lines. Convince yourself with the ruler: slide one
-angle along the slant line until it lands on the other; they match.
+opposite sides of the slant) are equal, but this is not obvious on its own; it
+takes two steps:
+
+1. Slide the top angle straight down the slanted line to the bottom crossing.
+   Because the lines are exactly parallel, it lands with the same tilt, same
+   width, just a different position. Call that copy a'.
+2. a' and the Z-angle at the bottom crossing are directly opposite each other,
+   so by the crossing-lines fact above, a' equals the Z-angle.
+
+Chain the two steps: top angle = a' (sliding along a parallel line), and
+a' = Z-angle (opposite angles at a crossing). So top angle = Z-angle. This is
+the alternate angles rule, and it is *the* fact about parallel lines.
 
 ### Now the proof
 
@@ -140,10 +169,12 @@ impossible for one to fail."
   "we tried three, why does that settle infinitely many?" Sit in that discomfort
   with him before reaching for the parallel line. The need for proof should feel
   *earned*, like the experiment left a gap that only an argument can fill.
-- The Z rule (alternate angles) is the one piece we take on faith from the
-  hands-on sliding. If he wants to know *why* alternate angles are equal, that is
-  a deeper question about what "parallel" even means, and it is fine to say "we
-  will take this one as our trusted starting block for today." Real geometry is
+- The Z rule now has a real two-step proof (opposite angles at a crossing, then
+  sliding that fact along a parallel line), rather than being taken purely on
+  faith. The one piece still taken on faith is that sliding an angle along a
+  parallel line does not change it, that is the actual content of "parallel."
+  If he pushes on *why* that sliding step is true, it is fine to say "we will
+  take this one as our trusted starting block for today." Real geometry is
   built on a small number of trusted starting blocks (axioms); picking them is
   part of the game.
 - Common stumble: drawing the helper line through A but *not* parallel to BC. The

@@ -37,6 +37,7 @@ together into one straight line. Always. Why *always*?
 
 ```{css, echo=FALSE}
 .why { clear: both; margin-top: 0.1em; font-size: 85%; }
+.step { clear: both; display: block; margin-top: 0.3em; }
 ```
 
 # The experiment
@@ -105,7 +106,61 @@ and this is where it starts.
 
 ---
 
-# First, a smaller fact: the "Z" rule
+# An even smaller fact: crossing lines
+
+**Two straight lines cross. Look at the two angles directly opposite each
+other, across the crossing point. What is true about them?**
+
+--
+
+.pull-left[
+Two lines cross at a point and make **four** angles around it. Going around,
+label them **a**, **b**, **a**, **b**, so the two **a**'s sit directly
+opposite each other (and so do the two **b**'s).
+
+**The two opposite angles are equal.**
+]
+
+--
+
+.pull-right[
+```{r crossing, fig.width=5, fig.height=3.0}
+par(mar = c(0,0,0,0), pty = "s")
+plot(NA, xlim = c(-1.3, 1.3), ylim = c(-1.3, 1.3), asp = 1, axes = FALSE,
+     xlab = "", ylab = "")
+th1 <- 15; th2 <- 130
+seg <- function(deg, len = 1.15) {
+  a <- deg * pi / 180
+  segments(-len * cos(a), -len * sin(a), len * cos(a), len * sin(a),
+           col = "grey50", lwd = 2)
+}
+seg(th1); seg(th2)
+arc(0, 0, 0.4, th1, th2, blue, lwd = 4)
+arc(0, 0, 0.4, th2, th1 + 180, orange, lwd = 4)
+arc(0, 0, 0.4, th1 + 180, th2 + 180, blue, lwd = 4)
+arc(0, 0, 0.4, th2 + 180, th1 + 360, orange, lwd = 4)
+lab <- function(mid, txt, col, rr = 0.68) {
+  a <- mid * pi / 180
+  text(rr * cos(a), rr * sin(a), txt, cex = 1.6, col = col)
+}
+lab((th1 + th2) / 2, "a", blue)
+lab((th2 + th1 + 180) / 2, "b", orange)
+lab((th1 + 180 + th2 + 180) / 2, "a", blue)
+lab((th2 + 180 + th1 + 360) / 2, "b", orange)
+points(0, 0, pch = 19, cex = 1.2)
+```
+]
+
+--
+
+.why[
+**a** and **b** sit side by side along each line, so `a + b = 180` both
+times. Both **a**'s equal `180 - b`, so they match. No parallel lines needed.
+]
+
+---
+
+# Now stretch it to parallel lines: the Z rule
 
 **Two parallel lines, one slanted line crossing both, makes a Z. What is true
 about the two angles tucked inside the Z?**
@@ -113,41 +168,65 @@ about the two angles tucked inside the Z?**
 --
 
 .pull-left[
-Two **parallel** lines (use both edges of your ruler). One slanted line crossing
-both makes a **Z**.
-
-The two angles tucked inside the Z, one at each parallel line, on opposite sides
-of the slant, are **equal**.
-
-This is the **alternate angles** rule. It is *the* fact about parallel lines.
+Two **parallel** lines (use both edges of your ruler). One slanted line
+crossing both makes a **Z**, with an angle **a** at the top crossing and an
+angle tucked inside the Z at the bottom crossing.
 ]
 
 --
 
 .pull-right[
-```{r zrule, fig.width=5, fig.height=3.5}
+```{r zrule, fig.width=5, fig.height=3.2}
 par(mar = c(0,0,0,0))
 plot(NA, xlim = c(-1.2, 3.2), ylim = c(-0.5, 2.5), asp = 1, axes = FALSE,
      xlab = "", ylab = "")
-# two parallel horizontal lines
 segments(-1, 2, 3, 2, col = "grey50", lwd = 2)
 segments(-1, 0, 3, 0, col = "grey50", lwd = 2)
-# transversal through B=(0.7,0) and T=(2.3,2)
 B <- c(0.7, 0); T <- c(2.3, 2)
 segments(B[1] - 0.55, B[2] - 0.7, T[1] + 0.35, T[2] + 0.45, col = blue, lwd = 3)
-# alternate interior angles
 arc(T[1], T[2], 0.55, 180, 231.3, orange, lwd = 4)
+arc(B[1], B[2], 0.55, 180, 231.3, "grey60", lwd = 4)
 arc(B[1], B[2], 0.55, 0, 51.3, orange, lwd = 4)
 points(B[1], B[2], pch = 19); points(T[1], T[2], pch = 19)
 text(T[1] - 0.85, T[2] - 0.35, "a", cex = 1.5, col = orange)
-text(B[1] + 0.85, B[2] + 0.3, "a", cex = 1.5, col = orange)
+text(B[1] - 0.85, B[2] + 0.35, "a'", cex = 1.4, col = "grey40")
+text(B[1] + 0.85, B[2] + 0.3, "Z", cex = 1.5, col = orange)
 ```
 ]
 
 --
 
+.step[
+Slide angle **a** straight down the slanted line to the bottom crossing. The
+lines are exactly parallel, so it lands with the same tilt and the same
+width: call it **a'** (grey). Only its position moved.
+]
+
+---
+
+# Finishing the Z rule
+
+**We slid a down to a'. How does a' finish the job?**
+
+--
+
+**a'** and the Z-angle sit directly opposite each other at the bottom
+crossing.
+
+--
+
+So by the crossing-lines fact from the last slide, **a' = Z-angle**.
+
+--
+
+Chain it together: `a = a'` (sliding along a parallel line), and `a' =` the
+Z-angle (opposite angles at a crossing). So `a =` the Z-angle.
+
+--
+
 .why[
-Slide one marked angle along the slant until it lands on the other: they match.
+That is the Z rule, now built from the one opposite-angles fact instead of
+just "trust the ruler."
 ]
 
 ---
