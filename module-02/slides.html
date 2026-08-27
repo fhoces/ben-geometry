@@ -347,6 +347,53 @@ rule and the straight-line rule.
 
 ---
 
+# Why 180? Walk the star instead
+
+**Trace the star with your finger, one stroke, back to the start. How many
+full spins does your finger's *direction* make along the way?**
+
+--
+
+.pull-left[
+Not one. **Two.** The path crosses itself, so by the time your finger is back
+at the start, it has spun around **twice**: `2 x 360 = 720` degrees of
+turning, total.
+]
+
+--
+
+.pull-right[
+&lt;img src="slides_files/figure-html/starturn-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Why 180? Walk the star instead
+
+**We just walked 720 degrees of turning. How does that give the point-angle
+sum?**
+
+--
+
+At each point, the sharp **point-angle** and the **turn** your finger makes
+there sit on a straight line together, so (same straight-line rule as always)
+`turn = 180 - point-angle`.
+
+--
+
+Add that up over all five points:
+
+`$$(180 - A) + (180 - B) + \dots + (180 - E) = 720.$$`
+
+--
+
+.why[
+That is `900 - (A + B + C + D + E) = 720`, so `A + B + C + D + E = 180`. The
+exact same walking-turtle trick as before, just walked around **twice**.
+]
+
+---
+
 class: center, middle
 
 # Next up

@@ -161,6 +161,16 @@ impossible for one to fail."
   angles using the 180 rule and the straight-line rule. This is exactly the kind
   of angle-chase that shows up at math circle.
 
+  **Why 180: walk the star instead.** Trace the star with a finger, one
+  stroke, back to the start. Because the path crosses itself, the finger's
+  *direction* spins around **twice**, not once, by the time it is back: that
+  is `2 x 360 = 720` degrees of turning. At each point, the sharp point-angle
+  and the turn made there sit on a straight line, so `turn = 180 -
+  point-angle` (the same straight-line rule as always). Add that up over all
+  five points: `(180 - A) + (180 - B) + ... + (180 - E) = 720`, which is
+  `900 - (A + B + C + D + E) = 720`, so `A + B + C + D + E = 180`. It is the
+  walking-turtle trick from above, just walked around twice.
+
 ---
 
 ## For the grown-up

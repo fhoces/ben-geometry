@@ -481,6 +481,63 @@ rule and the straight-line rule.
 
 ---
 
+# Why 180? Walk the star instead
+
+**Trace the star with your finger, one stroke, back to the start. How many
+full spins does your finger's *direction* make along the way?**
+
+--
+
+.pull-left[
+Not one. **Two.** The path crosses itself, so by the time your finger is back
+at the start, it has spun around **twice**: `2 x 360 = 720` degrees of
+turning, total.
+]
+
+--
+
+.pull-right[
+```{r starturn, fig.width=5, fig.height=4.2}
+par(mar = c(0,0,0,0), pty = "s")
+k <- 0:4
+th <- (90 + 72 * k) * pi / 180
+px <- cos(th); py <- sin(th)
+ord <- c(1, 3, 5, 2, 4, 1)
+plot(NA, xlim = c(-1.25, 1.25), ylim = c(-1.3, 1.25), asp = 1, axes = FALSE,
+     xlab = "", ylab = "")
+polygon(px[ord], py[ord], border = blue, lwd = 3)
+points(px, py, pch = 19, cex = 1.4, col = orange)
+```
+]
+
+---
+
+# Why 180? Walk the star instead
+
+**We just walked 720 degrees of turning. How does that give the point-angle
+sum?**
+
+--
+
+At each point, the sharp **point-angle** and the **turn** your finger makes
+there sit on a straight line together, so (same straight-line rule as always)
+`turn = 180 - point-angle`.
+
+--
+
+Add that up over all five points:
+
+$$(180 - A) + (180 - B) + \dots + (180 - E) = 720.$$
+
+--
+
+.why[
+That is `900 - (A + B + C + D + E) = 720`, so `A + B + C + D + E = 180`. The
+exact same walking-turtle trick as before, just walked around **twice**.
+]
+
+---
+
 class: center, middle
 
 # Next up
