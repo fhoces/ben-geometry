@@ -128,9 +128,10 @@ about the two angles tucked inside the Z?**
 --
 
 .pull-left[
-Two **parallel** lines (use both edges of your ruler). One slanted line
-crossing both makes a **Z**, with an angle **a** at the top crossing and an
-angle tucked inside the Z at the bottom crossing.
+Draw the same crossing picture as before at the top. Now add a second,
+perfectly **parallel** line below it, and let the same slanted line cross
+that one too. Label the angles the same way at each crossing: **a**, **b**,
+**a**, **b**.
 ]
 
 --
@@ -139,39 +140,32 @@ angle tucked inside the Z at the bottom crossing.
 &lt;img src="slides_files/figure-html/zrule-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
---
-
-.step[
-Slide angle **a** straight down the slanted line to the bottom crossing. The
-lines are exactly parallel, so it lands with the same tilt and the same
-width: call it **a'** (grey). Only its position moved.
-]
-
 ---
 
 # Finishing the Z rule
 
-**We slid a down to a'. How does a' finish the job?**
+**The Z-shape's two tucked angles are both a's, but in different spots at
+each crossing. How do we know they match?**
 
 --
 
-**a'** and the Z-angle sit directly opposite each other at the bottom
-crossing.
+Slide the top crossing's marked **a** straight down the slanted line to the
+bottom crossing. The lines are exactly parallel, so it lands in the very
+same spot, same tilt, same width.
 
 --
 
-So by the crossing-lines fact from the last slide, **a' = Z-angle**.
-
---
-
-Chain it together: `a = a'` (sliding along a parallel line), and `a' =` the
-Z-angle (opposite angles at a crossing). So `a =` the Z-angle.
+The Z-angle, though, is the *other* **a** at that bottom crossing. By the
+crossing-lines fact, the two **a**'s at any single crossing are already
+equal to each other.
 
 --
 
 .why[
-That is the Z rule, now built from the one opposite-angles fact instead of
-just "trust the ruler."
+Chain it: top **a** = bottom **a** in the matching spot (sliding along a
+parallel line), and that **a** = the Z-angle (the two a's at a crossing are
+equal). So top **a** = the Z-angle, the Z rule, built from the one
+opposite-angles fact used twice.
 ]
 
 ---
@@ -185,18 +179,54 @@ vertex A?**
 
 .pull-left[
 Take any triangle **ABC**. Through the top vertex **A**, draw a line **parallel
-to the bottom side BC**.
-
-Three angles sit along that straight line at A: **x**, the apex angle **A**, and
-**y**. They lie on a straight line, so
-
-`$$x + A + y = 180.$$`
+to the bottom side BC**, stretching out past the triangle on both sides.
 ]
 
 --
 
 .pull-right[
-&lt;img src="slides_files/figure-html/proof-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/proof1-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Now the proof
+
+**To prove it for every triangle at once, what one line should you add through
+vertex A?**
+
+.pull-left[
+Take any triangle **ABC**. Through the top vertex **A**, draw a line **parallel
+to the bottom side BC**, stretching out past the triangle on both sides.
+
+Now stretch side **BA** past **A**, in orange. It crosses the parallel line and
+makes a Z with side BC, tucking angle **x** next to **A**.
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/proof2-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Now the proof
+
+.pull-left[
+Take any triangle **ABC**. Through the top vertex **A**, draw a line **parallel
+to the bottom side BC**, stretching out past the triangle on both sides.
+
+Stretch side **BA** past **A** (orange), making a Z with BC that tucks angle
+**x** next to A. Now do the same with side **CA** past **A**, in green, making
+a second Z with BC that tucks angle **y** next to A.
+
+Three angles now sit along the straight line at A: **x**, the apex angle
+**A**, and **y**. They lie on a straight line, so
+
+`$$x + A + y = 180.$$`
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/proof3-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 --
@@ -204,8 +234,8 @@ Three angles sit along that straight line at A: **x**, the apex angle **A**, and
 .pull-right[
 Now the **Z rule**, twice:
 
-- **x = B** (alternate angles across AB)
-- **y = C** (alternate angles across AC)
+- **x = B** (alternate angles across the orange Z)
+- **y = C** (alternate angles across the green Z)
 ]
 
 ---

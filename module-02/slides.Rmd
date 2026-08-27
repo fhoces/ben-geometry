@@ -22,6 +22,37 @@ arc <- function(cx, cy, r, a1, a2, col, lwd = 3) {
   a <- seq(a1, a2, length.out = 60) * pi / 180
   lines(cx + r * cos(a), cy + r * sin(a), col = col, lwd = lwd)
 }
+
+# the "Now the proof" figure, built up in three steps:
+# 1 = triangle + parallel line through A, extended beyond the triangle
+# 2 = + side BA extended beyond A (the transversal for the x/B pair), orange
+# 3 = + side CA extended beyond A (the transversal for the y/C pair), green
+draw_proof <- function(step) {
+  par(mar = c(0,0,0,0), pty = "s")
+  A <- c(0.7, 1.6); Bp <- c(0, 0); Cp <- c(2, 0)
+  green <- "#38761d"
+  plot(NA, xlim = c(-1.4, 3.0), ylim = c(-0.4, 2.6), asp = 1, axes = FALSE,
+       xlab = "", ylab = "")
+  segments(-1.3, A[2], 2.9, A[2], col = "grey50", lwd = 2)
+  polygon(c(A[1], Bp[1], Cp[1]), c(A[2], Bp[2], Cp[2]), border = blue, lwd = 3)
+  points(rbind(A, Bp, Cp), pch = 19, cex = 1.1)
+  text(A[1] - 0.18, A[2] + 0.16, "A", cex = 1.3)
+  text(Bp[1] - 0.18, Bp[2] - 0.05, "B", cex = 1.3, col = orange)
+  text(Cp[1] + 0.18, Cp[2] - 0.05, "C", cex = 1.3, col = green)
+  if (step >= 2) {
+    dirBA <- (A - Bp) / sqrt(sum((A - Bp)^2))
+    Aext <- A + 0.9 * dirBA
+    segments(A[1], A[2], Aext[1], Aext[2], col = orange, lwd = 3)
+    text(A[1] - 0.42, A[2] - 0.12, "x", cex = 1.3, col = orange)
+  }
+  if (step >= 3) {
+    dirCA <- (A - Cp) / sqrt(sum((A - Cp)^2))
+    Aext2 <- A + 0.9 * dirCA
+    segments(A[1], A[2], Aext2[1], Aext2[2], col = green, lwd = 3)
+    text(A[1] + 0.45, A[2] - 0.12, "y", cex = 1.3, col = green)
+  }
+  text(A[1] + 0.02, A[2] - 0.26, "A", cex = 1.2, col = blue)
+}
 ```
 
 class: center, middle
@@ -128,7 +159,7 @@ opposite each other (and so do the two **b**'s).
 par(mar = c(0,0,0,0), pty = "s")
 plot(NA, xlim = c(-1.3, 1.3), ylim = c(-1.3, 1.3), asp = 1, axes = FALSE,
      xlab = "", ylab = "")
-th1 <- 15; th2 <- 130
+th1 <- 0; th2 <- 51.3
 seg <- function(deg, len = 1.15) {
   a <- deg * pi / 180
   segments(-len * cos(a), -len * sin(a), len * cos(a), len * sin(a),
@@ -168,9 +199,10 @@ about the two angles tucked inside the Z?**
 --
 
 .pull-left[
-Two **parallel** lines (use both edges of your ruler). One slanted line
-crossing both makes a **Z**, with an angle **a** at the top crossing and an
-angle tucked inside the Z at the bottom crossing.
+Draw the same crossing picture as before at the top. Now add a second,
+perfectly **parallel** line below it, and let the same slanted line cross
+that one too. Label the angles the same way at each crossing: **a**, **b**,
+**a**, **b**.
 ]
 
 --
@@ -178,55 +210,62 @@ angle tucked inside the Z at the bottom crossing.
 .pull-right[
 ```{r zrule, fig.width=5, fig.height=3.2}
 par(mar = c(0,0,0,0))
-plot(NA, xlim = c(-1.2, 3.2), ylim = c(-0.5, 2.5), asp = 1, axes = FALSE,
+plot(NA, xlim = c(-1.2, 3.2), ylim = c(-0.9, 2.9), asp = 1, axes = FALSE,
      xlab = "", ylab = "")
 segments(-1, 2, 3, 2, col = "grey50", lwd = 2)
 segments(-1, 0, 3, 0, col = "grey50", lwd = 2)
 B <- c(0.7, 0); T <- c(2.3, 2)
 segments(B[1] - 0.55, B[2] - 0.7, T[1] + 0.35, T[2] + 0.45, col = blue, lwd = 3)
-arc(T[1], T[2], 0.55, 180, 231.3, orange, lwd = 4)
-arc(B[1], B[2], 0.55, 180, 231.3, "grey60", lwd = 4)
-arc(B[1], B[2], 0.55, 0, 51.3, orange, lwd = 4)
-points(B[1], B[2], pch = 19); points(T[1], T[2], pch = 19)
-text(T[1] - 0.85, T[2] - 0.35, "a", cex = 1.5, col = orange)
-text(B[1] - 0.85, B[2] + 0.35, "a'", cex = 1.4, col = "grey40")
-text(B[1] + 0.85, B[2] + 0.3, "Z", cex = 1.5, col = orange)
+th1 <- 0; th2 <- 51.3; r <- 0.42
+draw4 <- function(pt) {
+  arc(pt[1], pt[2], r, th1, th2, blue, lwd = 4)
+  arc(pt[1], pt[2], r, th2, th1 + 180, orange, lwd = 4)
+  arc(pt[1], pt[2], r, th1 + 180, th2 + 180, blue, lwd = 4)
+  arc(pt[1], pt[2], r, th2 + 180, th1 + 360, orange, lwd = 4)
+  points(pt[1], pt[2], pch = 19)
+}
+draw4(T); draw4(B)
+lab <- function(pt, mid, txt, col, rr = 0.62) {
+  a <- mid * pi / 180
+  text(pt[1] + rr * cos(a), pt[2] + rr * sin(a), txt, cex = 1.3, col = col)
+}
+lab(T, (th1 + th2) / 2, "a", blue)
+lab(T, (th2 + th1 + 180) / 2, "b", orange)
+lab(T, (th1 + 180 + th2 + 180) / 2, "a", blue)
+lab(T, (th2 + 180 + th1 + 360) / 2, "b", orange)
+lab(B, (th1 + th2) / 2, "a", blue)
+lab(B, (th2 + th1 + 180) / 2, "b", orange)
+lab(B, (th1 + 180 + th2 + 180) / 2, "a", blue)
+lab(B, (th2 + 180 + th1 + 360) / 2, "b", orange)
 ```
-]
-
---
-
-.step[
-Slide angle **a** straight down the slanted line to the bottom crossing. The
-lines are exactly parallel, so it lands with the same tilt and the same
-width: call it **a'** (grey). Only its position moved.
 ]
 
 ---
 
 # Finishing the Z rule
 
-**We slid a down to a'. How does a' finish the job?**
+**The Z-shape's two tucked angles are both a's, but in different spots at
+each crossing. How do we know they match?**
 
 --
 
-**a'** and the Z-angle sit directly opposite each other at the bottom
-crossing.
+Slide the top crossing's marked **a** straight down the slanted line to the
+bottom crossing. The lines are exactly parallel, so it lands in the very
+same spot, same tilt, same width.
 
 --
 
-So by the crossing-lines fact from the last slide, **a' = Z-angle**.
-
---
-
-Chain it together: `a = a'` (sliding along a parallel line), and `a' =` the
-Z-angle (opposite angles at a crossing). So `a =` the Z-angle.
+The Z-angle, though, is the *other* **a** at that bottom crossing. By the
+crossing-lines fact, the two **a**'s at any single crossing are already
+equal to each other.
 
 --
 
 .why[
-That is the Z rule, now built from the one opposite-angles fact instead of
-just "trust the ruler."
+Chain it: top **a** = bottom **a** in the matching spot (sliding along a
+parallel line), and that **a** = the Z-angle (the two a's at a crossing are
+equal). So top **a** = the Z-angle, the Z rule, built from the one
+opposite-angles fact used twice.
 ]
 
 ---
@@ -240,34 +279,59 @@ vertex A?**
 
 .pull-left[
 Take any triangle **ABC**. Through the top vertex **A**, draw a line **parallel
-to the bottom side BC**.
-
-Three angles sit along that straight line at A: **x**, the apex angle **A**, and
-**y**. They lie on a straight line, so
-
-$$x + A + y = 180.$$
+to the bottom side BC**, stretching out past the triangle on both sides.
 ]
 
 --
 
 .pull-right[
-```{r proof, fig.width=5, fig.height=3.3}
-par(mar = c(0,0,0,0), pty = "s")
-A <- c(0.7, 1.6); Bp <- c(0, 0); Cp <- c(2, 0)
-plot(NA, xlim = c(-1.0, 2.6), ylim = c(-0.4, 2.1), asp = 1, axes = FALSE,
-     xlab = "", ylab = "")
-# line through A parallel to BC (horizontal)
-segments(-0.9, A[2], 2.5, A[2], col = "grey50", lwd = 2)
-# triangle
-polygon(c(A[1], Bp[1], Cp[1]), c(A[2], Bp[2], Cp[2]), border = blue, lwd = 3)
-points(rbind(A, Bp, Cp), pch = 19, cex = 1.1)
-text(A[1] - 0.18, A[2] + 0.16, "A", cex = 1.3)
-text(Bp[1] - 0.18, Bp[2] - 0.05, "B", cex = 1.3, col = orange)
-text(Cp[1] + 0.18, Cp[2] - 0.05, "C", cex = 1.3, col = "#38761d")
-# the three angles along the line at A
-text(A[1] - 0.42, A[2] - 0.12, "x", cex = 1.3, col = orange)
-text(A[1] + 0.02, A[2] - 0.26, "A", cex = 1.2, col = blue)
-text(A[1] + 0.45, A[2] - 0.12, "y", cex = 1.3, col = "#38761d")
+```{r proof1, fig.width=5, fig.height=3.4}
+draw_proof(1)
+```
+]
+
+---
+
+# Now the proof
+
+**To prove it for every triangle at once, what one line should you add through
+vertex A?**
+
+.pull-left[
+Take any triangle **ABC**. Through the top vertex **A**, draw a line **parallel
+to the bottom side BC**, stretching out past the triangle on both sides.
+
+Now stretch side **BA** past **A**, in orange. It crosses the parallel line and
+makes a Z with side BC, tucking angle **x** next to **A**.
+]
+
+.pull-right[
+```{r proof2, fig.width=5, fig.height=3.4}
+draw_proof(2)
+```
+]
+
+---
+
+# Now the proof
+
+.pull-left[
+Take any triangle **ABC**. Through the top vertex **A**, draw a line **parallel
+to the bottom side BC**, stretching out past the triangle on both sides.
+
+Stretch side **BA** past **A** (orange), making a Z with BC that tucks angle
+**x** next to A. Now do the same with side **CA** past **A**, in green, making
+a second Z with BC that tucks angle **y** next to A.
+
+Three angles now sit along the straight line at A: **x**, the apex angle
+**A**, and **y**. They lie on a straight line, so
+
+$$x + A + y = 180.$$
+]
+
+.pull-right[
+```{r proof3, fig.width=5, fig.height=3.4}
+draw_proof(3)
 ```
 ]
 
@@ -276,8 +340,8 @@ text(A[1] + 0.45, A[2] - 0.12, "y", cex = 1.3, col = "#38761d")
 .pull-right[
 Now the **Z rule**, twice:
 
-- **x = B** (alternate angles across AB)
-- **y = C** (alternate angles across AC)
+- **x = B** (alternate angles across the orange Z)
+- **y = C** (alternate angles across the green Z)
 ]
 
 ---
