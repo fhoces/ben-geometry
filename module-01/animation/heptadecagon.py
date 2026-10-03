@@ -26,8 +26,21 @@ CAPTIONS = {
     "angle":    ["Look at the angle at I, between IO and IA."],
     "bisect1":  ["Bisect it: cut it exactly in half."],
     "bisect2":  ["Bisect that half again: now we have a quarter.", "Where it hits the line OA, call it E."],
-    "turn45":   ["Turn 45 degrees further round from IE.", "Where that hits the line, call it F."],
-    "circleAF": ["Draw the circle with AF as its diameter.", "It crosses OB at K."],
+    "turn45":   ["Next we need a 45-degree angle at I, turned from IE.",
+                 "Recipe: build a right angle, then cut it in half."],
+    "perp":     ["Right angle first. Compass on I: mark two points on",
+                 "line IE, the same distance from I on each side."],
+    "perp2":    ["Wider compass, from each mark: the arcs cross.",
+                 "The line from I to that crossing is square to IE."],
+    "bisect45": ["Now bisect that right angle (Move 4): one arc from I,",
+                 "then two equal arcs from where it cuts each side."],
+    "hitF":     ["Half of 90 is 45 degrees.", "Where this line hits line OA, call it F."],
+    "midAF":    ["We need the circle with AF as its diameter,",
+                 "so first find the exact middle of AF."],
+    "midAF2":   ["Move 2: arcs from A and from F, same width.",
+                 "Join the crossings: that line cuts AF in half at M."],
+    "circleAF": ["Compass on M, opened to A: draw the circle.",
+                 "It passes through F too, and crosses OB at K."],
     "circleE":  ["Draw the circle centered at E, through K.", "It crosses the line at N3 and N5."],
     "raise":    ["Raise a perpendicular at N3 and at N5,", "up to the big circle: P3 and P5."],
     "check":    ["Check: cut the circle into 17 equal slices.", "P3 sits on slice 3, P5 on slice 5. Exactly."],
@@ -104,6 +117,13 @@ class Heptadecagon(MovingCameraScene):
         self.play(FadeIn(d, scale=2), FadeIn(l), run_time=0.6 * PACE)
         return VGroup(d, l)
 
+    def dot_at(self, point, text, color, direction_):
+        d = Dot(point, color=color, radius=0.07)
+        l = Text(text, font_size=LABEL, color=color).next_to(d, direction_, buff=0.1)
+        l.set_stroke(WHITE, width=5, background=True)
+        self.play(FadeIn(d, scale=2), FadeIn(l), run_time=0.6 * PACE)
+        return VGroup(d, l)
+
     def go(self, *anims, t=1.2):
         self.play(*anims, run_time=t * PACE)
 
@@ -150,22 +170,91 @@ class Heptadecagon(MovingCameraScene):
         self.go(FadeOut(half, full, IA), t=0.6)
         self.IE, self.q_angle = quarter, q_angle
 
-    def step_45_and_circle_AF(self):
-        self.say("turn45", wait=0.3)
-        IF = Line(pt("I"), pt("F"), color=RED_D, stroke_width=5)
-        a45 = Angle(Line(pt("I"), pt("F")), Line(pt("I"), pt("E")), radius=0.35, color=RED_D)
-        t45 = Text("45°", font_size=14, color=RED_D).move_to(
-            pt("I") + 0.55 * direction(U["d_IE"] - PI / 8))
-        self.go(Create(IF), Create(a45), FadeIn(t45))
+    def compass(self, center, target, spread=0.3, color=GREY_B):
+        """A short compass arc: centered at `center`, passing through `target`."""
+        v = target - center
+        a = np.arctan2(v[1], v[0])
+        return Arc(radius=np.linalg.norm(v), start_angle=a - spread, angle=2 * spread,
+                   arc_center=center, color=color, stroke_width=3)
+
+    def step_45(self):
+        self.go(FadeOut(self.q_angle), t=0.4)
+        self.say("turn45", wait=1.5)
+        I = pt("I")
+        dE = direction(U["d_IE"])                 # along IE
+        dP = direction(U["d_IE"] - PI / 2)        # square to IE, on the side away from A
+        bis = (dE + dP) / np.linalg.norm(dE + dP)  # halfway between them: 45 degrees from IE
+
+        # 1. a right angle at I (Move 2's trick on two marks either side of I)
+        self.say("perp", wait=0.3)
+        r1, r2 = 0.6, 1.0
+        X1, X2 = I + r1 * dE, I - r1 * dE
+        back = DashedLine(I, I - 0.8 * dE, color=ORANGE_D)          # IE extended past I
+        self.go(Create(back), t=0.6)
+        arcs1 = VGroup(self.compass(I, X1), self.compass(I, X2))
+        self.go(Create(arcs1), t=0.9)
+        marks = VGroup(Dot(X1, radius=0.05, color=BLACK), Dot(X2, radius=0.05, color=BLACK))
+        self.go(FadeIn(marks), t=0.4)
+        self.say("perp2", wait=0.3)
+        Y = I + np.sqrt(r2**2 - r1**2) * dP                            # where the two arcs cross
+        arcs2 = VGroup(self.compass(X1, Y, 0.25), self.compass(X2, Y, 0.25))
+        self.go(Create(arcs2), t=1.0)
+        perp = Line(I, I + 1.3 * dP, color=BLUE_D, stroke_width=4)
+        square = RightAngle(Line(I, I + dE), Line(I, I + dP), length=0.18, color=BLUE_D)
+        self.go(Create(perp), Create(square), t=0.9)
+        self.wait(PACE)
+        scaffold1 = VGroup(arcs1, arcs2, marks, back)
+
+        # 2. bisect the right angle (Move 4)
+        self.say("bisect45", wait=0.3)
+        r3 = 0.75
+        Uc, Vc = I + r3 * dE, I + r3 * dP
+        sweep = Arc(radius=r3, start_angle=U["d_IE"] - PI / 2 - 0.15, angle=PI / 2 + 0.3,
+                    arc_center=I, color=GREY_B, stroke_width=3)
+        self.go(FadeOut(scaffold1), Create(sweep), t=1.0)
+        UV = VGroup(Dot(Uc, radius=0.05, color=BLACK), Dot(Vc, radius=0.05, color=BLACK))
+        self.go(FadeIn(UV), t=0.4)
+        half = np.linalg.norm(Uc - Vc) / 2
+        W = (Uc + Vc) / 2 + np.sqrt(r3**2 - half**2) * bis                # equal arcs from U and V cross here
+        arcs4 = VGroup(self.compass(Uc, W, 0.3), self.compass(Vc, W, 0.3))
+        self.go(Create(arcs4), t=1.0)
+
+        # 3. the 45-degree line, out to line OA
+        self.say("hitF", wait=0.3)
+        IF = Line(I, pt("F"), color=RED_D, stroke_width=5)
+        beyond = DashedLine(pt("F"), W, color=RED_D)       # the line runs on past F to the arc crossing
+        a45 = Angle(Line(I, pt("F")), Line(I, pt("E")), radius=0.35, color=RED_D)
+        t45 = Text("45°", font_size=14, color=RED_D).move_to(I + 0.55 * direction(U["d_IE"] - PI / 8))
+        self.go(Create(IF), Create(beyond), Create(a45), FadeIn(t45), t=1.2)
         self.IF = IF
         self.F = self.dot("F", RED_D, DOWN)
+        self.wait(1.5 * PACE)
+        self.go(FadeOut(a45, t45, perp, square, sweep, UV, arcs4, beyond), t=0.6)
+
+    def step_circle_AF(self):
+        self.say("midAF", wait=1.2)
+        A, F = pt("A"), pt("F")
+        Mid = (A + F) / 2
+        r = 0.57 * np.linalg.norm(A - F)                                # a bit more than half of AF
+        h = np.sqrt(r**2 - (np.linalg.norm(A - F) / 2) ** 2)
+        top, bottom = Mid + h * UP, Mid + h * DOWN                      # where the arcs from A and F cross
+        self.say("midAF2", wait=0.3)
+        arcsA = VGroup(self.compass(A, top, 0.22), self.compass(A, bottom, 0.22))
+        arcsF = VGroup(self.compass(F, top, 0.22), self.compass(F, bottom, 0.22))
+        self.go(Create(arcsA), t=1.0)
+        self.go(Create(arcsF), t=1.0)
+        cut = DashedLine(top, bottom, color=GREEN_D)
+        self.go(Create(cut), t=0.8)
+        self.M = self.dot_at(Mid, "M", GREEN_D, DR)
         self.wait(PACE)
-        self.go(FadeOut(a45, t45, self.q_angle), t=0.6)
         self.say("circleAF", wait=0.3)
-        c = (pt("A") + pt("F")) / 2
-        self.cAF = DashedVMobject(Circle(radius=np.linalg.norm(pt("A") - c), color=GREEN_D).move_to(c), num_dashes=60)
-        self.go(Create(self.cAF), t=2)
+        self.go(FadeOut(arcsA, arcsF, cut), t=0.5)
+        radius_line = Line(Mid, A, color=GREEN_D)
+        self.go(Create(radius_line), t=0.6)
+        self.cAF = DashedVMobject(Circle(radius=np.linalg.norm(A - Mid), color=GREEN_D).move_to(Mid), num_dashes=60)
+        self.go(Create(self.cAF), FadeOut(radius_line), t=2)
         self.K = self.dot("K", GREEN_D, RIGHT)
+        self.go(FadeOut(self.M), t=0.4)
 
     def step_circle_E_and_raise(self):
         self.say("circleE", wait=0.3)
@@ -238,7 +327,8 @@ class Heptadecagon(MovingCameraScene):
         self.step_axes()                # slide "Step 1", setup
         self.zoom(O + np.array([0.9, 0.3, 0]), 8)   # zoom in: the action is near O
         self.step_quarter_angle()       # slide "Step 1: quarter an angle"
-        self.step_45_and_circle_AF()    # slide "Step 2: 45 degrees, then a circle"
+        self.step_45()                  # slide "Step 2": building the 45-degree angle
+        self.step_circle_AF()           # slide "Step 2": the circle on AF (midpoint first)
         self.step_circle_E_and_raise()  # slide "Step 3: one more circle finds the answer"
         self.step_check()               # the P3 = 3/17, P5 = 5/17 claim, shown on the circle
         self.step_finish()              # slide "Step 4: finish it like Move 3"
