@@ -27,10 +27,17 @@ CAPTIONS = {
                  "draw equal arcs from A and from A'. They cross above O."],
     "right2":   ["O and that crossing are each the same distance from A and A',",
                  "so the line through them is square to OA. It meets the circle at B."],
-    "mark_I":   ["Mark I, a quarter of the way up from O to B."],
+    "mark_I":   ["Next, find I: a quarter of the way from O to B.",
+                 "A quarter is half of a half, so we bisect twice."],
+    "half1":    ["Move 2 on OB: equal arcs from O and from B.",
+                 "Join where they cross: that line cuts OB in half."],
+    "half2":    ["Now cut the lower half in half the same way.",
+                 "That point is a quarter of the way up: call it I."],
     "angle":    ["Look at the angle at I, between IO and IA."],
-    "bisect1":  ["Bisect it: cut it exactly in half."],
-    "bisect2":  ["Bisect that half again: now we have a quarter.", "Where it hits the line OA, call it E."],
+    "bisect1":  ["Bisect it (Move 4): one arc from I across both sides,",
+                 "then equal arcs from those two marks. Join I to the crossing."],
+    "bisect2":  ["Bisect that half again, the same way: now we have a quarter.",
+                 "Where it hits the line OA, call it E."],
     "turn45":   ["Next we need a 45-degree angle at I, turned from IE.",
                  "Recipe: build a right angle, then cut it in half."],
     "perp":     ["Right angle first. Compass on I: mark two points on",
@@ -175,24 +182,77 @@ class Heptadecagon(MovingCameraScene):
         self.wait(1.5 * PACE)
         self.go(FadeOut(arcs, cross, square, a2), t=0.6)
 
-    def step_quarter_angle(self):
-        self.say("mark_I", wait=0.3)
+    def bisect_segment(self, P, Q, key, color=GREY_B):
+        """Move 2 on segment PQ: equal arcs from P and Q, join the crossings. Returns the midpoint."""
+        mid, half = (P + Q) / 2, np.linalg.norm(Q - P) / 2
+        u = (Q - P) / (2 * half)
+        n = np.array([-u[1], u[0], 0])
+        r = 1.4 * half                                                # wider than half of PQ
+        h = np.sqrt(r**2 - half**2)
+        X1, X2 = mid + h * n, mid - h * n                             # where the arcs cross
+        self.say(key, wait=0.3)
+        arcsP = VGroup(self.compass(P, X1, 0.2), self.compass(P, X2, 0.2))
+        arcsQ = VGroup(self.compass(Q, X1, 0.2), self.compass(Q, X2, 0.2))
+        self.go(Create(arcsP), t=0.8)
+        self.go(Create(arcsQ), t=0.8)
+        cut = DashedLine(X1, X2, color=color)
+        self.go(Create(cut), t=0.7)
+        return mid, VGroup(arcsP, arcsQ, cut)
+
+    def step_find_I(self):
+        self.say("mark_I", wait=1.5)
+        Hm, g1 = self.bisect_segment(O, pt("B"), "half1")              # middle of OB
+        h_dot = Dot(Hm, color=BLACK, radius=0.05)
+        self.go(FadeIn(h_dot, scale=2), t=0.4)
+        self.wait(0.5 * PACE)
+        self.go(FadeOut(g1), t=0.5)
+        Im, g2 = self.bisect_segment(O, Hm, "half2")                   # middle of the lower half
+        assert np.allclose(Im, pt("I"))                               # it IS a quarter of OB
         self.I = self.dot("I", BLUE_D, LEFT)
+        self.wait(PACE)
+        self.go(FadeOut(g2, h_dot), t=0.5)
+
+    def bisect_angle(self, apex, d1, d2, r_arc, r_cross):
+        """Move 4: bisect the angle at `apex` between directions d1 and d2 (unit vectors).
+        Returns the bisector direction and the scaffolding drawn."""
+        U1, V1 = apex + r_arc * d1, apex + r_arc * d2
+        bis = (d1 + d2) / np.linalg.norm(d1 + d2)
+        half = np.linalg.norm(U1 - V1) / 2
+        W = (U1 + V1) / 2 + np.sqrt(r_cross**2 - half**2) * bis       # equal arcs from U1, V1 cross here
+        a1, a2 = np.arctan2(d1[1], d1[0]), np.arctan2(d2[1], d2[0])
+        sweep = Arc(radius=r_arc, start_angle=min(a1, a2) - 0.12, angle=abs(a2 - a1) + 0.24,
+                    arc_center=apex, color=GREY_B, stroke_width=3)
+        self.go(Create(sweep), t=0.8)
+        marks = VGroup(Dot(U1, radius=0.04, color=BLACK), Dot(V1, radius=0.04, color=BLACK))
+        self.go(FadeIn(marks), t=0.3)
+        cross = VGroup(self.compass(U1, W, 0.35), self.compass(V1, W, 0.35))
+        self.go(Create(cross), t=0.9)
+        return bis, VGroup(sweep, marks, cross)
+
+    def step_quarter_angle(self):
+        I = pt("I")
+        dO, dA = direction(U["d_IO"]), direction(U["d_IA"])
         self.say("angle", wait=0.3)
-        IA = DashedLine(pt("I"), pt("A"), color=BLUE_D)
-        full = Angle(Line(pt("I"), O), Line(pt("I"), pt("A")), radius=0.7, color=BLUE_D)
+        IA = DashedLine(I, pt("A"), color=BLUE_D)
+        full = Angle(Line(I, O), Line(I, pt("A")), radius=0.25, color=BLUE_D)
         self.go(Create(IA), Create(full))
         self.wait(PACE)
+        # first bisection: the angle OIA
         self.say("bisect1", wait=0.3)
-        half_dir = direction(U["d_IO"] + (U["d_IA"] - U["d_IO"]) / 2)
-        half = Line(pt("I"), pt("I") + 1.1 * half_dir, color=ORANGE_D, stroke_opacity=0.6)
-        self.go(Create(half))
+        d_half, g1 = self.bisect_angle(I, dO, dA, 0.6, 0.5)
+        half = Line(I, I + 1.0 * d_half, color=ORANGE_D, stroke_opacity=0.6)
+        self.go(Create(half), t=0.8)
+        self.wait(0.5 * PACE)
+        self.go(FadeOut(g1), t=0.4)
+        # second bisection: between IO and the half
         self.say("bisect2", wait=0.3)
-        quarter = Line(pt("I"), pt("E"), color=ORANGE_D, stroke_width=5)
-        q_angle = Angle(Line(pt("I"), O), Line(pt("I"), pt("E")), radius=1.0, color=ORANGE_D)
+        d_q, g2 = self.bisect_angle(I, dO, d_half, 0.6, 0.35)
+        assert np.allclose(d_q, direction(U["d_IE"]))                 # it IS the quarter, so it lands on E
+        quarter = Line(I, pt("E"), color=ORANGE_D, stroke_width=5)
+        q_angle = Angle(Line(I, O), Line(I, pt("E")), radius=1.0, color=ORANGE_D)
         self.go(Create(quarter), Create(q_angle))
         self.E = self.dot("E", ORANGE_D, DOWN)
-        self.go(FadeOut(half, full, IA), t=0.6)
+        self.go(FadeOut(half, full, IA, g2), t=0.6)
         self.IE, self.q_angle = quarter, q_angle
 
     def compass(self, center, target, spread=0.3, color=GREY_B):
@@ -350,6 +410,7 @@ class Heptadecagon(MovingCameraScene):
     def construct(self):
         self.caption = None
         self.step_axes()                # slide "Step 1", setup
+        self.step_find_I()              # I = a quarter of OB, by bisecting twice
         self.zoom(O + np.array([0.9, 0.3, 0]), 8)   # zoom in: the action is near O
         self.step_quarter_angle()       # slide "Step 1: quarter an angle"
         self.step_45()                  # slide "Step 2": building the 45-degree angle
