@@ -1,6 +1,6 @@
 """Laser-engraving file for building Gauss's 17-gon on wood with a real compass.
 
-Writes 17gon-laser.svg and 17gon-laser.pdf (200 x 200 mm, true size).
+Writes 17gon-laser.svg and 17gon-laser.pdf (250 x 250 mm, true size).
 
     /opt/anaconda3/bin/python3 make_17gon_laser.py
 
@@ -12,7 +12,7 @@ along strokes by default). Everything is a filled shape, so it engraves:
                       has a pit to sit in, or set it to "cut" for a pin-hole.
 Letters are converted to outlines, so no fonts are needed on the laser computer.
 
-Same exact geometry as ../animation/heptadecagon.py and make_17gon_guide.py.
+Same exact geometry as ../animation/heptadecagon.py and ../printables/make_17gon_guide.py.
 """
 import numpy as np
 from matplotlib.textpath import TextPath
@@ -20,8 +20,8 @@ from matplotlib.font_manager import FontProperties
 from matplotlib.path import Path
 
 # ---------------------------------------------------------------- edit me
-R_MM = 85.0           # radius of the big circle (mm). Bigger = M and N3 further apart.
-SIZE = 200.0          # the SVG/PDF is SIZE x SIZE mm
+R_MM = 110.0          # radius of the big circle (mm). Bigger = M and N3 further apart.
+SIZE = 250.0          # the SVG/PDF is SIZE x SIZE mm
 HOLE_D = 0.4          # needle-hole diameter (mm)
 LINE_W = 0.4          # width of the engraved circle and axes (mm)
 GAP = 2.0             # unengraved gap (mm) left in a line or the circle around each hole,
