@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="215.9mm" height="279.4mm" viewBox="0 0 215.9 279.4" font-family="Helvetica, Arial, sans-serif">
+<rect width="215.9" height="279.4" fill="white"/>
+<text x="12" y="12" font-size="5" font-weight="bold">Gauss's 17-gon: Richmond's recipe, with the exact points</text>
+<text x="12" y="17.5" font-size="3.2" fill="#555">Print at 100% ("Actual size"). The bar below must measure exactly 100 mm.</text>
+<g id="circle-and-axes" fill="none" stroke="#000" stroke-width="0.35">
+<circle cx="107.950" cy="112.000" r="85.0"/>
+<line x1="22.950" y1="112.000" x2="192.950" y2="112.000"/>
+<line x1="107.950" y1="112.000" x2="107.950" y2="27.000"/>
+</g>
+<circle cx="107.950" cy="112.000" r="0.6" fill="#000"/>
+<text x="102.950" y="117.500" font-size="4">O</text>
+<circle cx="192.950" cy="112.000" r="0.6" fill="#000"/>
+<text x="194.950" y="117.500" font-size="4">A</text>
+<circle cx="107.950" cy="27.000" r="0.6" fill="#000"/>
+<text x="109.450" y="25.000" font-size="4">B</text>
+<g id="key-points">
+<g stroke="#1769aa" stroke-width="0.15" fill="none"><line x1="105.750" y1="90.750" x2="110.150" y2="90.750"/><line x1="107.950" y1="88.550" x2="107.950" y2="92.950"/><circle cx="107.950" cy="90.750" r="1.1"/></g>
+<text x="101.950" y="91.750" font-size="3.4" fill="#1769aa" font-weight="bold">I</text>
+<g stroke="#c2410c" stroke-width="0.15" fill="none"><line x1="113.063" y1="112.000" x2="117.463" y2="112.000"/><line x1="115.263" y1="109.800" x2="115.263" y2="114.200"/><circle cx="115.263" cy="112.000" r="1.1"/></g>
+<text x="116.763" y="118.000" font-size="3.4" fill="#c2410c" font-weight="bold">E</text>
+<g stroke="#c0392b" stroke-width="0.15" fill="none"><line x1="95.382" y1="112.000" x2="99.782" y2="112.000"/><line x1="97.582" y1="109.800" x2="97.582" y2="114.200"/><circle cx="97.582" cy="112.000" r="1.1"/></g>
+<text x="93.582" y="118.000" font-size="3.4" fill="#c0392b" font-weight="bold">F</text>
+<g stroke="#1b7a3d" stroke-width="0.15" fill="none"><line x1="143.066" y1="112.000" x2="147.466" y2="112.000"/><line x1="145.266" y1="109.800" x2="145.266" y2="114.200"/><circle cx="145.266" cy="112.000" r="1.1"/></g>
+<text x="143.766" y="118.500" font-size="3.4" fill="#1b7a3d" font-weight="bold">M</text>
+<g stroke="#1b7a3d" stroke-width="0.15" fill="none"><line x1="105.750" y1="82.313" x2="110.150" y2="82.313"/><line x1="107.950" y1="80.113" x2="107.950" y2="84.513"/><circle cx="107.950" cy="82.313" r="1.1"/></g>
+<text x="110.450" y="80.313" font-size="3.4" fill="#1b7a3d" font-weight="bold">K</text>
+<g stroke="#7b3fa0" stroke-width="0.15" fill="none"><line x1="143.638" y1="112.000" x2="148.038" y2="112.000"/><line x1="145.838" y1="109.800" x2="145.838" y2="114.200"/><circle cx="145.838" cy="112.000" r="1.1"/></g>
+<text x="147.338" y="109.000" font-size="3.4" fill="#7b3fa0" font-weight="bold">N3</text>
+<g stroke="#7b3fa0" stroke-width="0.15" fill="none"><line x1="82.489" y1="112.000" x2="86.889" y2="112.000"/><line x1="84.689" y1="109.800" x2="84.689" y2="114.200"/><circle cx="84.689" cy="112.000" r="1.1"/></g>
+<text x="80.689" y="118.000" font-size="3.4" fill="#7b3fa0" font-weight="bold">N5</text>
+<g stroke="#000000" stroke-width="0.15" fill="none"><line x1="143.638" y1="35.911" x2="148.038" y2="35.911"/><line x1="145.838" y1="33.711" x2="145.838" y2="38.111"/><circle cx="145.838" cy="35.911" r="1.1"/></g>
+<text x="148.338" y="33.411" font-size="3.4" fill="#000000" font-weight="bold">P3</text>
+<g stroke="#000000" stroke-width="0.15" fill="none"><line x1="82.489" y1="30.245" x2="86.889" y2="30.245"/><line x1="84.689" y1="28.045" x2="84.689" y2="32.445"/><circle cx="84.689" cy="30.245" r="1.1"/></g>
+<text x="76.689" y="27.745" font-size="3.4" fill="#000000" font-weight="bold">P5</text>
+</g>
+<g id="vertex-check-ticks" stroke="#888" stroke-width="0.25">
+<line x1="194.450" y1="112.000" x2="197.950" y2="112.000"/>
+<text x="201.450" y="113.100" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">0</text>
+<line x1="188.609" y1="80.753" x2="191.873" y2="79.488"/>
+<text x="195.136" y="79.324" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">1</text>
+<line x1="171.874" y1="53.725" x2="174.461" y2="51.367"/>
+<text x="177.047" y="50.109" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">2</text>
+<line x1="146.506" y1="34.568" x2="148.066" y2="31.435"/>
+<text x="149.627" y="29.402" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">3</text>
+<line x1="115.931" y1="25.869" x2="116.254" y2="22.384"/>
+<text x="116.577" y="19.999" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">4</text>
+<line x1="84.278" y1="28.802" x2="83.320" y2="25.436"/>
+<text x="82.363" y="23.169" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">5</text>
+<line x1="55.822" y1="42.972" x2="53.713" y2="40.178"/>
+<text x="51.604" y="38.485" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">6</text>
+<line x1="34.406" y1="66.464" x2="31.430" y2="64.621"/>
+<text x="28.455" y="63.879" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">7</text>
+<line x1="22.923" y1="96.106" x2="19.482" y2="95.463"/>
+<text x="16.042" y="95.919" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">8</text>
+<line x1="22.923" y1="127.894" x2="19.482" y2="128.537"/>
+<text x="16.042" y="130.281" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">9</text>
+<line x1="34.406" y1="157.536" x2="31.430" y2="159.379"/>
+<text x="28.455" y="162.321" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">10</text>
+<line x1="55.822" y1="181.028" x2="53.713" y2="183.822"/>
+<text x="51.604" y="187.715" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">11</text>
+<line x1="84.278" y1="195.198" x2="83.320" y2="198.564"/>
+<text x="82.363" y="203.031" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">12</text>
+<line x1="115.931" y1="198.131" x2="116.254" y2="201.616"/>
+<text x="116.577" y="206.201" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">13</text>
+<line x1="146.506" y1="189.432" x2="148.066" y2="192.565"/>
+<text x="149.627" y="196.798" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">14</text>
+<line x1="171.874" y1="170.275" x2="174.461" y2="172.633"/>
+<text x="177.047" y="176.091" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">15</text>
+<line x1="188.609" y1="143.247" x2="191.873" y2="144.512"/>
+<text x="195.136" y="146.876" font-size="2.6" fill="#888" stroke="none" text-anchor="middle">16</text>
+</g>
+<g stroke="#000" stroke-width="0.3"><line x1="12" y1="213.0" x2="112" y2="213.0"/><line x1="12" y1="211.0" x2="12" y2="215.0"/><line x1="112" y1="211.0" x2="112" y2="215.0"/></g>
+<text x="114" y="214.2" font-size="3.2">100 mm</text>
+<text x="12" y="226.0" font-size="3.1" fill="#000">1. I is a quarter of the way from O to B. Bisect angle OIA, then bisect that half again; it hits line OA at E.</text>
+<text x="12" y="232.2" font-size="3.1" fill="#000">2. At I, build a right angle to IE and bisect it: 45 degrees. That line hits line OA (past O) at F.</text>
+<text x="12" y="238.4" font-size="3.1" fill="#000">3. Arcs from A and from F (same width) give the middle of AF: M. Circle centered M through A meets OB at K.</text>
+<text x="12" y="244.6" font-size="3.1" fill="#000">4. Circle centered E through K meets line OA at N3 and N5. Raise perpendiculars there to the circle: P3, P5.</text>
+<text x="12" y="250.8" font-size="3.1" fill="#000">5. P3 is 3/17 of the way round from A, P5 is 5/17. Copy chord P3P5 from A to reach vertex 2; then vertex 2</text>
+<text x="12" y="257.0" font-size="3.1" fill="#000">    to P3 is one side. Walk that width round the circle. The grey ticks show where all 17 vertices belong.</text>
+<text x="12" y="263.2" font-size="3.1" fill="#555">Note: M and N3 really are only about 0.6 mm apart. That is not a printing error.</text>
+</svg>
