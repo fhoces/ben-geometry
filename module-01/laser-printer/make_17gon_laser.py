@@ -4,9 +4,11 @@ Writes 17gon-laser.svg and 17gon-laser.pdf (250 x 250 mm, true size).
 
     /opt/anaconda3/bin/python3 make_17gon_laser.py
 
-Safe for engraving: there are NO stroked lines anywhere (many laser programs cut
-along strokes by default). Everything is a filled shape, so it engraves:
-  - black  (#000000): the circle, the two axes, the vertex ticks, and all lettering
+One cut, everything else engraved. Many laser programs cut along stroked lines by
+default, so the ONLY stroked line is the cut; everything else is a filled shape:
+  - red    (#FF0000, hairline stroke): CUT. The disc outline, CUT_MARGIN mm outside
+                      the engraved circle (so the holes on the circle keep their wood).
+  - black  (#000000): engrave. The circle, the two axes, the vertex ticks, the letters.
   - blue   (#0000FF): the needle holes, one tiny dot per key point. Give this color
                       a deeper engrave (more power or passes) so the compass needle
                       has a pit to sit in, or set it to "cut" for a pin-hole.
@@ -24,10 +26,12 @@ R_MM = 110.0          # radius of the big circle (mm). Bigger = M and N3 further
 SIZE = 250.0          # the SVG/PDF is SIZE x SIZE mm
 HOLE_D = 0.4          # needle-hole diameter (mm)
 LINE_W = 0.4          # width of the engraved circle and axes (mm)
+CUT_MARGIN = 7.0      # the disc is cut this far outside the engraved circle (mm).
+                      # 0 cuts right on the circle, but that destroys the holes at A, B, P3, P5.
+CUT = "#FF0000"
 GAP = 2.0             # unengraved gap (mm) left in a line or the circle around each hole,
                       # so the needle sits in a pit in flat wood, not in a groove it could slide along
 LABEL_PT = 5.0        # letter size (font size in mm; capitals come out about 3.6 mm tall)
-TICK_PT = 3.4         # size of the 0..16 vertex numbers
 ENGRAVE, HOLE = "#000000", "#0000FF"
 FONT = FontProperties(family="DejaVu Sans", weight="bold")
 CX = CY = SIZE / 2
@@ -112,7 +116,7 @@ def bar(x1, y1, x2, y2, w):
 
 # ---------------------------------------------------------------- the drawing
 out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{SIZE}mm" height="{SIZE}mm" viewBox="0 0 {SIZE} {SIZE}">',
-       '<!-- No strokes anywhere: black fills = engrave; blue dots = needle holes (deeper engrave or pin-hole cut). -->']
+       '<!-- Red hairline = CUT (the disc). Black fills = engrave. Blue dots = needle holes (deeper engrave or pin-hole cut). -->']
 W = out.append
 
 W('<g id="engrave-lines">')
@@ -137,16 +141,15 @@ for a, b in broken(0, R_MM, on_OB):
 on_circle = [R_MM * np.arctan2(p[1], p[0]) for p in (A, P3, B, P5)]   # arc length (mm) from A
 for a, b in broken(-np.pi * R_MM + 1e-6, np.pi * R_MM, on_circle):   # the circle, as arcs between holes
     W(arc_band(CX, CY, R_MM, LINE_W, a / R_MM, b / R_MM))
-for k in range(17):                                          # the 17 true vertices, as ticks outside
-    a = 2 * np.pi * k / 17
+for k in range(17):                                          # the 17 true vertices, as ticks just outside
+    a = 2 * np.pi * k / 17                                   # the circle (inside the cut disc)
     u = np.array([np.cos(a), -np.sin(a)])
-    W(bar(*(np.array([CX, CY]) + (R_MM + 1.5) * u), *(np.array([CX, CY]) + (R_MM + 5.0) * u), 0.3))
+    t_out = min(R_MM + 5.0, R_MM + CUT_MARGIN - 2.0)
+    if t_out > R_MM + 1.5:
+        W(bar(*(np.array([CX, CY]) + (R_MM + 1.5) * u), *(np.array([CX, CY]) + t_out * u), 0.3))
 W('</g>')
 
 W('<g id="engrave-text">')
-for k in range(17):
-    a = 2 * np.pi * k / 17
-    W(text_path(str(k), CX + (R_MM + 8.5) * np.cos(a), CY - (R_MM + 8.5) * np.sin(a), TICK_PT))
 for name, (p, (dx, dy)) in POINTS.items():
     x, y = page(p)
     W(text_path(name, x + dx, y + dy, LABEL_PT))
@@ -157,10 +160,12 @@ for name, (p, _) in POINTS.items():
     x, y = page(p)
     W(f'<circle cx="{x:.4f}" cy="{y:.4f}" r="{HOLE_D / 2}" fill="{HOLE}"/>')
 W('</g>')
+W(f'<circle id="cut" cx="{CX:.4f}" cy="{CY:.4f}" r="{R_MM + CUT_MARGIN:.4f}" fill="none" stroke="{CUT}" stroke-width="0.05"/>')
 W('</svg>')
 
 svg = "\n".join(out)
-assert "stroke" not in svg.replace("No strokes", "")        # nothing that a laser would treat as a cut line
+assert svg.count("stroke=") == 1 and 'stroke="#FF0000"' in svg   # the cut is the only stroked line
+assert R_MM + CUT_MARGIN < SIZE / 2                                  # the disc fits on the board
 open("17gon-laser.svg", "w").write(svg)
 
 import fitz
