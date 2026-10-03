@@ -30,7 +30,7 @@ def render(s):
                           clip=fitz.Rect(x0*k, y0*k, (x0+wmm)*k, (y0+hmm)*k))
     a=np.frombuffer(pix.samples,np.uint8).reshape(pix.h,pix.w,pix.n)
     return np.pad(a[...,3],((0,max(0,H-pix.h)),(0,max(0,W-pix.w))))[:H,:W].astype(np.float32)/255
-no_cut=re.sub(r'<circle id="cut"[^>]*/>','',svg)
+no_cut=re.sub(r'<circle id="(cut|align-guide-do-not-cut)"[^>]*/>','',svg)   # cut line and guide are not burned
 engrave=render(re.sub(r'<g id="needle-holes">.*?</g>','',no_cut,flags=re.S))
 holes=render(re.sub(r'<g id="engrave-(lines|text)">.*?</g>','',no_cut,flags=re.S))
 y,x=np.mgrid[0:H,0:W].astype(np.float32)/PX; x+=x0; y+=y0

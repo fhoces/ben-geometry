@@ -179,9 +179,11 @@ print("holes:", len(POINTS), " M-N3 centre gap (mm):", round(abs(N3[0] - M[0]) *
 # =====================================================================================
 # BACK SIDE: the recipe, engraved on the back of the disc (17gon-laser-back.svg / .pdf)
 # =====================================================================================
-# Engrave-only, no strokes, no cut. Same 250 mm page and the same centre as the front,
-# so: cut the front, flip the disc over INSIDE the hole it came out of (don't move the
-# sheet), then run this file. Lines flow inside the disc, centred, each one as wide as
+# Engrave-only text. The one stroked shape is a GREEN ALIGNMENT GUIDE: the same circle as
+# the front's cut, for lining the text up on the disc (camera view) and so both files have
+# the same outline when imported. SET GREEN TO "IGNORE" / OUTPUT OFF: it must never fire,
+# or it re-cuts the disc's edge. Same 250 mm page and centre as the front, so the disc can
+# also be flipped over inside the hole it came out of and run in place. Lines flow inside the disc, centred, each one as wide as
 # the circle allows at its height, at least BACK_MARGIN mm from the cut edge.
 BACK_MARGIN = 9.0
 BODY_FONT = FontProperties(family="DejaVu Sans")
@@ -285,7 +287,7 @@ assert best is not None, "recipe does not fit on the back: shorten it or shrink 
 lines = best[1]
 
 back = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{SIZE}mm" height="{SIZE}mm" viewBox="0 0 {SIZE} {SIZE}">',
-        '<!-- BACK SIDE. Engrave only (black fills). No cut. Same page and centre as 17gon-laser.svg. -->',
+        '<!-- BACK SIDE. Black fills = engrave. GREEN circle = ALIGNMENT GUIDE ONLY: set green to IGNORE / output off (never cut it). -->',
         '<g id="engrave-text">']
 r_safe = R_MM + CUT_MARGIN - BACK_MARGIN
 worst = 0.0
@@ -294,9 +296,12 @@ for s, baseline, size, prop in lines:
     back.append(p)
     for yy in (baseline - 0.75 * size, baseline + 0.25 * size):   # glyph top and descender bottom
         worst = max(worst, np.hypot(w / 2, yy - CY))
-back += ['</g>', '</svg>']
+back.append('</g>')
+back.append(f'<circle id="align-guide-do-not-cut" cx="{CX:.4f}" cy="{CY:.4f}" r="{R_MM + CUT_MARGIN:.4f}" '
+            f'fill="none" stroke="#00A000" stroke-width="0.05"/>')
+back.append('</svg>')
 back_svg = "\n".join(back)
-assert "stroke" not in back_svg                                  # nothing a laser would cut
+assert back_svg.count("stroke=") == 1 and 'stroke="#00A000"' in back_svg   # only the green guide
 assert worst < r_safe + 0.5, worst
 open("17gon-laser-back.svg", "w").write(back_svg)
 fitz.open("pdf", fitz.open("17gon-laser-back.svg").convert_to_pdf()).save("17gon-laser-back.pdf")
