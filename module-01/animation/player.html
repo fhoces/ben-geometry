@@ -1,0 +1,100 @@
+<!-- Step-by-step video player for the slides (loaded once via `includes: in_header`).
+     A <video data-stops="NAME"> pauses at every time listed in animation/NAME_stops.js
+     (written by each manim script when it renders) and asks "Got it, next?".
+     A <video> without data-stops plays normally (the "no stops" versions). -->
+<style>
+  .vstep-wrap { position: relative; margin: 0.4em auto 0 auto; }
+  .vstep-wrap video { display: block; width: 100%; margin: 0; }
+  .vstep-bar { position: absolute; left: 0; right: 0; bottom: 56px; display: none;
+               justify-content: center; align-items: center; gap: 10px; }
+  .vstep-bar.show { display: flex; }
+  .vstep-bar button { font: 600 17px/1.2 -apple-system, "Segoe UI", sans-serif; padding: 7px 14px;
+                      border-radius: 7px; border: none; cursor: pointer; }
+  .vstep-next { background: #1769aa; color: #fff; }
+  .vstep-replay { background: #e9e9e9; color: #222; }
+  .vstep-count { background: rgba(255,255,255,.92); color: #333; padding: 5px 9px; border-radius: 6px;
+                 font: 15px/1.2 -apple-system, "Segoe UI", sans-serif; }
+</style>
+<script src="animation/fold_bisector_stops.js"></script>
+<script src="animation/hexaflexagon_stops.js"></script>
+<script src="animation/heptadecagon_stops.js"></script>
+<script>
+(function () {
+  var EARLY = 0.06;   // stop this many seconds before the next caption appears
+
+  function setup(video) {
+    var stops = (window.VIDEO_STOPS || {})[video.dataset.stops];
+    if (!stops || video.dataset.vstep) return;
+    video.dataset.vstep = "1";
+
+    var wrap = document.createElement("div");
+    wrap.className = "vstep-wrap";
+    wrap.style.width = (video.getAttribute("width") || 560) + "px";
+    video.parentNode.insertBefore(wrap, video);
+    wrap.appendChild(video);
+    video.removeAttribute("style");
+
+    var bar = document.createElement("div");
+    bar.className = "vstep-bar";
+    bar.innerHTML = '<span class="vstep-count"></span>' +
+      '<button class="vstep-replay" type="button">&#8634; Replay this step</button>' +
+      '<button class="vstep-next" type="button">Got it, next &#9654;</button>';
+    wrap.appendChild(bar);
+    var count = bar.querySelector(".vstep-count");
+    var total = stops.length + 1;
+
+    var i = 0;            // index of the next stop
+    var waiting = false;  // paused at a stop, waiting for the viewer
+    var ours = false;     // the next "seeked" event comes from our own code
+
+    function nextIndex() { var k = 0; while (k < stops.length && video.currentTime >= stops[k] - EARLY - 0.01) k++; return k; }
+    function show(done) {
+      count.textContent = done ? "All " + total + " steps done" : "Step " + (i + 1) + " of " + total + " done";
+      bar.querySelector(".vstep-next").style.display = done ? "none" : "";
+      bar.classList.add("show");
+      bar.querySelector(done ? ".vstep-replay" : ".vstep-next").focus({ preventScroll: true });
+    }
+    function hide() { bar.classList.remove("show"); }
+    function seek(t) { ours = true; video.currentTime = Math.max(0, t); }
+
+    function tick() {
+      if (video.paused) return;
+      if (!waiting && i < stops.length && video.currentTime >= stops[i] - EARLY) {
+        video.pause(); seek(stops[i] - EARLY); waiting = true; show(false); return;
+      }
+      requestAnimationFrame(tick);
+    }
+    function next() { if (waiting) { waiting = false; i++; } hide(); video.play(); }
+    function replay() {
+      var k = waiting ? i : nextIndex();                 // the step that just finished
+      var start = k > 0 ? stops[k - 1] : 0;
+      if (video.ended) { k = stops.length; start = stops.length ? stops[stops.length - 1] : 0; }
+      waiting = false; i = k; hide(); seek(start); video.play();
+    }
+
+    video.addEventListener("play", function () {
+      if (waiting) { waiting = false; i++; hide(); }    // the native play button also means "next"
+      requestAnimationFrame(tick);
+    });
+    video.addEventListener("seeked", function () {
+      if (ours) { ours = false; return; }
+      waiting = false; hide(); i = nextIndex();          // the viewer dragged the time bar
+    });
+    video.addEventListener("ended", function () { waiting = false; show(true); });
+    bar.querySelector(".vstep-next").addEventListener("click", next);
+    bar.querySelector(".vstep-replay").addEventListener("click", replay);
+    // keep Enter/Space for the player while it has focus, instead of changing slide
+    wrap.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.stopPropagation(); e.preventDefault();
+        if (waiting) next(); else if (e.target === video) { video.paused ? video.play() : video.pause(); }
+        else if (e.target.click) e.target.click();
+      }
+    }, true);
+  }
+
+  function init() { document.querySelectorAll("video[data-stops]").forEach(setup); }
+  window.addEventListener("load", init);
+  var tries = 0, timer = setInterval(function () { init(); if (++tries > 10) clearInterval(timer); }, 500);
+})();
+</script>

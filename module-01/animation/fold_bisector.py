@@ -9,6 +9,9 @@ Render (from this folder; manim lives in the `manim` conda env):
 `draw_bisect()` figure in ../slides.Rmd.
 """
 from manim import *
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import stops   # pause points for the slide player (writes <name>_stops.js)
 import numpy as np
 
 config.background_color = WHITE
@@ -40,6 +43,7 @@ def label(s, point, direction, color=INK):
 
 class FoldBisector(Scene):
     def say(self, cap, *lines, wait=1.5):
+        stops.mark(self)                              # a new concept starts here
         new = caption(*lines)
         if cap is None:
             self.play(FadeIn(new))
@@ -123,3 +127,4 @@ class FoldBisector(Scene):
         )
         self.play(FadeIn(deg_l, deg_r))
         self.wait(2.5)
+        stops.write(self, "fold_bisector")      # pause points for the slide player

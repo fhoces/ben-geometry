@@ -15,6 +15,9 @@ EDITING GUIDE
   comment out a line there to skip a step while you work on another.
 """
 from manim import *
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import stops   # pause points for the slide player (writes <name>_stops.js)
 import numpy as np
 
 # ---------------------------------------------------------------- edit me: words
@@ -109,6 +112,7 @@ def direction(theta):
 class Heptadecagon(MovingCameraScene):
     # ------------------------------------------------------------ helpers
     def say(self, key, wait=1.5):
+        stops.mark(self)                              # a new concept starts here
         new = VGroup(*[Text(s, font_size=FONT, color=BLACK) for s in CAPTIONS[key]])
         frame = self.camera.frame                      # captions follow the camera zoom
         s = frame.width / config.frame_width
@@ -419,3 +423,4 @@ class Heptadecagon(MovingCameraScene):
         self.step_circle_E_and_raise()  # slide "Step 3: one more circle finds the answer"
         self.step_check()               # the P3 = 3/17, P5 = 5/17 claim, shown on the circle
         self.step_finish()              # slide "Step 4: finish it like Move 3"
+        stops.write(self, "heptadecagon")      # pause points for the slide player

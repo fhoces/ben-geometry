@@ -18,6 +18,9 @@ EDITING GUIDE
 - Order of the video: construct() at the bottom, one line per step.
 """
 from manim import *
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import stops   # pause points for the slide player (writes <name>_stops.js)
 import numpy as np
 
 # ---------------------------------------------------------------- edit me: words
@@ -95,6 +98,7 @@ FLIPS = {i: sum(1 for c in FOLDS if i > c) for i in range(1, 11)}
 class Hexaflexagon(Scene):
     # ------------------------------------------------------------ helpers
     def say(self, key, wait=1.5):
+        stops.mark(self)                              # a new concept starts here
         new = VGroup(*[Text(s, font_size=FONT, color=BLACK) for s in CAPTIONS[key]])
         new.arrange(DOWN, buff=0.15).to_edge(UP, buff=0.3)
         if self.caption is None:
@@ -243,6 +247,7 @@ class Hexaflexagon(Scene):
         self.step_hexagon()
         self.step_color_and_flip()
         self.step_flexes()         # slides "Step 3: flex it open" and "A new face!"
+        stops.write(self, "hexaflexagon")      # pause points for the slide player
 
 
 # positions of every triangle right after fold k (used to snap each fold exactly)
