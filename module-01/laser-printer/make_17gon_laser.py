@@ -185,8 +185,9 @@ print("holes:", len(POINTS), " M-N3 centre gap (mm):", round(abs(N3[0] - M[0]) *
 # the circle allows at its height, at least BACK_MARGIN mm from the cut edge.
 BACK_MARGIN = 9.0
 BODY_FONT = FontProperties(family="DejaVu Sans")
-RECIPE = [   # (style, text). Styles: title, sub, head, body, foot
-    ("title", "Gauss's 17-gon"),
+RECIPE = [   # (style, text). Styles: title, subtitle, sub, head, body, foot
+    ("title", "Heptadecagon"),
+    ("subtitle", "Gauss's 17-gon"),
     ("sub", "Only a compass and a straightedge. Every point is marked on the front."),
     ("head", "1. Quarter an angle"),
     ("body", "I is a quarter of the way from O to B. Bisect the angle at I between IO and IA, "
@@ -205,11 +206,11 @@ RECIPE = [   # (style, text). Styles: title, sub, head, body, foot
     ("body", "Open the compass from P3 to P5 and step it from A: you land 2/17 of the way round. "
              "From there to P3 is one side, exactly 1/17. Walk that width round the circle 17 times "
              "and join the marks. Every corner should land on a tick."),
-    ("foot", "Gauss proved this possible in 1796, at 18. Richmond found this recipe in 1893."),
+    ("foot", "Inspired by: Numberphile - Heptadecagon (17-gon)"),
 ]
 STYLE = {  # font size (mm), font, line height factor, space before (mm)
-    "title": (10.0, FONT, 1.3, 0.0), "sub": (4.4, BODY_FONT, 1.4, 1.0),
-    "head": (5.8, FONT, 1.35, 3.4), "body": (4.9, BODY_FONT, 1.42, 0.7), "foot": (4.0, BODY_FONT, 1.4, 3.2),
+    "title": (12.0, FONT, 1.2, 0.0), "subtitle": (7.0, BODY_FONT, 1.3, 0.0), "sub": (4.32, BODY_FONT, 1.4, 1.0),
+    "head": (5.66, FONT, 1.35, 3.4), "body": (4.8, BODY_FONT, 1.42, 0.7), "foot": (3.5, BODY_FONT, 1.4, 3.2),
 }
 
 
