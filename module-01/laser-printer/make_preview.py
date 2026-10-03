@@ -5,6 +5,7 @@ laser settings. Every mark comes straight from 17gon-laser.svg, so positions are
 
     /opt/anaconda3/bin/python3 make_preview.py 17gon-laser.svg preview.png 6
     /opt/anaconda3/bin/python3 make_preview.py 17gon-laser.svg preview-closeup.png 20 86 80 98 54
+    /opt/anaconda3/bin/python3 make_preview.py 17gon-laser-back.svg preview-back.png 6
 
 Arguments: input SVG, output PNG, pixels per mm, then optionally a window in mm
 (x, y, width, height) for a close-up.
@@ -14,7 +15,11 @@ from PIL import Image, ImageFilter
 src, out, PX = sys.argv[1], sys.argv[2], float(sys.argv[3])
 win = [float(v) for v in sys.argv[4:8]] if len(sys.argv) > 4 else None   # x0 y0 w h in mm
 svg=open(src).read()
-cut_r=float(re.search(r'id="cut"[^>]* r="([\d.]+)"',svg).group(1))
+m=re.search(r'id="cut"[^>]* r="([\d.]+)"',svg)
+if m is None:   # the back side has no cut line: take the disc size from the front file
+    import os
+    m=re.search(r'id="cut"[^>]* r="([\d.]+)"',open(os.path.join(os.path.dirname(os.path.abspath(src)),"17gon-laser.svg")).read())
+cut_r=float(m.group(1))
 size_mm=float(re.search(r'width="([\d.]+)mm"',svg).group(1))
 x0,y0,wmm,hmm = win if win else (0,0,size_mm,size_mm)
 W,H=int(wmm*PX),int(hmm*PX)

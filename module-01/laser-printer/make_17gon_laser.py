@@ -174,3 +174,129 @@ pdf.save("17gon-laser.pdf")
 print("pdf page (mm):", round(pdf[0].rect.width / 72 * 25.4, 2), "x", round(pdf[0].rect.height / 72 * 25.4, 2))
 print("holes:", len(POINTS), " M-N3 centre gap (mm):", round(abs(N3[0] - M[0]) * R_MM, 2),
       " edge gap:", round(abs(N3[0] - M[0]) * R_MM - HOLE_D, 2))
+
+
+# =====================================================================================
+# BACK SIDE: the recipe, engraved on the back of the disc (17gon-laser-back.svg / .pdf)
+# =====================================================================================
+# Engrave-only, no strokes, no cut. Same 250 mm page and the same centre as the front,
+# so: cut the front, flip the disc over INSIDE the hole it came out of (don't move the
+# sheet), then run this file. Lines flow inside the disc, centred, each one as wide as
+# the circle allows at its height, at least BACK_MARGIN mm from the cut edge.
+BACK_MARGIN = 9.0
+BODY_FONT = FontProperties(family="DejaVu Sans")
+RECIPE = [   # (style, text). Styles: title, sub, head, body, foot
+    ("title", "Gauss's 17-gon"),
+    ("sub", "Only a compass and a straightedge. Every point is marked on the front."),
+    ("head", "1. Quarter an angle"),
+    ("body", "I is a quarter of the way from O to B. Bisect the angle at I between IO and IA, "
+             "then bisect that half again. Where the line meets line OA: E."),
+    ("head", "2. 45 degrees, then a circle"),
+    ("body", "At I, make a right angle to IE. Mark two points on line IE, one on each side of I, "
+             "the same distance away. From each, draw a wider arc. Join I to where the arcs cross."),
+    ("body", "Bisect that right angle to get 45 degrees. Where it meets line OA, past O: F."),
+    ("body", "Find the middle of AF: equal arcs from A and from F, then join their crossings. "
+             "The middle is M. Compass on M, opened to A: draw the circle. It meets OB at K."),
+    ("head", "3. One more circle"),
+    ("body", "Compass on E, opened to K: draw the circle. It meets line OA at N3 and N5. "
+             "Raise a perpendicular at each, up to the big circle: P3 and P5."),
+    ("body", "P3 is exactly 3/17 of the way round from A. P5 is exactly 5/17."),
+    ("head", "4. Walk it round"),
+    ("body", "Open the compass from P3 to P5 and step it from A: you land 2/17 of the way round. "
+             "From there to P3 is one side, exactly 1/17. Walk that width round the circle 17 times "
+             "and join the marks. Every corner should land on a tick."),
+    ("foot", "Gauss proved this possible in 1796, at 18. Richmond found this recipe in 1893."),
+]
+STYLE = {  # font size (mm), font, line height factor, space before (mm)
+    "title": (10.0, FONT, 1.3, 0.0), "sub": (4.4, BODY_FONT, 1.4, 1.0),
+    "head": (5.8, FONT, 1.35, 3.4), "body": (4.9, BODY_FONT, 1.42, 0.7), "foot": (4.0, BODY_FONT, 1.4, 3.2),
+}
+
+
+def line_path(s, cx, baseline, size, prop):
+    """One line of text as filled outlines, centred horizontally on cx, sitting on `baseline`."""
+    tp = TextPath((0, 0), s, size=size, prop=prop)
+    v = tp.vertices.copy()
+    if len(v) == 0:
+        return "", 0.0
+    xmin, xmax = v[:, 0].min(), v[:, 0].max()
+    v[:, 0] += cx - (xmin + xmax) / 2
+    v[:, 1] = baseline - v[:, 1]
+    d, i, codes = [], 0, tp.codes
+    while i < len(codes):
+        c = codes[i]
+        if c == Path.MOVETO:
+            d.append(f"M{v[i,0]:.3f},{v[i,1]:.3f}"); i += 1
+        elif c == Path.LINETO:
+            d.append(f"L{v[i,0]:.3f},{v[i,1]:.3f}"); i += 1
+        elif c == Path.CURVE3:
+            d.append(f"Q{v[i,0]:.3f},{v[i,1]:.3f} {v[i+1,0]:.3f},{v[i+1,1]:.3f}"); i += 2
+        elif c == Path.CURVE4:
+            d.append(f"C{v[i,0]:.3f},{v[i,1]:.3f} {v[i+1,0]:.3f},{v[i+1,1]:.3f} {v[i+2,0]:.3f},{v[i+2,1]:.3f}"); i += 3
+        elif c == Path.CLOSEPOLY:
+            d.append("Z"); i += 1
+        else:
+            i += 1
+    return f'<path fill="{ENGRAVE}" fill-rule="evenodd" d="{" ".join(d)}"/>', xmax - xmin
+
+
+def width_of(s, size, prop):
+    v = TextPath((0, 0), s, size=size, prop=prop).vertices
+    return 0.0 if len(v) == 0 else v[:, 0].max() - v[:, 0].min()
+
+
+def layout(top):
+    """Flow RECIPE into the safe circle starting at y=top. Returns (lines, bottom, overflow)."""
+    r_safe = R_MM + CUT_MARGIN - BACK_MARGIN
+    y, lines = top, []
+    for k, (style, text) in enumerate(RECIPE):
+        size, prop, lh_f, before = STYLE[style]
+        lh = size * lh_f
+        if k:
+            y += before
+        words = text.split()
+        while words:
+            far = max(abs(y - CY), abs(y + lh - CY))          # the line's edge farthest from centre
+            if far >= r_safe:
+                return lines, y, True
+            avail = 2 * np.sqrt(r_safe**2 - far**2)
+            line = words[0]
+            j = 1
+            while j < len(words) and width_of(line + " " + words[j], size, prop) <= avail:
+                line += " " + words[j]; j += 1
+            if width_of(line, size, prop) > avail:            # a single word too wide here: move down
+                y += lh; continue
+            lines.append((line, y + 0.8 * lh, size, prop))
+            words = words[j:]
+            y += lh
+    return lines, y, False
+
+
+# try every starting height; keep the layout that fits with the block closest to centred
+best = None
+for top in np.arange(CY - 105, CY - 30, 0.5):
+    lines, bottom, overflow = layout(top)
+    if not overflow:
+        off = abs((top + bottom) / 2 - CY)
+        if best is None or off < best[0]:
+            best = (off, lines)
+assert best is not None, "recipe does not fit on the back: shorten it or shrink STYLE sizes"
+lines = best[1]
+
+back = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{SIZE}mm" height="{SIZE}mm" viewBox="0 0 {SIZE} {SIZE}">',
+        '<!-- BACK SIDE. Engrave only (black fills). No cut. Same page and centre as 17gon-laser.svg. -->',
+        '<g id="engrave-text">']
+r_safe = R_MM + CUT_MARGIN - BACK_MARGIN
+worst = 0.0
+for s, baseline, size, prop in lines:
+    p, w = line_path(s, CX, baseline, size, prop)
+    back.append(p)
+    for yy in (baseline - 0.75 * size, baseline + 0.25 * size):   # glyph top and descender bottom
+        worst = max(worst, np.hypot(w / 2, yy - CY))
+back += ['</g>', '</svg>']
+back_svg = "\n".join(back)
+assert "stroke" not in back_svg                                  # nothing a laser would cut
+assert worst < r_safe + 0.5, worst
+open("17gon-laser-back.svg", "w").write(back_svg)
+fitz.open("pdf", fitz.open("17gon-laser-back.svg").convert_to_pdf()).save("17gon-laser-back.pdf")
+print(f"back: {len(lines)} lines, text reaches {worst:.1f} mm from centre (cut at {R_MM + CUT_MARGIN:.0f} mm)")
