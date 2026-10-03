@@ -26,7 +26,7 @@ R_MM = 110.0          # radius of the big circle (mm). Bigger = M and N3 further
 SIZE = 250.0          # the SVG/PDF is SIZE x SIZE mm
 HOLE_D = 0.4          # needle-hole diameter (mm)
 LINE_W = 0.4          # width of the engraved circle and axes (mm)
-CUT_MARGIN = 7.0      # the disc is cut this far outside the engraved circle (mm).
+CUT_MARGIN = 5.0      # the disc is cut this far outside the engraved circle (mm).
                       # 0 cuts right on the circle, but that destroys the holes at A, B, P3, P5.
 CUT = "#FF0000"
 GAP = 2.0             # unengraved gap (mm) left in a line or the circle around each hole,
