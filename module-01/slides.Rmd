@@ -948,6 +948,8 @@ two circles?**
 
 <video src="animation/heptadecagon.mp4" poster="animation/heptadecagon_poster.png" controls width="560" style="display:block; margin: 0.4em auto 0 auto;"></video>
 
+.center[.small[Inspired by Numberphile: [The Amazing Heptadecagon (17-gon)](https://www.youtube.com/watch?v=87uo2TPrsl8)]]
+
 ---
 
 class: center, middle

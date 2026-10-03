@@ -211,10 +211,11 @@ RECIPE = [   # (style, text). Styles: title, subtitle, sub, head, body, foot
              "From there to P3 is one side, exactly 1/17. Walk that width round the circle 17 times "
              "and join the marks. Every corner should land on a tick."),
     ("foot", "Inspired by: Numberphile - Heptadecagon (17-gon)"),
+    ("url", "youtube.com/watch?v=87uo2TPrsl8"),
 ]
 STYLE = {  # font size (mm), font, line height factor, space before (mm)
     "title": (12.0, FONT, 1.2, 0.0), "subtitle": (7.0, BODY_FONT, 1.3, 0.0), "sub": (4.32, BODY_FONT, 1.4, 1.0),
-    "head": (5.66, FONT, 1.35, 3.4), "body": (4.8, BODY_FONT, 1.42, 0.7), "foot": (3.5, BODY_FONT, 1.4, 3.2),
+    "head": (5.66, FONT, 1.35, 3.4), "body": (4.8, BODY_FONT, 1.42, 0.7), "foot": (3.5, BODY_FONT, 1.4, 3.2), "url": (3.5, BODY_FONT, 1.4, 0.0),
 }
 
 

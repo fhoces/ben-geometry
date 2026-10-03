@@ -60,6 +60,7 @@ CAPTIONS = {
     "side":     ["The gap from slice 2 to P3 is one slice:", "the side of the 17-gon."],
     "walk":     ["Walk that width around the circle,", "just like the hexagon."],
     "done":     ["Seventeen equal sides. No measuring,", "just circles and straight lines."],
+    "credit":   ["Inspired by Numberphile:", "The Amazing Heptadecagon (17-gon)"],
 }
 
 # ---------------------------------------------------------------- edit me: look
@@ -403,6 +404,7 @@ class Heptadecagon(MovingCameraScene):
             self.play(Create(e), FadeIn(d), run_time=0.35 * PACE)
             edges.append(e); dots.append(d)
         self.say("done", wait=3)
+        self.say("credit", wait=3)
 
 
     # ------------------------------------------------------------ the order

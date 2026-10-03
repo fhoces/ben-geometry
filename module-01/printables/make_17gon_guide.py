@@ -103,9 +103,11 @@ steps = [
     "5. P3 is 3/17 of the way round from A, P5 is 5/17. Copy chord P3P5 from A to reach vertex 2; then vertex 2",
     "    to P3 is one side. Walk that width round the circle. The grey ticks show where all 17 vertices belong.",
     "Note: M and N3 really are only about 0.6 mm apart. That is not a printing error.",
+    "Inspired by Numberphile: The Amazing Heptadecagon (17-gon), youtube.com/watch?v=87uo2TPrsl8",
 ]
+CREDIT_URL = "https://www.youtube.com/watch?v=87uo2TPrsl8"
 for i, s in enumerate(steps):
-    W(f'<text x="12" y="{226 + 6.2 * i:.1f}" font-size="3.1" fill="{"#555" if s.startswith("Note") else "#000"}">'
+    W(f'<text x="12" y="{226 + 6.2 * i:.1f}" font-size="3.1" fill="{"#555" if s.startswith(("Note", "Inspired")) else "#000"}">'
       f'{s.replace("&", "&amp;")}</text>')
 W('</svg>')
 
@@ -115,6 +117,11 @@ open("17gon-guide.svg", "w").write(svg)
 import fitz                                      # PyMuPDF: SVG -> PDF at the same physical size
 doc = fitz.open("17gon-guide.svg")
 pdf = fitz.open("pdf", doc.convert_to_pdf())
+# make the credit line a clickable link (SVG links do not survive the PDF conversion)
+hit = pdf[0].search_for("Inspired by Numberphile")
+line = pdf[0].search_for("youtube.com/watch?v=87uo2TPrsl8")
+assert hit and line
+pdf[0].insert_link({"kind": fitz.LINK_URI, "from": hit[0] | line[0], "uri": CREDIT_URL})
 pdf.save("17gon-guide.pdf")
 print("page (pt):", pdf[0].rect, " expected", PAGE_W / 25.4 * 72, "x", PAGE_H / 25.4 * 72)
 print("M to N3 on paper (mm):", round(abs(N3[0] - M[0]) * R_MM, 2))

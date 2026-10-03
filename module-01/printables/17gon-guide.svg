@@ -80,4 +80,5 @@
 <text x="12" y="250.8" font-size="3.1" fill="#000">5. P3 is 3/17 of the way round from A, P5 is 5/17. Copy chord P3P5 from A to reach vertex 2; then vertex 2</text>
 <text x="12" y="257.0" font-size="3.1" fill="#000">    to P3 is one side. Walk that width round the circle. The grey ticks show where all 17 vertices belong.</text>
 <text x="12" y="263.2" font-size="3.1" fill="#555">Note: M and N3 really are only about 0.6 mm apart. That is not a printing error.</text>
+<text x="12" y="269.4" font-size="3.1" fill="#555">Inspired by Numberphile: The Amazing Heptadecagon (17-gon), youtube.com/watch?v=87uo2TPrsl8</text>
 </svg>
