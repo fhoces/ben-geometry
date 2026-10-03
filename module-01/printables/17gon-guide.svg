@@ -14,6 +14,8 @@
 <circle cx="107.950" cy="27.000" r="0.6" fill="#000"/>
 <text x="109.450" y="25.000" font-size="4">B</text>
 <g id="key-points">
+<g stroke="#555555" stroke-width="0.15" fill="none"><line x1="105.750" y1="69.500" x2="110.150" y2="69.500"/><line x1="107.950" y1="67.300" x2="107.950" y2="71.700"/><circle cx="107.950" cy="69.500" r="1.1"/></g>
+<text x="101.950" y="70.500" font-size="3.4" fill="#555555" font-weight="bold">H</text>
 <g stroke="#1769aa" stroke-width="0.15" fill="none"><line x1="105.750" y1="90.750" x2="110.150" y2="90.750"/><line x1="107.950" y1="88.550" x2="107.950" y2="92.950"/><circle cx="107.950" cy="90.750" r="1.1"/></g>
 <text x="101.950" y="91.750" font-size="3.4" fill="#1769aa" font-weight="bold">I</text>
 <g stroke="#c2410c" stroke-width="0.15" fill="none"><line x1="113.063" y1="112.000" x2="117.463" y2="112.000"/><line x1="115.263" y1="109.800" x2="115.263" y2="114.200"/><circle cx="115.263" cy="112.000" r="1.1"/></g>
@@ -71,7 +73,7 @@
 </g>
 <g stroke="#000" stroke-width="0.3"><line x1="12" y1="213.0" x2="112" y2="213.0"/><line x1="12" y1="211.0" x2="12" y2="215.0"/><line x1="112" y1="211.0" x2="112" y2="215.0"/></g>
 <text x="114" y="214.2" font-size="3.2">100 mm</text>
-<text x="12" y="226.0" font-size="3.1" fill="#000">1. I is a quarter of the way from O to B. Bisect angle OIA, then bisect that half again; it hits line OA at E.</text>
+<text x="12" y="226.0" font-size="3.1" fill="#000">1. Bisect OB to find its middle H, then bisect OH to find I. Bisect angle OIA twice; it hits line OA at E.</text>
 <text x="12" y="232.2" font-size="3.1" fill="#000">2. At I, build a right angle to IE and bisect it: 45 degrees. That line hits line OA (past O) at F.</text>
 <text x="12" y="238.4" font-size="3.1" fill="#000">3. Arcs from A and from F (same width) give the middle of AF: M. Circle centered M through A meets OB at K.</text>
 <text x="12" y="244.6" font-size="3.1" fill="#000">4. Circle centered E through K meets line OA at N3 and N5. Raise perpendiculars there to the circle: P3, P5.</text>

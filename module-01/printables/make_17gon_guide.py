@@ -14,7 +14,7 @@ import numpy as np
 R_MM = 85.0                          # radius of the big circle, in millimetres
 PAGE_W, PAGE_H = 215.9, 279.4        # US Letter in mm (A4 would be 210 x 297)
 CX, CY = PAGE_W / 2, 112.0           # where O sits on the page
-COLORS = {"I": "#1769aa", "E": "#c2410c", "F": "#c0392b", "M": "#1b7a3d", "K": "#1b7a3d",
+COLORS = {"H": "#555555", "I": "#1769aa", "E": "#c2410c", "F": "#c0392b", "M": "#1b7a3d", "K": "#1b7a3d",
           "N3": "#7b3fa0", "N5": "#7b3fa0", "P3": "#000000", "P5": "#000000"}
 
 # ---------------------------------------------------------------- exact points (unit circle)
@@ -35,9 +35,9 @@ P3 = np.array([N3[0], np.sqrt(1 - N3[0] ** 2)])
 P5 = np.array([N5[0], np.sqrt(1 - N5[0] ** 2)])
 assert abs(N3[0] - np.cos(3 * 2 * np.pi / 17)) < 1e-12 and abs(N5[0] - np.cos(5 * 2 * np.pi / 17)) < 1e-12
 
-POINTS = {"I": I, "E": E, "F": F, "M": M, "K": K, "N3": N3, "N5": N5, "P3": P3, "P5": P5}
+POINTS = {"H": np.array([0, 0.5]), "I": I, "E": E, "F": F, "M": M, "K": K, "N3": N3, "N5": N5, "P3": P3, "P5": P5}
 # label offsets in mm (dx, dy on the page, y down), chosen so neighbours don't collide
-LABEL_AT = {"I": (-6, 1), "E": (1.5, 6), "F": (-4, 6), "M": (-1.5, 6.5), "K": (2.5, -2),
+LABEL_AT = {"H": (-6, 1), "I": (-6, 1), "E": (1.5, 6), "F": (-4, 6), "M": (-1.5, 6.5), "K": (2.5, -2),
             "N3": (1.5, -3), "N5": (-4, 6), "P3": (2.5, -2.5), "P5": (-8, -2.5)}
 
 def page(p):                                    # unit-circle point -> page mm (SVG y points down)
@@ -96,7 +96,7 @@ W(f'<text x="114" y="{by + 1.2}" font-size="3.2">100 mm</text>')
 
 # the recipe
 steps = [
-    "1. I is a quarter of the way from O to B. Bisect angle OIA, then bisect that half again; it hits line OA at E.",
+    "1. Bisect OB to find its middle H, then bisect OH to find I. Bisect angle OIA twice; it hits line OA at E.",
     "2. At I, build a right angle to IE and bisect it: 45 degrees. That line hits line OA (past O) at F.",
     "3. Arcs from A and from F (same width) give the middle of AF: M. Circle centered M through A meets OB at K.",
     "4. Circle centered E through K meets line OA at N3 and N5. Raise perpendiculars there to the circle: P3, P5.",

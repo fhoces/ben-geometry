@@ -30,8 +30,8 @@ CAPTIONS = {
     "mark_I":   ["Next, find I: a quarter of the way from O to B.",
                  "A quarter is half of a half, so we bisect twice."],
     "half1":    ["Move 2 on OB: equal arcs from O and from B.",
-                 "Join where they cross: that line cuts OB in half."],
-    "half2":    ["Now cut the lower half in half the same way.",
+                 "Join where they cross: that line cuts OB in half, at H."],
+    "half2":    ["Now cut OH in half the same way.",
                  "That point is a quarter of the way up: call it I."],
     "angle":    ["Look at the angle at I, between IO and IA."],
     "bisect1":  ["Bisect it (Move 4): one arc from I across both sides,",
@@ -202,8 +202,7 @@ class Heptadecagon(MovingCameraScene):
     def step_find_I(self):
         self.say("mark_I", wait=1.5)
         Hm, g1 = self.bisect_segment(O, pt("B"), "half1")              # middle of OB
-        h_dot = Dot(Hm, color=BLACK, radius=0.05)
-        self.go(FadeIn(h_dot, scale=2), t=0.4)
+        h_dot = self.dot_at(Hm, "H", BLACK, LEFT)                     # H: the middle of OB
         self.wait(0.5 * PACE)
         self.go(FadeOut(g1), t=0.5)
         Im, g2 = self.bisect_segment(O, Hm, "half2")                   # middle of the lower half

@@ -57,6 +57,7 @@ assert abs(N3[0] - np.cos(6 * np.pi / 17)) < 1e-12 and abs(N5[0] - np.cos(10 * n
 # point -> (label offset in mm from the hole to the label's centre, page y points down)
 POINTS = {
     "O": (O, (-3.8, 4.6)), "A": (A, (-4.0, 4.6)), "B": (B, (-4.2, 4.0)),
+    "H": (np.array([0, 0.5]), (-4.4, 0)),                      # middle of OB (first bisection)
     "I": (I, (-4.2, 0)), "K": (K, (4.6, 0)),
     "E": (E, (3.6, 4.6)), "F": (F, (0, 4.6)), "N5": (N5, (0, 4.6)),
     "M": (M, (-2.8, 4.6)), "N3": (N3, (3.6, -4.4)),       # M is the LEFT hole, N3 the RIGHT one
@@ -135,7 +136,7 @@ def broken(lo, hi, stops):
 on_OA = [R_MM * p[0] for p in (N5, F, O, E, M, N3, A)]       # holes on line OA (mm from O)
 for a, b in broken(-R_MM, R_MM, on_OA):                      # line OA, extended through O
     W(bar(CX + a, CY, CX + b, CY, LINE_W))
-on_OB = [R_MM * p[1] for p in (O, I, K, B)]                  # holes on OB
+on_OB = [R_MM * p[1] for p in (O, I, K, np.array([0, 0.5]), B)]   # holes on OB
 for a, b in broken(0, R_MM, on_OB):
     W(bar(CX, CY - a, CX, CY - b, LINE_W))
 on_circle = [R_MM * np.arctan2(p[1], p[0]) for p in (A, P3, B, P5)]   # arc length (mm) from A
@@ -192,8 +193,9 @@ RECIPE = [   # (style, text). Styles: title, subtitle, sub, head, body, foot
     ("subtitle", "Gauss's 17-gon"),
     ("sub", "Only a compass and a straightedge. Every point is marked on the front."),
     ("head", "1. Quarter an angle"),
-    ("body", "I is a quarter of the way from O to B. Bisect the angle at I between IO and IA, "
-             "then bisect that half again. Where the line meets line OA: E."),
+    ("body", "Bisect OB to find its middle, H. Bisect OH to find I, a quarter of the way up. "
+             "Bisect the angle at I between IO and IA, then bisect that half again. "
+             "Where the line meets line OA: E."),
     ("head", "2. 45 degrees, then a circle"),
     ("body", "At I, make a right angle to IE. Mark two points on line IE, one on each side of I, "
              "the same distance away. From each, draw a wider arc. Join I to where the arcs cross."),
