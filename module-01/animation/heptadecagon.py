@@ -21,7 +21,12 @@ import numpy as np
 CAPTIONS = {
     "intro":    ["The hexagon was easy. Can we build a perfect 17-gon",
                  "with only a compass and a straight edge?"],
-    "axes":     ["Draw a circle, and two radii OA and OB", "that meet at a right angle."],
+    "axes":     ["Draw a circle around O, and a line through O.",
+                 "It meets the circle at A, and at A' on the other side."],
+    "right1":   ["Now a right angle at O. Open the compass wider and",
+                 "draw equal arcs from A and from A'. They cross above O."],
+    "right2":   ["O and that crossing are each the same distance from A and A',",
+                 "so the line through them is square to OA. It meets the circle at B."],
     "mark_I":   ["Mark I, a quarter of the way up from O to B."],
     "angle":    ["Look at the angle at I, between IO and IA."],
     "bisect1":  ["Bisect it: cut it exactly in half."],
@@ -140,15 +145,35 @@ class Heptadecagon(MovingCameraScene):
         self.big = Arc(radius=R, start_angle=-0.25, angle=PI + 0.5, arc_center=O, color=GREY_D)
         self.say("axes", wait=0.3)
         self.go(Create(self.big))
-        self.OA = Line(O + 0.6 * R * LEFT, pt("A"), color=GREY_D)   # extended past O for F
-        self.OB = Line(O, pt("B"), color=GREY_D)
-        self.go(Create(self.OA), Create(self.OB))
+        A2 = O + R * LEFT                                            # the other end of the diameter
+        self.OA = Line(A2, pt("A"), color=GREY_D)                    # line OA, right through O
+        self.go(Create(self.OA))
+        lab = lambda s, p, d: Text(s, font_size=LABEL, color=BLACK).next_to(p, d, buff=0.08)
         self.labels = VGroup(
             Dot(O, color=BLACK, radius=0.06), Text("O", font_size=LABEL, color=BLACK).next_to(O, DOWN, buff=0.45),
-            Dot(pt("A"), color=BLACK, radius=0.06), Text("A", font_size=LABEL, color=BLACK).next_to(pt("A"), DR, buff=0.08),
-            Dot(pt("B"), color=BLACK, radius=0.06), Text("B", font_size=LABEL, color=BLACK).next_to(pt("B"), UR, buff=0.08),
+            Dot(pt("A"), color=BLACK, radius=0.06), lab("A", pt("A"), DR),
         )
-        self.go(FadeIn(self.labels), t=0.6)
+        a2 = VGroup(Dot(A2, color=BLACK, radius=0.06), lab("A'", A2, DL))
+        self.go(FadeIn(self.labels), FadeIn(a2), t=0.6)
+
+        # the right angle at O: Move 2 on the two ends of the diameter
+        self.say("right1", wait=0.3)
+        r = 1.27 * R                                                 # wider than OA
+        X = O + np.sqrt(r**2 - R**2) * UP                            # where the arcs from A and A' cross
+        arcs = VGroup(self.compass(pt("A"), X, 0.18), self.compass(A2, X, 0.18))
+        self.go(Create(arcs[0]), t=0.9)
+        self.go(Create(arcs[1]), t=0.9)
+        cross = Dot(X, color=BLACK, radius=0.05)
+        self.go(FadeIn(cross, scale=2), t=0.4)
+        self.say("right2", wait=0.3)
+        self.OB = Line(O, pt("B"), color=GREY_D)
+        square = RightAngle(Line(O, pt("A")), Line(O, pt("B")), length=0.3, color=BLUE_D)
+        self.go(Create(self.OB), t=1.0)
+        b = VGroup(Dot(pt("B"), color=BLACK, radius=0.06), lab("B", pt("B"), UR))
+        self.go(Create(square), FadeIn(b), t=0.6)
+        self.labels.add(*b)
+        self.wait(1.5 * PACE)
+        self.go(FadeOut(arcs, cross, square, a2), t=0.6)
 
     def step_quarter_angle(self):
         self.say("mark_I", wait=0.3)
