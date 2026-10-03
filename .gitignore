@@ -6,3 +6,7 @@
 *.fls
 *.fdb_latexmk
 *.toc
+
+# manim build output (re-render from the .py; the final .mp4 is copied out and committed)
+media/
+__pycache__/

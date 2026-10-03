@@ -138,6 +138,19 @@ so they equal each other. It is not "close to equal." It is *forced* to be equal
 for any starting segment AB you could have drawn. That is the difference between
 drawing a triangle and *proving* one.
 
+**The midpoint (fold it).** Call the two arc crossings P (top) and Q (bottom),
+and the spot where line PQ crosses AB, M. PA and QA are radii of the circle
+around A; PB and QB are radii of the circle around B; same width, so all four
+are equal. Now fold the page along PQ. P and Q sit on the crease, so they stay
+put, and folding never stretches the paper, so the folded copy of A is still
+one radius from P and one radius from Q. A circle around P and a circle around Q
+cross in only two points, A and B, and the fold moved A to the other side, so
+it lands *exactly* on B. M is on the crease too, so MA lands on MB: equal, and M
+is the midpoint. The two angles at M land on each other, so they are equal, and
+together they make a straight line (180), so each is 90. Watch the fold happen:
+[animation/fold_bisector.mp4](animation/fold_bisector.mp4) (38 seconds; the
+slides walk the same proof with matching triangles too).
+
 **The six marks.** Connect three things: the center, one mark, and the next mark.
 Two of those sides are radii of the circle, and the third side is your fixed
 compass width, which is also that same radius. So every one of those little
