@@ -226,13 +226,26 @@ def inside_safe(x, y):
             return False
     return True
 BODY_FONT = FontProperties(family="DejaVu Sans")
-RECIPE = [   # (style, text). Styles: title, subtitle, sub, head, body, foot
+# The video link is engraved as a QR code: burned squares = dark modules, bare wood = light.
+# Short youtu.be link + error correction Q gives a 29 x 29 grid; QR_MM wide makes each module
+# about 0.76 mm, big enough for a phone camera on engraved wood. The QR needs a quiet zone of
+# 4 bare modules all round: the text above and the polygon's sides stay at least that far away.
+QR_URL = "https://youtu.be/87uo2TPrsl8"
+QR_MM = 22.0
+import qrcode
+_qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_Q, border=0)
+_qr.add_data(QR_URL); _qr.make(fit=True)
+QR_MATRIX = _qr.get_matrix()
+QR_MOD = QR_MM / len(QR_MATRIX)
+QR_QUIET = 4 * QR_MOD
+QR_GAP = 4.5          # bare wood between the credit lines and the QR (more than the quiet zone)
+RECIPE = [   # (style, text). Styles: title, subtitle, sub, head, body, foot, qr
     ("title", "Heptadecagon"),
     ("subtitle", "Gauss's 17-gon"),
     ("sub", "Only a compass and a straightedge. Every point is marked on the front."),
     ("head", "1. Quarter an angle"),
     ("body", "Bisect OB to find its middle, H. Bisect OH to find I, a quarter of the way up. "
-             "Bisect the angle at I between IO and IA, then bisect the half next to IO. "
+             "Bisect angle OIA, then bisect the half next to IO. "
              "Where the line meets line OA: E."),
     ("head", "2. 45 degrees, then a circle"),
     ("body", "At I, make a right angle to IE. Mark two points on line IE, one on each side of I, "
@@ -249,12 +262,11 @@ RECIPE = [   # (style, text). Styles: title, subtitle, sub, head, body, foot
     ("body", "Open the compass from P3 to P5 and step it from A toward P3: you land 2/17 of the way round. "
              "From there to P3 is one side, exactly 1/17. Walk that width round 17 times, "
              "checking each mark against its tick, and join the marks."),
-    ("foot", "Inspired by: Numberphile - Heptadecagon (17-gon)"),
-    ("url", "youtube.com/watch?v=87uo2TPrsl8"),
+    ("qrfoot", "Inspired by Numberphile:|Heptadecagon (17-gon)|Scan for the video."),   # credit lines + QR side by side
 ]
 STYLE = {  # font size (mm), font, line height factor, space before (mm)
     "title": (12.0, FONT, 1.2, 0.0), "subtitle": (7.0, BODY_FONT, 1.3, 0.0), "sub": (4.32, BODY_FONT, 1.4, 1.0),
-    "head": (5.66, FONT, 1.3, 2.6), "body": (4.8, BODY_FONT, 1.35, 0.7), "foot": (3.5, BODY_FONT, 1.4, 3.2), "url": (3.5, BODY_FONT, 1.4, 0.0),
+    "head": (5.66, FONT, 1.3, 2.6), "body": (4.4, BODY_FONT, 1.35, 0.7), "foot": (3.5, BODY_FONT, 1.4, 3.2), "qrfoot": (3.5, BODY_FONT, 1.4, 3.2),
 }
 
 
@@ -298,6 +310,21 @@ def layout(top):
         lh = size * lh_f
         if k:
             y += before
+        if style == "qrfoot":                              # credit lines on the left, QR on the right, centred
+            texts = text.split("|")
+            tw = max(width_of(t, size, prop) for t in texts)
+            total = tw + QR_GAP + QR_MM
+            hw = [half_width(y), half_width(y + QR_MM)]
+            if None in hw or 2 * min(hw) - 2 * max(0.0, QR_QUIET - POLY_MARGIN) < total:
+                return lines, y, True
+            left = CX - total / 2
+            qx = left + tw + QR_GAP
+            lines.append(("__QR__", (qx, y), QR_MM, None))
+            first = y + QR_MM / 2 - lh * len(texts) / 2      # the credit lines centred on the QR's height
+            for i, t in enumerate(texts):                    # right-aligned against the QR
+                lines.append((t, first + i * lh + 0.8 * lh, size, prop, left + tw - width_of(t, size, prop) / 2))
+            y += QR_MM
+            continue
         words = text.split()
         while words:
             hw = [half_width(y), half_width(y + lh)]        # the polygon is convex: the narrower end rules
@@ -335,15 +362,41 @@ def ring_poly(inner, outer):
 
 back = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{SIZE}mm" height="{SIZE}mm" viewBox="0 0 {SIZE} {SIZE}">',
         '<!-- BACK SIDE. Black fills = engrave. GREEN = ALIGNMENT GUIDES ONLY (circle + A marker): set green to IGNORE / output off (never cut it). -->',
-        '<g id="engrave-17gon">', ring_poly(INRADIUS - LINE_W / 2, INRADIUS + LINE_W / 2), '</g>',
+        '<g id="engrave-17gon">', ring_poly(INRADIUS - LINE_W / 2, INRADIUS + LINE_W / 2)]
+for t in BACK_VERTS:                                         # the same vertex ticks as the front, just outside
+    u = np.array([np.cos(t), -np.sin(t)])                    # each corner (the corners sit on radius R_MM)
+    t_out = min(R_MM + 5.0, R_MM + CUT_MARGIN - 2.0)
+    back.append(bar(*(np.array([CX, CY]) + (R_MM + 1.5) * u), *(np.array([CX, CY]) + t_out * u), 0.3))
+back += ['</g>',
         '<g id="engrave-text">']
 outside = 0
-for s, baseline, size, prop in lines:
-    p, w = line_path(s, CX, baseline, size, prop)
+for s, baseline, size, prop, *cx in lines:
+    if s == "__QR__":                                      # here `baseline` is the QR's top-left corner
+        x0, y0 = baseline
+        runs = []
+        for r, row in enumerate(QR_MATRIX):                # one rectangle per run of dark modules in a row
+            c = 0
+            while c < len(row):
+                if row[c]:
+                    c2 = c
+                    while c2 < len(row) and row[c2]:
+                        c2 += 1
+                    runs.append(f"M{x0 + c * QR_MOD:.3f},{y0 + r * QR_MOD:.3f} h{(c2 - c) * QR_MOD:.3f} "
+                                f"v{QR_MOD:.3f} h{-(c2 - c) * QR_MOD:.3f} Z")
+                    c = c2
+                else:
+                    c += 1
+        back.append(f'<path id="qr" fill="{ENGRAVE}" d="{" ".join(runs)}"/>')
+        q = QR_QUIET                                       # code + quiet zone within the polygon line's inner edge
+        outside += sum(np.hypot(xx - CX, yy - CY) > INRADIUS - LINE_W / 2      # (a circle inside the polygon: strict)
+                       for xx in (x0 - q, x0 + size + q) for yy in (y0 - q, y0 + size + q))
+        continue
+    lx = cx[0] if cx else CX                               # line centre (credit lines are not centred on CX)
+    p, w = line_path(s, lx, baseline, size, prop)
     back.append(p)
     v = TextPath((0, 0), s, size=size, prop=prop).vertices
     top_y, bot_y = baseline - v[:, 1].max(), baseline - v[:, 1].min()
-    outside += sum(not inside_safe(CX + sx * w / 2, yy) for sx in (-1, 1) for yy in (top_y, bot_y))
+    outside += sum(not inside_safe(lx + sx * w / 2, yy) for sx in (-1, 1) for yy in (top_y, bot_y))
 back.append('</g>')
 back.append(f'<circle id="align-guide-do-not-cut" cx="{CX:.4f}" cy="{CY:.4f}" r="{R_MM + CUT_MARGIN:.4f}" '
             f'fill="none" stroke="#00A000" stroke-width="0.05"/>')
