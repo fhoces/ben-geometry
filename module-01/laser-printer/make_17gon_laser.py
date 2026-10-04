@@ -227,15 +227,16 @@ def inside_safe(x, y):
     return True
 BODY_FONT = FontProperties(family="DejaVu Sans")
 # The video link is engraved as a QR code: burned squares = dark modules, bare wood = light.
-# Short youtu.be link + error correction Q gives a 29 x 29 grid; QR_MM wide makes each module
-# about 0.76 mm, big enough for a phone camera on engraved wood. The QR needs a quiet zone of
+# Short youtu.be link + error correction L gives a 25 x 25 grid; QR_MM wide makes each module
+# about 0.62 mm, still big enough for a phone camera on engraved wood (keep it above ~0.6 mm). The QR needs a quiet zone of
 # 4 bare modules all round: the text above and the polygon's sides stay at least that far away.
 QR_URL = "https://youtu.be/87uo2TPrsl8"
-QR_MM = 22.0
+QR_MM = 15.5
 import qrcode
-_qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_Q, border=0)
+_qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_L, border=0)
 _qr.add_data(QR_URL); _qr.make(fit=True)
 QR_MATRIX = _qr.get_matrix()
+assert len(QR_MATRIX) == 25, len(QR_MATRIX)
 QR_MOD = QR_MM / len(QR_MATRIX)
 QR_QUIET = 4 * QR_MOD
 QR_GAP = 4.5          # bare wood between the credit lines and the QR (more than the quiet zone)
@@ -266,7 +267,7 @@ RECIPE = [   # (style, text). Styles: title, subtitle, sub, head, body, foot, qr
 ]
 STYLE = {  # font size (mm), font, line height factor, space before (mm)
     "title": (12.0, FONT, 1.2, 0.0), "subtitle": (7.0, BODY_FONT, 1.3, 0.0), "sub": (4.32, BODY_FONT, 1.4, 1.0),
-    "head": (5.66, FONT, 1.3, 2.6), "body": (4.4, BODY_FONT, 1.35, 0.7), "foot": (3.5, BODY_FONT, 1.4, 3.2), "qrfoot": (3.5, BODY_FONT, 1.4, 3.2),
+    "head": (5.66, FONT, 1.3, 2.6), "body": (4.6, BODY_FONT, 1.35, 0.7), "foot": (3.5, BODY_FONT, 1.4, 3.2), "qrfoot": (3.5, BODY_FONT, 1.4, 3.2),
 }
 
 
