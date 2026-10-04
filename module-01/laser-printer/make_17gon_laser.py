@@ -264,7 +264,7 @@ RECIPE = [   # (style, text). Styles: title, subtitle, sub, head, body, foot, qr
     ("body", "Open the compass from P3 to P5 and step it from A toward P3: you land 2/17 of the way round. "
              "From there to P3 is one side, exactly 1/17. Walk that width round 17 times, "
              "checking each mark against its tick, and join the marks."),
-    ("qrfoot", "Inspired by Numberphile:|Heptadecagon (17-gon)|Scan for the video."),   # credit lines + QR side by side
+    ("qrfoot", "Inspired by Numberphile:|Heptadecagon (17-gon)"),   # credit lines + QR side by side
 ]
 STYLE = {  # font size (mm), font, line height factor, space before (mm)
     "title": (12.0, FONT, 1.2, 0.0), "subtitle": (7.0, BODY_FONT, 1.3, 0.0), "sub": (4.32, BODY_FONT, 1.4, 1.0),
