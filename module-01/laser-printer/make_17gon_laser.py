@@ -228,10 +228,11 @@ def inside_safe(x, y):
 BODY_FONT = FontProperties(family="DejaVu Sans")
 # The video link is engraved as a QR code: burned squares = dark modules, bare wood = light.
 # Short youtu.be link + error correction L gives a 25 x 25 grid; QR_MM wide makes each module
-# about 0.62 mm, still big enough for a phone camera on engraved wood (keep it above ~0.6 mm). The QR needs a quiet zone of
+# about 0.44 mm. That is small for engraved wood (~0.6 mm is the comfortable minimum), so
+# test-scan the engraving; QR_MM = 15.5 (0.62 mm) or 22 with ERROR_CORRECT_Q are safer. The QR needs a quiet zone of
 # 4 bare modules all round: the text above and the polygon's sides stay at least that far away.
 QR_URL = "https://youtu.be/87uo2TPrsl8"
-QR_MM = 15.5
+QR_MM = 11.0
 import qrcode
 _qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_L, border=0)
 _qr.add_data(QR_URL); _qr.make(fit=True)
@@ -267,7 +268,7 @@ RECIPE = [   # (style, text). Styles: title, subtitle, sub, head, body, foot, qr
 ]
 STYLE = {  # font size (mm), font, line height factor, space before (mm)
     "title": (12.0, FONT, 1.2, 0.0), "subtitle": (7.0, BODY_FONT, 1.3, 0.0), "sub": (4.32, BODY_FONT, 1.4, 1.0),
-    "head": (5.66, FONT, 1.3, 2.6), "body": (4.6, BODY_FONT, 1.35, 0.7), "foot": (3.5, BODY_FONT, 1.4, 3.2), "qrfoot": (3.5, BODY_FONT, 1.4, 3.2),
+    "head": (5.66, FONT, 1.3, 2.6), "body": (4.7, BODY_FONT, 1.35, 0.7), "foot": (3.5, BODY_FONT, 1.4, 3.2), "qrfoot": (3.5, BODY_FONT, 1.4, 3.2),
 }
 
 
@@ -315,16 +316,17 @@ def layout(top):
             texts = text.split("|")
             tw = max(width_of(t, size, prop) for t in texts)
             total = tw + QR_GAP + QR_MM
-            hw = [half_width(y), half_width(y + QR_MM)]
+            H = max(QR_MM, lh * len(texts))                # the block is as tall as the taller of the two
+            hw = [half_width(y), half_width(y + H)]
             if None in hw or 2 * min(hw) - 2 * max(0.0, QR_QUIET - POLY_MARGIN) < total:
                 return lines, y, True
             left = CX - total / 2
             qx = left + tw + QR_GAP
-            lines.append(("__QR__", (qx, y), QR_MM, None))
-            first = y + QR_MM / 2 - lh * len(texts) / 2      # the credit lines centred on the QR's height
+            lines.append(("__QR__", (qx, y + (H - QR_MM) / 2), QR_MM, None))
+            first = y + H / 2 - lh * len(texts) / 2          # QR and credit lines share a centre line
             for i, t in enumerate(texts):                    # right-aligned against the QR
                 lines.append((t, first + i * lh + 0.8 * lh, size, prop, left + tw - width_of(t, size, prop) / 2))
-            y += QR_MM
+            y += H
             continue
         words = text.split()
         while words:
