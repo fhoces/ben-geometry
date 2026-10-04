@@ -184,9 +184,47 @@ print("holes:", len(POINTS), " M-N3 centre gap (mm):", round(abs(N3[0] - M[0]) *
 # the front's cut, for lining the text up on the disc (camera view) and so both files have
 # the same outline when imported. SET GREEN TO "IGNORE" / OUTPUT OFF: it must never fire,
 # or it re-cuts the disc's edge. Same 250 mm page and centre as the front, so the disc can
-# also be flipped over inside the hole it came out of and run in place. Lines flow inside the disc, centred, each one as wide as
-# the circle allows at its height, at least BACK_MARGIN mm from the cut edge.
-BACK_MARGIN = 9.0
+# also be flipped over inside the hole it came out of and run in place.
+# The back also carries an ENGRAVED 17-GON: the same polygon the kid draws by hand on the
+# front, sitting right behind it. Flipping the disc mirrors it, so the vertex behind A sits
+# on the LEFT (angle pi) and the others every 2pi/17 from there. A short GREEN marker just
+# outside the disc at the left shows where A goes: pencil a mark on the disc's edge at A,
+# flip it left-to-right, and turn it until the mark meets the green marker.
+# Lines flow inside the 17-gon, centred, each one as wide as the polygon allows at its
+# height, at least POLY_MARGIN mm inside the polygon's sides.
+POLY_MARGIN = 3.0
+BACK_VERTS = [np.pi + 2 * np.pi * j / 17 for j in range(17)]
+INRADIUS = R_MM * np.cos(np.pi / 17)
+
+
+def poly_pts(inradius):
+    """Vertices (page mm) of the back's 17-gon scaled to the given inradius."""
+    rc = inradius / np.cos(np.pi / 17)
+    return [(CX + rc * np.cos(t), CY - rc * np.sin(t)) for t in BACK_VERTS]
+
+
+SAFE = poly_pts(INRADIUS - POLY_MARGIN)
+
+
+def half_width(y):
+    """Half the width of the safe polygon at page height y, symmetric about CX (None if outside)."""
+    xs = []
+    for (x1, y1), (x2, y2) in zip(SAFE, SAFE[1:] + SAFE[:1]):
+        if (y1 - y) * (y2 - y) <= 0 and y1 != y2:
+            xs.append(x1 + (y - y1) * (x2 - x1) / (y2 - y1))
+    if len(xs) < 2:
+        return None
+    return min(max(xs) - CX, CX - min(xs))
+
+
+def inside_safe(x, y):
+    """True if (x, y) is inside the safe polygon (convex, so check every side)."""
+    n = len(SAFE)
+    for i in range(n):
+        (x1, y1), (x2, y2) = SAFE[i], SAFE[(i + 1) % n]
+        if (x2 - x1) * (y - y1) - (y2 - y1) * (x - x1) > 1e-9:   # page y points down: inside is <= 0
+            return False
+    return True
 BODY_FONT = FontProperties(family="DejaVu Sans")
 RECIPE = [   # (style, text). Styles: title, subtitle, sub, head, body, foot
     ("title", "Heptadecagon"),
@@ -194,28 +232,29 @@ RECIPE = [   # (style, text). Styles: title, subtitle, sub, head, body, foot
     ("sub", "Only a compass and a straightedge. Every point is marked on the front."),
     ("head", "1. Quarter an angle"),
     ("body", "Bisect OB to find its middle, H. Bisect OH to find I, a quarter of the way up. "
-             "Bisect the angle at I between IO and IA, then bisect that half again. "
+             "Bisect the angle at I between IO and IA, then bisect the half next to IO. "
              "Where the line meets line OA: E."),
     ("head", "2. 45 degrees, then a circle"),
     ("body", "At I, make a right angle to IE. Mark two points on line IE, one on each side of I, "
              "the same distance away. From each, draw a wider arc. Join I to where the arcs cross."),
-    ("body", "Bisect that right angle to get 45 degrees. Where it meets line OA, past O: F."),
+    ("body", "Bisect the right angle on O's side of IE to get 45 degrees. Where it meets line OA: F."),
     ("body", "Find the middle of AF: equal arcs from A and from F, then join their crossings. "
              "The middle is M. Compass on M, opened to A: draw the circle. It meets OB at K."),
     ("head", "3. One more circle"),
     ("body", "Compass on E, opened to K: draw the circle. It meets line OA at N3 and N5. "
-             "Raise a perpendicular at each, up to the big circle: P3 and P5."),
+             "Raise a perpendicular at each, up to the big circle: P3 and P5. "
+             "N3 and M are only 0.74 mm apart, so their pits look like one."),
     ("body", "P3 is exactly 3/17 of the way round from A. P5 is exactly 5/17."),
     ("head", "4. Walk it round"),
-    ("body", "Open the compass from P3 to P5 and step it from A: you land 2/17 of the way round. "
-             "From there to P3 is one side, exactly 1/17. Walk that width round the circle 17 times "
-             "and join the marks. Every corner should land on a tick."),
+    ("body", "Open the compass from P3 to P5 and step it from A toward P3: you land 2/17 of the way round. "
+             "From there to P3 is one side, exactly 1/17. Walk that width round 17 times, "
+             "checking each mark against its tick, and join the marks."),
     ("foot", "Inspired by: Numberphile - Heptadecagon (17-gon)"),
     ("url", "youtube.com/watch?v=87uo2TPrsl8"),
 ]
 STYLE = {  # font size (mm), font, line height factor, space before (mm)
     "title": (12.0, FONT, 1.2, 0.0), "subtitle": (7.0, BODY_FONT, 1.3, 0.0), "sub": (4.32, BODY_FONT, 1.4, 1.0),
-    "head": (5.66, FONT, 1.35, 3.4), "body": (4.8, BODY_FONT, 1.42, 0.7), "foot": (3.5, BODY_FONT, 1.4, 3.2), "url": (3.5, BODY_FONT, 1.4, 0.0),
+    "head": (5.66, FONT, 1.3, 2.6), "body": (4.8, BODY_FONT, 1.35, 0.7), "foot": (3.5, BODY_FONT, 1.4, 3.2), "url": (3.5, BODY_FONT, 1.4, 0.0),
 }
 
 
@@ -252,8 +291,7 @@ def width_of(s, size, prop):
 
 
 def layout(top):
-    """Flow RECIPE into the safe circle starting at y=top. Returns (lines, bottom, overflow)."""
-    r_safe = R_MM + CUT_MARGIN - BACK_MARGIN
+    """Flow RECIPE into the safe 17-gon starting at y=top. Returns (lines, bottom, overflow)."""
     y, lines = top, []
     for k, (style, text) in enumerate(RECIPE):
         size, prop, lh_f, before = STYLE[style]
@@ -262,10 +300,10 @@ def layout(top):
             y += before
         words = text.split()
         while words:
-            far = max(abs(y - CY), abs(y + lh - CY))          # the line's edge farthest from centre
-            if far >= r_safe:
+            hw = [half_width(y), half_width(y + lh)]        # the polygon is convex: the narrower end rules
+            if None in hw:
                 return lines, y, True
-            avail = 2 * np.sqrt(r_safe**2 - far**2)
+            avail = 2 * min(hw)
             line = words[0]
             j = 1
             while j < len(words) and width_of(line + " " + words[j], size, prop) <= avail:
@@ -289,23 +327,36 @@ for top in np.arange(CY - 105, CY - 30, 0.5):
 assert best is not None, "recipe does not fit on the back: shorten it or shrink STYLE sizes"
 lines = best[1]
 
+def ring_poly(inner, outer):
+    """A filled band between two copies of the back's 17-gon (evenodd)."""
+    d = lambda pts: "M" + " L".join(f"{x:.3f},{y:.3f}" for x, y in pts) + " Z"
+    return f'<path fill="{ENGRAVE}" fill-rule="evenodd" d="{d(poly_pts(outer))} {d(poly_pts(inner))}"/>'
+
+
 back = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{SIZE}mm" height="{SIZE}mm" viewBox="0 0 {SIZE} {SIZE}">',
-        '<!-- BACK SIDE. Black fills = engrave. GREEN circle = ALIGNMENT GUIDE ONLY: set green to IGNORE / output off (never cut it). -->',
+        '<!-- BACK SIDE. Black fills = engrave. GREEN = ALIGNMENT GUIDES ONLY (circle + A marker): set green to IGNORE / output off (never cut it). -->',
+        '<g id="engrave-17gon">', ring_poly(INRADIUS - LINE_W / 2, INRADIUS + LINE_W / 2), '</g>',
         '<g id="engrave-text">']
-r_safe = R_MM + CUT_MARGIN - BACK_MARGIN
-worst = 0.0
+outside = 0
 for s, baseline, size, prop in lines:
     p, w = line_path(s, CX, baseline, size, prop)
     back.append(p)
-    for yy in (baseline - 0.75 * size, baseline + 0.25 * size):   # glyph top and descender bottom
-        worst = max(worst, np.hypot(w / 2, yy - CY))
+    v = TextPath((0, 0), s, size=size, prop=prop).vertices
+    top_y, bot_y = baseline - v[:, 1].max(), baseline - v[:, 1].min()
+    outside += sum(not inside_safe(CX + sx * w / 2, yy) for sx in (-1, 1) for yy in (top_y, bot_y))
 back.append('</g>')
 back.append(f'<circle id="align-guide-do-not-cut" cx="{CX:.4f}" cy="{CY:.4f}" r="{R_MM + CUT_MARGIN:.4f}" '
             f'fill="none" stroke="#00A000" stroke-width="0.05"/>')
+r1, r2 = R_MM + CUT_MARGIN + 1.0, R_MM + CUT_MARGIN + 7.0       # where A lands after the flip (left)
+back.append(f'<line id="align-A-do-not-cut" x1="{CX - r1:.4f}" y1="{CY:.4f}" x2="{CX - r2:.4f}" y2="{CY:.4f}" '
+            f'stroke="#00A000" stroke-width="0.05"/>')
 back.append('</svg>')
 back_svg = "\n".join(back)
-assert back_svg.count("stroke=") == 1 and 'stroke="#00A000"' in back_svg   # only the green guide
-assert worst < r_safe + 0.5, worst
+assert back_svg.count("stroke=") == 2 and back_svg.count('stroke="#00A000"') == 2   # only the green guides
+assert outside == 0, f"{outside} text-box corners outside the 17-gon"
+# the back's vertices are the front's ticks mirrored left-right (x -> -x)
+front_mirror = sorted(round((np.pi - 2 * np.pi * k / 17) % (2 * np.pi), 9) for k in range(17))
+assert front_mirror == sorted(round(t % (2 * np.pi), 9) for t in BACK_VERTS)
 open("17gon-laser-back.svg", "w").write(back_svg)
 fitz.open("pdf", fitz.open("17gon-laser-back.svg").convert_to_pdf()).save("17gon-laser-back.pdf")
-print(f"back: {len(lines)} lines, text reaches {worst:.1f} mm from centre (cut at {R_MM + CUT_MARGIN:.0f} mm)")
+print(f"back: {len(lines)} lines inside the 17-gon (inradius {INRADIUS:.1f} mm, text margin {POLY_MARGIN} mm)")
